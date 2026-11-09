@@ -1,0 +1,32 @@
+{
+  "evento_5": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "No te veo muy emocionado." },
+      { "hablante": "Lucas", "texto": "Bueno, llevo una hora caminando con una maleta de 30 kg." },
+      { "hablante": "Mateo", "texto": "Tú dijiste que estaba cerca." },
+      { "hablante": "Lucas", "texto": "Dije que parecía cerca. Hay una diferencia." }
+    ],
+    "es_decision": false
+  },
+  "evento_6": {
+    "lineas": [
+      { "hablante": "Lucas", "texto": "Espera, espera. No te muevas." },
+      { "hablante": "Mateo", "texto": "¿Qué?" },
+      { "hablante": "Lucas", "texto": "La luz. Está perfecta." },
+      { "hablante": "Lucas", "texto": "Mira nada más. Parece de esas postales que venden en las gasolineras." }
+    ],
+    "es_decision": false
+  },
+  "evento_9": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Mi mamá decía que era el lugar más bonito del mundo." },
+      { "hablante": "Lucas", "texto": "¿Era de aquí?" }
+    ],
+    "es_decision": true,
+    "opciones": [
+      { "tecla": "1", "texto": "1. «Sí. Se fue de joven, pero hablaba de Malgara.» [Verdad]", "efecto_lucas": 3 },
+      { "tecla": "2", "texto": "2. «Vine por mi reportaje. Lo demás es secundario.» [Indif.]", "efecto_lucas": -1 },
+      { "tecla": "3", "texto": "3. «No, nació en la ciudad, mis abuelos vivieron aquí.» [Mentira]", "efecto_lucas": -3 }
+    ]
+  }
+}
