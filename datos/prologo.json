@@ -4,7 +4,8 @@
       { "hablante": "Mateo", "texto": "No te veo muy emocionado." },
       { "hablante": "Lucas", "texto": "Bueno, llevo una hora caminando con una maleta de 30 kg." },
       { "hablante": "Mateo", "texto": "Tú dijiste que estaba cerca." },
-      { "hablante": "Lucas", "texto": "Dije que parecía cerca. Hay una diferencia." }
+      { "hablante": "Lucas", "texto": "Dije que parecía cerca. Hay una diferencia." },
+      { "hablante": "Lucas", "texto": "Andando" }
     ],
     "es_decision": false
   },
