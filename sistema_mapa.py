@@ -41,7 +41,7 @@ def cargar_sprites_personaje(carpeta):
     for d in direcciones:
         anim[d] = []
         for frame in [0, 1]:
-            ruta = f"recursos/personajes/{carpeta}/{d}_{frame}.png"
+            ruta = f"recursos/sprites/personajes/{carpeta}/{d}_{frame}.png"
             try:
                 img = pygame.image.load(ruta).convert_alpha()
                 anim[d].append(img)

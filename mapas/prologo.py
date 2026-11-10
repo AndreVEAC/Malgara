@@ -1,24 +1,24 @@
 # mapas/prologo.py
 
-FONDO_IMG = "recursos/fondos/fondo_prologo.png"  # Tu imagen de 1600x1200 px
+FONDO_IMG = "recursos/sprites/fondos/fondo_prologo.png"  # Tu imagen de 1600x1200 px
 
 # Posición inicial de Mateo (pegado a la izquierda, en el centro vertical)
 INICIO_X, INICIO_Y = 2, 15
 
 DICCIONARIO_OBJETOS = {
-    3: {"ruta": "recursos/natural/arbusto_1.png", "colision": True},
-    11: {"ruta": "recursos/natural/arbusto_2.png", "colision": True},
-    4: {"ruta": "recursos/natural/arbol_1.png", "colision": True},
-    7: {"ruta": "recursos/natural/rocas_1.png", "colision": False},
-    8: {"ruta": "recursos/natural/rocas_4.png", "colision": True},
-    10: {"ruta": "recursos/natural/rocas_3.png", "colision": True},
-    12: {"ruta": "recursos/natural/arbol_muerto.png", "colision": False},
-    13: {"ruta": "recursos/natural/cactus.png", "colision": True}
+    3: {"ruta": "recursos/sprites/natural/arbusto_1.png", "colision": True},
+    11: {"ruta": "recursos/sprites/natural/arbusto_2.png", "colision": True},
+    4: {"ruta": "recursos/sprites/natural/arbol_1.png", "colision": True},
+    7: {"ruta": "recursos/sprites/natural/rocas_1.png", "colision": False},
+    8: {"ruta": "recursos/sprites/natural/rocas_4.png", "colision": True},
+    10: {"ruta": "recursos/sprites/natural/rocas_3.png", "colision": True},
+    12: {"ruta": "recursos/sprites/natural/arbol_muerto.png", "colision": False},
+    13: {"ruta": "recursos/sprites/natural/cactus.png", "colision": True},
+    14: {"ruta": "recursos/sprites/objetos/letrero.png", "colision": True}
 }
 
 # Matriz del mapa 1 (40 columnas x 30 filas).
 # 0 = suelo libre | 1 = bloqueado | 2,5,6,9 = triggers/eventos (sin tocar)
-# 3,11 = arbustos | 4 = arbol | 7 = guijarros (se pisan) | 8,10 = rocas | 12 = arbol muerto (se pisa)
 MATRIZ = [
     # Filas 0 a 7: fondo bloqueado (casi nunca se ve)
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # fila 0
@@ -32,7 +32,7 @@ MATRIZ = [
     # Filas 8 a 11: ladera norte (bloqueada)
     [ 1,11, 1,12, 1, 1,12,12, 1,10, 1,12, 1, 1,12, 1,12, 1, 4, 1, 4, 1, 1, 1, 1, 4, 1, 1, 1, 1, 12, 12, 1, 1, 1, 1, 1,11, 8, 1],  # fila 8
     [ 1,11, 4,12,12, 1,12, 1, 3, 1,10, 6,12,10, 1, 13, 1,12, 1, 13, 13, 1, 13, 12, 13, 1, 12, 3, 12, 13, 1, 12, 1, 1, 12, 1, 12, 1, 1, 1],  # fila 9
-    [ 8, 9, 1, 13, 8, 3, 4, 8, 1, 2,12, 1, 8,12,10, 1,10, 1, 1,12, 1,12, 4, 1, 1, 12, 4, 13, 1, 12, 1, 13, 1, 1, 1,11, 1, 1, 1, 1],  # fila 10
+    [ 8, 9, 1, 13, 8, 3, 4, 8, 1, 2,12, 1, 8,12,10, 1,10, 1, 1,12, 1,12, 4, 1, 1, 12, 4, 13, 1, 12, 1, 13, 1, 1, 1,11, 1, 14, 1, 1],  # fila 10
     [ 8, 1,11, 1, 8, 13, 1, 1, 13, 1, 13, 8,12,10, 1,12, 13, 3, 1, 13, 1, 13, 1, 3, 1, 12, 1, 12, 3, 1, 8, 1,10, 4, 12, 8, 1, 12, 1, 1],  # fila 11
     # Filas 12 a 18: camino del desierto (caminable, triggers en las columnas 9, 23 y 38)
     [11, 1,11, 1,11, 1,11,11,11, 5, 2,11,11,11, 0, 0, 0, 0, 0,11, 0, 0,11, 6, 0, 0, 0, 0,11, 3, 0, 0, 0, 0,11, 0, 0, 0, 9, 1],  # fila 12
