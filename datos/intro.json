@@ -1,0 +1,114 @@
+{
+  "evento_intro_1": {
+    "lineas": [
+      { "hablante": "???", "texto": "¿Estamos en el sitio correcto?" },
+      { "hablante": "Mateo", "texto": "Sin duda, reconozco ese árbol de ahí." },
+      { "hablante": "???", "texto": "Bueno, hay cientos de árboles, podríamos estar en cualquier parte." },
+      { "hablante": "Mateo", "texto": "No, ese árbol en particular, estoy seguro" },
+      { "hablante": "Mateo", "texto": "Este camino nos llevará a Malgara." },
+      { "hablante": "Mateo", "texto": "¿También te diriges ahí?" },
+      { "hablante": "???", "texto": "Depende, ¿quién lo pregunta?" },
+      { "hablante": "Mateo", "texto": "Soy Mateo, no esperaba tener compañeros turistas aquí." },
+      { "hablante": "???", "texto": "No soy un turista, vengo aquí en contra de mi voluntad." },
+      { "hablante": "Mateo", "texto": "¿Alguien te tiene amenazado?" },
+      { "hablante": "???", "texto": "Casi, mi padre falleció hace unas semanas" },
+      { "hablante": "???", "texto": "En su maldito testamento me obliga a venir aquí para llevarme su dinero." },
+      { "hablante": "Mateo", "texto": "Lo siento mucho." },
+      { "hablante": "???", "texto": "Nadie lo siente. ¿Tú qué haces aquí?" },
+      { "hablante": "Mateo", "texto": "Espera, aún no me dices tu nombre." },
+      { "hablante": "???", "texto": "Soy Lucas, fotógrafo y por mala suerte, uno malo y necesitado de dinero." },
+      { "hablante": "Mateo", "texto": "Es un placer Lucas." },
+      { "hablante": "Lucas", "texto": "Ahora sí, ¿me dirás qué haces aquí, o lo seguirás evadiendo?" }
+    ],
+    "es_decision": true,
+    "opciones": [
+      {
+        "tecla": "1",
+        "texto": "1. «Contarle sobre tu proyecto.» [Verdad]",
+        "efecto_lucas": 2,
+        "notificacion": "Lucas aprecia tu honestidad.",
+        "siguiente_evento": "evento_intro_verdad"
+      },
+      {
+        "tecla": "2",
+        "texto": "2. «Decir que solo vienes de turista.» [Mentira]",
+        "efecto_lucas": -2,
+        "notificacion": "Lucas nota que ocultas algo.",
+        "siguiente_evento": "evento_intro_mentira"
+      },
+      {
+        "tecla": "3",
+        "texto": "3. «Decir que prefieres no decirlo.» [Indiferente]",
+        "efecto_lucas": 0,
+        "siguiente_evento": "evento_intro_indiferente"
+      }
+    ]
+  },
+  "evento_intro_verdad": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Estoy preparando un reportaje." },
+      { "hablante": "Lucas", "texto": "¿Un reportaje? ¿Sobre este lugar?" },
+      { "hablante": "Mateo", "texto": "Sí, soy estudiante de periodismo, es para mi proyecto final." },
+      { "hablante": "Mateo", "texto": "¿Y quién dice que no encontraré algo interesante aquí?" },
+      { "hablante": "Lucas", "texto": "Bueno, si encuentras un cadáver, avísame." },
+      { "hablante": "Lucas", "texto": "Podría tomarle unas fotos y venderlas." }
+    ],
+    "siguiente_evento": "evento_intro_final"
+  },
+  "evento_intro_mentira": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Solo vine de turista, quería conocer un lugar diferente." },
+      { "hablante": "Lucas", "texto": "¿De turista?" },
+      { "hablante": "Mateo", "texto": "Sí, ¿qué tiene de raro?" },
+      { "hablante": "Lucas", "texto": "Nada, nada"},
+      { "hablante": "Lucas", "texto": "Solo que podrías haber elegido una playa, una ciudad," },
+      { "hablante": "Lucas", "texto": "algún sitio con hoteles..." },
+      { "hablante": "Mateo", "texto": "Me gustan los lugares tranquilos." },
+      { "hablante": "Lucas", "texto": "Pues felicidades, creo que encontraste el lugar más tranquilo del planeta." },
+      { "hablante": "Mateo", "texto": "¿Y eso es malo?" },
+      { "hablante": "Lucas", "texto": "Pregúntamelo cuando llevemos tres días comiendo raíces " },
+      { "hablante": "Lucas", "texto": "y durmiendo entre los árboles." },
+      { "hablante": "Mateo", "texto": "Ni siquiera hemos llegado al pueblo." },
+      { "hablante": "Lucas", "texto": "Y ya estoy haciendo planes por si tenemos que sobrevivir." }
+    ],
+    "siguiente_evento": "evento_intro_final"
+  },
+  "evento_intro_indiferente": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Prefiero no decirlo, si no te molesta." },
+      { "hablante": "Lucas", "texto": "Vaya. Un tipo misterioso." },
+      { "hablante": "Mateo", "texto": "No es nada personal." }
+    ],
+    "siguiente_evento": "evento_intro_final"
+  },
+  "evento_intro_final": {
+    "lineas": [
+      { "hablante": "Lucas", "texto": "Por cierto..." },
+      { "hablante": "Lucas", "texto": "¿Cómo supiste que ese árbol en forma de nuez nos llevará al pueblo?" },
+      { "hablante": "Mateo", "texto": "Mi madre nació aquí, ella me contó mucho sobre este lugar." },
+      { "hablante": "Lucas", "texto": "Eso no me lo esperaba. ¿Entonces prácticamente eres de aquí?" },
+      { "hablante": "Mateo", "texto": "No exactamente. Mi madre se fue de Malgara cuando era muy pequeña " },
+      { "hablante": "Mateo", "texto": "Prácticamente no vivió aquí." },
+      { "hablante": "Lucas", "texto": "¿Y aun así conocía tan bien el lugar?" },
+      { "hablante": "Mateo", "texto": "Bueno, creció escuchando historias de su familia." },
+      { "hablante": "Mateo", "texto": "También conservaba algunas fotografías" },
+      { "hablante": "Mateo", "texto": "Le gustaba mucho hablarme de Malgara." },
+      { "hablante": "Lucas", "texto": "Vaya, debe ser un lugar bastante especial " },
+      { "hablante": "Lucas", "texto": "para que alguien lo recuerde con tanto cariño." },
+      { "hablante": "Mateo", "texto": "Eso decía ella." },
+      { "hablante": "Lucas", "texto": "¿Y nunca quiso regresar?" },
+      { "hablante": "Mateo", "texto": "No lo sé. Siempre decía que algún día vendríamos juntos" },
+      { "hablante": "Mateo", "texto": "Pero nunca se presentó la oportunidad." },
+      { "hablante": "Lucas", "texto": "Ya veo..." },
+      { "hablante": "Lucas", "texto": "Bueno, espero que el lugar esté a la altura de sus historias." },
+      { "hablante": "Mateo", "texto": "Yo también." },
+      { "hablante": "Lucas", "texto": "Aunque espero que tu madre te haya contado..." },
+      { "hablante": "Lucas", "texto": " algo más que la forma de los árboles" },
+      { "hablante": "Lucas", "texto": "Porque todavía tenemos que encontrar el pueblo." },
+      { "hablante": "Mateo", "texto": "Bueno, no es tan difícil, solo tenemos que seguir este sendero..." },
+      { "hablante": "Mateo", "texto": "y llegamos en unas horas." },
+      { "hablante": "Lucas", "texto": "¿Horas? Bueno, entonces caminemos ya." },
+      { "hablante": "Lucas", "texto": "No quiero que un coyote salga y nos coma." }
+    ]
+  }
+}

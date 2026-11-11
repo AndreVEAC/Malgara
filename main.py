@@ -15,7 +15,7 @@ estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
 # Cargamos el prólogo al iniciar el juego
-sistema_mapa.cargar_nivel("prologo")
+sistema_mapa.cargar_nivel("intro")
 sistema_audio.reproducir_ambiente("viento_desierto")
 
 ejecutando = True
@@ -53,7 +53,6 @@ while ejecutando:
         # sistema_dialogo se encarga de devolver "EXPLORACION" por sí solo al terminar de leer el JSON
         modo_juego = sistema_dialogo.actualizar_y_dibujar(pantalla, eventos, estado_jugador)
         
-
+    sistema_dialogo.dibujar_notificacion_global(pantalla)
     pygame.display.flip()
-
 pygame.quit()
