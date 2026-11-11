@@ -27,6 +27,7 @@
         "texto": "1. «Contarle sobre tu proyecto.» [Verdad]",
         "efecto_lucas": 2,
         "notificacion": "Lucas aprecia tu honestidad.",
+        "variable_estado": "mateo_dijo_verdad",
         "siguiente_evento": "evento_intro_verdad"
       },
       {
@@ -34,12 +35,16 @@
         "texto": "2. «Decir que solo vienes de turista.» [Mentira]",
         "efecto_lucas": -2,
         "notificacion": "Lucas nota que ocultas algo.",
+        "variable_estado": "mateo_dijo_verdad",
+        "valor_estado": false,
         "siguiente_evento": "evento_intro_mentira"
       },
       {
         "tecla": "3",
         "texto": "3. «Decir que prefieres no decirlo.» [Indiferente]",
         "efecto_lucas": 0,
+        "variable_estado": "mateo_dijo_verdad",
+        "valor_estado": false,
         "siguiente_evento": "evento_intro_indiferente"
       }
     ]

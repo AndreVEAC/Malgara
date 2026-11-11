@@ -33,6 +33,12 @@ RETRASO_LUCAS = 250
 jugador_bloqueado = False
 script_nivel_actual = None
 
+# NUEVAS VARIABLES PARA LA TRANSICIÓN DE PANTALLA
+transicion_activa = False
+tipo_transicion = None
+alpha_transicion = 0
+mapa_pendiente = None
+
 
 def cargar_sprites_personaje(carpeta):
     direcciones = ["abajo", "arriba", "izq", "der"]
@@ -51,7 +57,20 @@ def cargar_sprites_personaje(carpeta):
 
 
 def cargar_nivel(nombre_modulo):
-    
+    """Inicia la transición en negro, o carga directo si es el inicio del juego"""
+    global transicion_activa, tipo_transicion, mapa_pendiente, fondo_actual
+
+    if fondo_actual is None:
+        _ejecutar_carga_real(nombre_modulo)
+    else:
+        # Si ya había un mapa antes, hacemos la transición cinematográfica
+        transicion_activa = True
+        tipo_transicion = "fade_out"
+        mapa_pendiente = nombre_modulo
+
+
+def _ejecutar_carga_real(nombre_modulo):
+    """Esta era tu función cargar_nivel original, ahora se ejecuta oculta tras la pantalla negra"""
     global matriz_activa, fondo_actual, mateo_x, mateo_y, lucas_x, lucas_y
     global columnas_mapa, filas_mapa, imagenes_objetos
     global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
@@ -71,8 +90,6 @@ def cargar_nivel(nombre_modulo):
     direccion_lucas = "der"
     jugador_bloqueado = False
     
-    print(f"DEBUG - Buscando la imagen exacta en: '{mapa_datos.FONDO_IMG}'")
-    
     # 2. Cargamos el Script del Nivel si existe (el Director)
     try:
         script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
@@ -91,8 +108,6 @@ def cargar_nivel(nombre_modulo):
     
     filas_mapa = len(matriz_activa)
     columnas_mapa = len(matriz_activa[0])
-    
-# EN sistema_mapa.py
     
     # 1. Cargar el fondo (Ahora atrapa FileNotFoundError para no crashear)
     try:
@@ -170,6 +185,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     global mateo_x, mateo_y, lucas_x, lucas_y, tiempo_ultimo_paso_mateo, tiempo_ultimo_paso_lucas
     global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
     global direccion_mateo, direccion_lucas
+    global transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
     
     tiempo_actual = pygame.time.get_ticks()
     nuevo_estado_juego = "EXPLORACION"
@@ -187,49 +203,54 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         nuevo_estado_juego = "DIALOGO"
     
     # ----------------------------------------------------
-    # 1. CONTROL DE MATEO (Añadimos restricción jugador_bloqueado)
+    # 1. CONTROL DE MATEO (Añadimos restricción jugador_bloqueado y Sprint)
     # ----------------------------------------------------
-    if tiempo_actual - tiempo_ultimo_paso_mateo > RETRASO_MATEO and not jugador_bloqueado:
+    if not jugador_bloqueado:
         teclas = pygame.key.get_pressed()
-        nx, ny = mateo_x, mateo_y
         
-        if teclas[K_UP]:
-            ny -= 1
-            direccion_mateo = "arriba"
-        elif teclas[K_DOWN]:
-            ny += 1
-            direccion_mateo = "abajo"
-        elif teclas[K_LEFT]:
-            nx -= 1
-            direccion_mateo = "izq"
-        elif teclas[K_RIGHT]:
-            nx += 1
-            direccion_mateo = "der"
-        
-        if (nx, ny) != (mateo_x, mateo_y):
-            if 0 <= nx < columnas_mapa and 0 <= ny < filas_mapa:
-                casilla_destino = matriz_activa[ny][nx]
-                
-                es_muro = (casilla_destino == 1)
-                if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
-                    es_muro = True
-                
-                if not es_muro and (nx, ny) != (lucas_x, lucas_y):
-                    mateo_x, mateo_y = nx, ny
-                    tiempo_ultimo_paso_mateo = tiempo_actual
+        # Detectar Sprint con Shift
+        esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
+        retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
+
+        if tiempo_actual - tiempo_ultimo_paso_mateo > retraso_actual:
+            nx, ny = mateo_x, mateo_y
+            
+            if teclas[K_UP]:
+                ny -= 1
+                direccion_mateo = "arriba"
+            elif teclas[K_DOWN]:
+                ny += 1
+                direccion_mateo = "abajo"
+            elif teclas[K_LEFT]:
+                nx -= 1
+                direccion_mateo = "izq"
+            elif teclas[K_RIGHT]:
+                nx += 1
+                direccion_mateo = "der"
+            
+            if (nx, ny) != (mateo_x, mateo_y):
+                if 0 <= nx < columnas_mapa and 0 <= ny < filas_mapa:
+                    casilla_destino = matriz_activa[ny][nx]
                     
-                    if casilla_destino in [5, 6, 9]:
-                        sistema_dialogo.iniciar_dialogo(f"evento_{casilla_destino}")
-                        for fila in range(filas_mapa):
-                            if matriz_activa[fila][nx] == casilla_destino:
-                                matriz_activa[fila][nx] = 0
-                        nuevo_estado_juego = "DIALOGO"
+                    es_muro = (casilla_destino == 1)
+                    if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
+                        es_muro = True
+                    
+                    if not es_muro and (nx, ny) != (lucas_x, lucas_y):
+                        mateo_x, mateo_y = nx, ny
+                        tiempo_ultimo_paso_mateo = tiempo_actual
+                        
+                        if casilla_destino in [5, 6, 9]:
+                            sistema_dialogo.iniciar_dialogo(f"evento_{casilla_destino}")
+                            for fila in range(filas_mapa):
+                                if matriz_activa[fila][nx] == casilla_destino:
+                                    matriz_activa[fila][nx] = 0
+                            nuevo_estado_juego = "DIALOGO"
 
     # ----------------------------------------------------
-    # 2. IA DE LUCAS (Mantenemos por ahora la ruta hardcodeada para el prólogo)
+    # 2. IA DE LUCAS (Mantenemos tu ruta hardcodeada para el prólogo)
     # ----------------------------------------------------
     if tiempo_actual - tiempo_ultimo_paso_lucas > RETRASO_LUCAS:
-        # Esto podríamos sacarlo a funcion_prologo.py en el futuro!
         if lucas_x < 37 and lucas_y == 15:
             nx_lucas = lucas_x + 1
             ny_lucas = lucas_y
@@ -313,6 +334,29 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         pygame.draw.rect(pantalla, VERDE_MATEO, (x_mateo_pantalla + 4, y_mateo_pantalla + 4, TAMANO_CASILLA - 8, TAMANO_CASILLA - 8))
     else:
         pantalla.blit(img_mateo, (x_mateo_pantalla, y_mateo_pantalla))
+
+    # ----------------------------------------------------
+    # 5. GESTIÓN DEL FUNDIDO A NEGRO
+    # ----------------------------------------------------
+    if transicion_activa:
+        if tipo_transicion == "fade_out":
+            alpha_transicion += 15
+            if alpha_transicion >= 255:
+                alpha_transicion = 255
+                _ejecutar_carga_real(mapa_pendiente)
+                tipo_transicion = "fade_in"
+        elif tipo_transicion == "fade_in":
+            alpha_transicion -= 15
+            if alpha_transicion <= 0:
+                alpha_transicion = 0
+                transicion_activa = False
+
+    # Dibujar la capa de oscuridad encima de todo
+    if alpha_transicion > 0:
+        superficie_negra = pygame.Surface((ANCHO_PANTALLA, ALTO_PANTALLA))
+        superficie_negra.fill((0, 0, 0))
+        superficie_negra.set_alpha(alpha_transicion)
+        pantalla.blit(superficie_negra, (0, 0))
 
     return nuevo_estado_juego
 

@@ -235,24 +235,33 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                     opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones_actuales)
                 elif ev.key == pygame.K_SPACE:
                     eleccion = opciones_actuales[opcion_seleccionada]
+                    
+                # 1. Impacto de confianza de Lucas
+                if "efecto_lucas" in eleccion:
+                    impacto = eleccion["efecto_lucas"]
+                    if hasattr(estado_jugador, "confianza_lucas"):
+                        estado_jugador.confianza_lucas += impacto
 
-                    if "efecto_lucas" in eleccion:
-                        impacto = eleccion["efecto_lucas"]
-                        if hasattr(estado_jugador, "confianza_lucas"):
-                            estado_jugador.confianza_lucas += impacto
+                    texto_noti = eleccion.get("notificacion", "Lucas recordará esto.")
+                    activar_notificacion(texto_noti)
 
-                        texto_noti = eleccion.get("notificacion", "Lucas recordará esto.")
-                        activar_notificacion(texto_noti)
+                # 2. NUEVO: Guardar bandera de estado en el jugador si existe
+                if "variable_estado" in eleccion:
+                    nombre_var = eleccion["variable_estado"]
+                    # Por defecto True; si el JSON especifica valor_estado, se respeta
+                    valor_var = eleccion.get("valor_estado", True)
+                    setattr(estado_jugador, nombre_var, valor_var)
 
-                    siguiente_evento = eleccion.get("siguiente_evento")
-                    if siguiente_evento and siguiente_evento in datos_dialogo:
-                        iniciar_dialogo(siguiente_evento)
-                        return "DIALOGO"  # <--- ¡ARREGLO 3!
-                    else:
-                        evento_actual = None
-                        nombre_evento_activo = None
-                        en_modo_decision = False
-                        return "EXPLORACION"
+                # 3. Avanzar al siguiente evento o cerrar el diálogo
+                siguiente_evento = eleccion.get("siguiente_evento")
+                if siguiente_evento and siguiente_evento in datos_dialogo:
+                    iniciar_dialogo(siguiente_evento)
+                    return "DIALOGO"
+                else:
+                    evento_actual = None
+                    nombre_evento_activo = None
+                    en_modo_decision = False
+                    return "EXPLORACION"
 
     # RENDERIZADO VISUAL
     ancho_caja = ANCHO_PANTALLA - 60
