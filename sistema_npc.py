@@ -31,6 +31,9 @@ def _actualizar_patrulla(npc, tiempo_actual):
             print(f"[NPC] Lucas bloqueado en x={npc['x']}, "
                   f"esperas={npc.get('_esperas_resueltas', set())}")
         return 
+    
+    if npc["x"] in esperar_en_x and npc["x"] not in npc.get("_esperas_resueltas", set()):
+        return
 
     ultimo_paso = npc.get("_tiempo_ultimo_paso", 0)
     if tiempo_actual - ultimo_paso < velocidad_ms:
