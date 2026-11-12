@@ -17,18 +17,15 @@ def iniciar():
     sistema_mapa.lucas_x, sistema_mapa.lucas_y = 2, 8
     sistema_mapa.direccion_mateo = "der"
     sistema_mapa.direccion_lucas = "der"
-    
-    # Posición inicial de la abuela
-    sistema_mapa.abuela_x, sistema_mapa.abuela_y = 16, 5
-    sistema_mapa.direccion_abuela = "abajo"
-    sistema_mapa.abuela_visible = True
-    
     estado_escena = "ESPERA_INICIAL"
     tiempo_inicio = pygame.time.get_ticks()
 
 def actualizar():
     global estado_escena, tiempo_inicio, tiempo_paso
     tiempo_actual = pygame.time.get_ticks()
+    
+    # Obtenemos la referencia rápida a la abuela desde el motor genérico
+    abuela = sistema_mapa.npcs_activos["abuela"]
 
     if estado_escena == "ESPERA_INICIAL":
         if tiempo_actual - tiempo_inicio > 1000:
@@ -41,22 +38,22 @@ def actualizar():
             tiempo_paso = tiempo_actual
 
     elif estado_escena == "ABUELA_BAJA":
-        sistema_mapa.direccion_abuela = "abajo"
+        abuela["direccion"] = "abajo"
         if tiempo_actual - tiempo_paso > sistema_mapa.RETRASO_LUCAS:
-            sistema_mapa.abuela_y += 1
+            abuela["y"] += 1
             tiempo_paso = tiempo_actual
 
-        if sistema_mapa.abuela_y >= 9:
+        if abuela["y"] >= 9:
             estado_escena = "ABUELA_ACERCA"
 
     elif estado_escena == "ABUELA_ACERCA":
-        sistema_mapa.direccion_abuela = "izq"
+        abuela["direccion"] = "izq"
         if tiempo_actual - tiempo_paso > sistema_mapa.RETRASO_LUCAS:
-            sistema_mapa.abuela_x -= 1
+            abuela["x"] -= 1
             tiempo_paso = tiempo_actual
 
-        if sistema_mapa.abuela_x <= 3:
-            sistema_mapa.direccion_abuela = "izq"
+        if abuela["x"] <= 3:
+            abuela["direccion"] = "izq"
             sistema_mapa.direccion_mateo = "der"
             sistema_dialogo.iniciar_dialogo("evento_llegada_2")
             estado_escena = "DIALOGO_2"
@@ -67,13 +64,13 @@ def actualizar():
             tiempo_paso = tiempo_actual
 
     elif estado_escena == "ABUELA_SE_VA":
-        sistema_mapa.direccion_abuela = "der"
+        abuela["direccion"] = "der"
         if tiempo_actual - tiempo_paso > sistema_mapa.RETRASO_LUCAS:
-            sistema_mapa.abuela_x += 1
+            abuela["x"] += 1
             tiempo_paso = tiempo_actual
 
-        if sistema_mapa.abuela_x > 20: 
-            sistema_mapa.abuela_visible = False
+        if abuela["x"] > 20: 
+            abuela["visible"] = False
             sistema_dialogo.iniciar_dialogo("evento_llegada_3")
             estado_escena = "DIALOGO_3"
 

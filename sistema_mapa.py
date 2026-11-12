@@ -26,21 +26,17 @@ lucas_px_x, lucas_px_y = 0.0, 0.0
 VELOCIDAD_SUAVIZADO = 0.25
 tiempo_ultimo_paso_mateo = 0
 tiempo_ultimo_paso_lucas = 0
+tiempo_ultima_interaccion = 0  
 RETRASO_MATEO = 250 
 RETRASO_LUCAS = 250  
 
-# [ABUELA] Variables globales nuevas
-sprites_abuela = {}
-abuela_x, abuela_y = 0, 0
-abuela_px_x, abuela_px_y = 0.0, 0.0
-direccion_abuela = "abajo"
-abuela_visible = False
+# --- SISTEMAS GENÉRICOS ORIENTADOS A DATOS ---
+npcs_activos = {}
+interactuables_activos = {}
 
-# NUEVAS VARIABLES PARA LA ARQUITECTURA
 jugador_bloqueado = False
 script_nivel_actual = None
 
-# NUEVAS VARIABLES PARA LA TRANSICIÓN DE PANTALLA
 transicion_activa = False
 tipo_transicion = None
 alpha_transicion = 0
@@ -64,7 +60,6 @@ def cargar_sprites_personaje(carpeta):
 
 
 def cargar_nivel(nombre_modulo):
-    """Inicia la transición en negro, o carga directo si es el inicio del juego"""
     global transicion_activa, tipo_transicion, mapa_pendiente, fondo_actual
 
     if fondo_actual is None:
@@ -76,36 +71,42 @@ def cargar_nivel(nombre_modulo):
 
 
 def _ejecutar_carga_real(nombre_modulo):
-    """Esta era tu función cargar_nivel original, ahora se ejecuta oculta tras la pantalla negra"""
     global matriz_activa, fondo_actual, mateo_x, mateo_y, lucas_x, lucas_y
     global columnas_mapa, filas_mapa, imagenes_objetos
     global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
     global sprites_mateo, sprites_lucas, sprite_lucas_foto, tiene_sprite_foto
     global direccion_mateo, direccion_lucas
     global jugador_bloqueado, script_nivel_actual
-    # [ABUELA] Globals nuevos
-    global sprites_abuela, abuela_x, abuela_y, abuela_px_x, abuela_px_y
-    global direccion_abuela, abuela_visible
+    global npcs_activos, interactuables_activos
     
-    # 1. Cargamos el mapa (los ladrillos) de forma dinámica
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
 
     matriz_activa = mapa_datos.MATRIZ
     mateo_x, mateo_y = mapa_datos.INICIO_X, mapa_datos.INICIO_Y
     
-    # Valores por defecto que el script puede sobreescribir
     lucas_x, lucas_y = 1, 15
     direccion_mateo = "abajo"
     direccion_lucas = "der"
     jugador_bloqueado = False
-
-    # [ABUELA] Valores por defecto al cargar un nivel
-    abuela_x, abuela_y = 0, 0
-    abuela_px_x, abuela_px_y = 0.0, 0.0
-    direccion_abuela = "abajo"
-    abuela_visible = False
     
-    # 2. Cargamos el Script del Nivel si existe (el Director)
+    # --- CARGAR SISTEMAS GENÉRICOS DEL MAPA ---
+    npcs_activos.clear()
+    if hasattr(mapa_datos, 'NPCS'):
+        for npc_id, datos in mapa_datos.NPCS.items():
+            npcs_activos[npc_id] = {
+                "x": datos["x"],
+                "y": datos["y"],
+                "px_x": float(datos["x"] * TAMANO_CASILLA),
+                "px_y": float(datos["y"] * TAMANO_CASILLA),
+                "direccion": datos["direccion"],
+                "visible": datos.get("visible", True),
+                "sprites": cargar_sprites_personaje(datos["carpeta_sprite"])
+            }
+            
+    interactuables_activos.clear()
+    if hasattr(mapa_datos, 'INTERACTUABLES'):
+        interactuables_activos.update(mapa_datos.INTERACTUABLES)
+
     try:
         script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
         if hasattr(script_nivel_actual, "iniciar"):
@@ -119,9 +120,6 @@ def _ejecutar_carga_real(nombre_modulo):
     mateo_px_y = float(mateo_y * TAMANO_CASILLA)
     lucas_px_x = float(lucas_x * TAMANO_CASILLA)
     lucas_px_y = float(lucas_y * TAMANO_CASILLA)
-    # [ABUELA] Sincronizar pixel con casilla
-    abuela_px_x = float(abuela_x * TAMANO_CASILLA)
-    abuela_px_y = float(abuela_y * TAMANO_CASILLA)
     
     filas_mapa = len(matriz_activa)
     columnas_mapa = len(matriz_activa[0])
@@ -142,12 +140,10 @@ def _ejecutar_carga_real(nombre_modulo):
                     "colision": datos["colision"]
                 }
             except (pygame.error, FileNotFoundError):
-                print(f"Error: No se encontró la imagen {datos['ruta']}")
+                pass
 
     sprites_mateo = cargar_sprites_personaje("mateo")
     sprites_lucas = cargar_sprites_personaje("lucas")
-    # [ABUELA] Cargar sprites de la abuela
-    sprites_abuela = cargar_sprites_personaje("abuela")
 
     try:
         img_foto = pygame.image.load("recursos/sprites/personajes/lucas/foto.png").convert_alpha()
@@ -178,15 +174,15 @@ def solo_dibujar(pantalla):
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
 
-    # [ABUELA] Dibujo de respaldo en solo_dibujar (opcional pero consistente)
-    if abuela_visible:
-        x_abuela_pantalla = int(abuela_px_x) - camara_x
-        y_abuela_pantalla = int(abuela_px_y) - camara_y
-        img_abuela = sprites_abuela[direccion_abuela][0]
-        if img_abuela.get_alpha() == 0:
-            pygame.draw.rect(pantalla, (200, 100, 100), (x_abuela_pantalla + 6, y_abuela_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-        else:
-            pantalla.blit(img_abuela, (x_abuela_pantalla, y_abuela_pantalla))
+    for npc_id, npc in npcs_activos.items():
+        if npc["visible"]:
+            x_pantalla = int(npc["px_x"]) - camara_x
+            y_pantalla = int(npc["px_y"]) - camara_y
+            img = npc["sprites"][npc["direccion"]][0]
+            if img.get_alpha() == 0:
+                pygame.draw.rect(pantalla, (200, 100, 200), (x_pantalla + 6, y_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
+            else:
+                pantalla.blit(img, (x_pantalla, y_pantalla))
 
     x_lucas_pantalla = int(lucas_px_x) - camara_x
     y_lucas_pantalla = int(lucas_px_y) - camara_y
@@ -210,13 +206,10 @@ def solo_dibujar(pantalla):
 
 
 def actualizar_y_dibujar(pantalla, estado_jugador):
-    global mateo_x, mateo_y, lucas_x, lucas_y, tiempo_ultimo_paso_mateo, tiempo_ultimo_paso_lucas
+    global mateo_x, mateo_y, lucas_x, lucas_y, tiempo_ultimo_paso_mateo, tiempo_ultimo_paso_lucas, tiempo_ultima_interaccion
     global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
     global direccion_mateo, direccion_lucas
     global transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
-    # [ABUELA] Globals necesarios para actualizar/dibujar
-    global abuela_px_x, abuela_px_y, abuela_x, abuela_y
-    global direccion_abuela, abuela_visible
     
     tiempo_actual = pygame.time.get_ticks()
     nuevo_estado_juego = "EXPLORACION"
@@ -227,12 +220,30 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     if sistema_dialogo.obtener_evento_activo() is not None:
         nuevo_estado_juego = "DIALOGO"
 
-    # ----------------------------------------------------
     # 1. CONTROL DE MATEO
-    # ----------------------------------------------------
     if not jugador_bloqueado:
+        global tiempo_ultima_interaccion
         teclas = pygame.key.get_pressed()
         
+        # --- SISTEMA DINÁMICO DE INTERACCIÓN ---
+        if teclas[pygame.K_SPACE] and (tiempo_actual - tiempo_ultima_interaccion > 500):
+            tx, ty = mateo_x, mateo_y
+            if direccion_mateo == "arriba": ty -= 1
+            elif direccion_mateo == "abajo": ty += 1
+            elif direccion_mateo == "izq": tx -= 1
+            elif direccion_mateo == "der": tx += 1
+            
+            if 0 <= tx < columnas_mapa and 0 <= ty < filas_mapa:
+                casilla_frente = matriz_activa[ty][tx]
+                
+                # Lee directamente el diccionario proporcionado por el mapa
+                if casilla_frente in interactuables_activos:
+                    nombre_evento = interactuables_activos[casilla_frente]
+                    sistema_dialogo.iniciar_dialogo(nombre_evento)
+                    tiempo_ultima_interaccion = tiempo_actual
+                    nuevo_estado_juego = "DIALOGO"
+                    
+
         esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
         retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
 
@@ -260,13 +271,18 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                     if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
                         es_muro = True
                     
-                    # [ABUELA] No se puede pisar a la abuela si está visible
-                    bloquea_abuela = abuela_visible and (nx, ny) == (abuela_x, abuela_y)
+                    # Colisión dinámica con cualquier NPC
+                    bloquea_npc = False
+                    for npc_id, npc in npcs_activos.items():
+                        if npc["visible"] and (nx, ny) == (npc["x"], npc["y"]):
+                            bloquea_npc = True
+                            break
                     
-                    if not es_muro and (nx, ny) != (lucas_x, lucas_y) and not bloquea_abuela:
+                    if not es_muro and (nx, ny) != (lucas_x, lucas_y) and not bloquea_npc:
                         mateo_x, mateo_y = nx, ny
                         tiempo_ultimo_paso_mateo = tiempo_actual
                         
+                        # Triggers de pisar (mantendremos esto genérico en el futuro)
                         if casilla_destino in [5, 6, 9]:
                             sistema_dialogo.iniciar_dialogo(f"evento_{casilla_destino}")
                             for fila in range(filas_mapa):
@@ -274,9 +290,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                                     matriz_activa[fila][nx] = 0
                             nuevo_estado_juego = "DIALOGO"
 
-    # ----------------------------------------------------
     # 2. IA DE LUCAS
-    # ----------------------------------------------------
     if tiempo_actual - tiempo_ultimo_paso_lucas > RETRASO_LUCAS:
         if lucas_x < 37 and lucas_y == 15:
             nx_lucas = lucas_x + 1
@@ -292,9 +306,15 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         muro_empuje = (casilla_empuje == 1)
                         if casilla_empuje in imagenes_objetos and imagenes_objetos[casilla_empuje]["colision"]:
                             muro_empuje = True
-                        # [ABUELA] No empujar a Mateo sobre la abuela
-                        bloquea_abuela = abuela_visible and (mx_nuevo, my_nuevo) == (abuela_x, abuela_y)
-                        if not muro_empuje and (mx_nuevo, my_nuevo) != (lucas_x, lucas_y) and not bloquea_abuela:
+                            
+                        # Lucas tampoco empuja sobre un NPC
+                        bloquea_npc = False
+                        for npc_id, npc in npcs_activos.items():
+                            if npc["visible"] and (mx_nuevo, my_nuevo) == (npc["x"], npc["y"]):
+                                bloquea_npc = True
+                                break
+                                
+                        if not muro_empuje and (mx_nuevo, my_nuevo) != (lucas_x, lucas_y) and not bloquea_npc:
                             mateo_x, mateo_y = mx_nuevo, my_nuevo
                             lucas_x, lucas_y = nx_lucas, ny_lucas
                             break
@@ -308,9 +328,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             
             tiempo_ultimo_paso_lucas = tiempo_actual
 
-    # ----------------------------------------------------
     # 3. INTERPOLACIÓN LERP
-    # ----------------------------------------------------
     mateo_obj_x = float(mateo_x * TAMANO_CASILLA)
     mateo_obj_y = float(mateo_y * TAMANO_CASILLA)
     mateo_px_x += (mateo_obj_x - mateo_px_x) * VELOCIDAD_SUAVIZADO
@@ -321,17 +339,17 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     lucas_px_x += (lucas_obj_x - lucas_px_x) * VELOCIDAD_SUAVIZADO
     lucas_px_y += (lucas_obj_y - lucas_px_y) * VELOCIDAD_SUAVIZADO
 
-    # [ABUELA] Interpolación LERP de la abuela
-    abuela_obj_x = float(abuela_x * TAMANO_CASILLA)
-    abuela_obj_y = float(abuela_y * TAMANO_CASILLA)
-    abuela_px_x += (abuela_obj_x - abuela_px_x) * VELOCIDAD_SUAVIZADO
-    abuela_px_y += (abuela_obj_y - abuela_px_y) * VELOCIDAD_SUAVIZADO
+    # LERP para todos los NPCs genéricos
+    for npc_id, npc in npcs_activos.items():
+        if npc["visible"]:
+            obj_x = float(npc["x"] * TAMANO_CASILLA)
+            obj_y = float(npc["y"] * TAMANO_CASILLA)
+            npc["px_x"] += (obj_x - npc["px_x"]) * VELOCIDAD_SUAVIZADO
+            npc["px_y"] += (obj_y - npc["px_y"]) * VELOCIDAD_SUAVIZADO
 
     camara_x, camara_y = calcular_camara()
 
-    # ----------------------------------------------------
     # 4. RENDERIZADO VISUAL
-    # ----------------------------------------------------
     pantalla.blit(fondo_actual, (-camara_x, -camara_y))
 
     for fila in range(filas_mapa):
@@ -343,18 +361,22 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
 
-    # [ABUELA] Render de la abuela ANTES de Mateo y Lucas
-    if abuela_visible:
-        x_abuela_pantalla = int(abuela_px_x) - camara_x
-        y_abuela_pantalla = int(abuela_px_y) - camara_y
-        esta_caminando_abuela = abs(abuela_px_x - abuela_obj_x) > 0.5 or abs(abuela_px_y - abuela_obj_y) > 0.5
-        frame_abuela = (pygame.time.get_ticks() // 200) % 2 if esta_caminando_abuela else 0
-        img_abuela = sprites_abuela[direccion_abuela][frame_abuela]
+    # Renderizado de NPCs genéricos ANTES de Mateo y Lucas
+    for npc_id, npc in npcs_activos.items():
+        if npc["visible"]:
+            x_pantalla = int(npc["px_x"]) - camara_x
+            y_pantalla = int(npc["px_y"]) - camara_y
+            obj_x = float(npc["x"] * TAMANO_CASILLA)
+            obj_y = float(npc["y"] * TAMANO_CASILLA)
+            
+            esta_caminando = abs(npc["px_x"] - obj_x) > 0.5 or abs(npc["px_y"] - obj_y) > 0.5
+            frame = (pygame.time.get_ticks() // 200) % 2 if esta_caminando else 0
+            img = npc["sprites"][npc["direccion"]][frame]
 
-        if img_abuela.get_alpha() == 0:
-            pygame.draw.rect(pantalla, (200, 100, 100), (x_abuela_pantalla + 6, y_abuela_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-        else:
-            pantalla.blit(img_abuela, (x_abuela_pantalla, y_abuela_pantalla))
+            if img.get_alpha() == 0:
+                pygame.draw.rect(pantalla, (200, 100, 200), (x_pantalla + 6, y_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
+            else:
+                pantalla.blit(img, (x_pantalla, y_pantalla))
 
     x_lucas_pantalla = int(lucas_px_x) - camara_x
     y_lucas_pantalla = int(lucas_px_y) - camara_y
@@ -383,9 +405,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     else:
         pantalla.blit(img_mateo, (x_mateo_pantalla, y_mateo_pantalla))
 
-    # ----------------------------------------------------
     # 5. GESTIÓN DEL FUNDIDO A NEGRO
-    # ----------------------------------------------------
     if transicion_activa:
         if tipo_transicion == "fade_out":
             alpha_transicion += 15

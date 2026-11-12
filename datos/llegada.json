@@ -87,5 +87,11 @@
       { "hablante": "Lucas", "texto": "Pues me cae bien." },
       { "hablante": "Lucas", "texto": "Bueno, un banquete nos espera, ¡vamos!" }
     ]
+  },
+  "evento_pozo": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Un pozo profundo." },
+    { "hablante": "Mateo", "texto": "El agua debe estar muy abajo." }
+  ]
   }
 }
