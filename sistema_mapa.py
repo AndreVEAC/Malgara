@@ -3,6 +3,7 @@ import importlib
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TAMANO_CASILLA, VERDE_MATEO
 import sistema_dialogo
+import sistema_npc
 
 matriz_activa = []
 fondo_actual = None
@@ -10,29 +11,19 @@ columnas_mapa, filas_mapa = 0, 0
 imagenes_objetos = {}
 
 sprites_mateo = {}
-sprites_lucas = {}
-sprite_lucas_foto = None
-tiene_sprite_foto = False
-
 direccion_mateo = "abajo"
-direccion_lucas = "der"
-
 mateo_x, mateo_y = 0, 0
-lucas_x, lucas_y = 0, 0
-
 mateo_px_x, mateo_px_y = 0.0, 0.0
-lucas_px_x, lucas_px_y = 0.0, 0.0
 
 VELOCIDAD_SUAVIZADO = 0.25
 tiempo_ultimo_paso_mateo = 0
-tiempo_ultimo_paso_lucas = 0
 tiempo_ultima_interaccion = 0  
 RETRASO_MATEO = 250 
-RETRASO_LUCAS = 250  
 
 # --- SISTEMAS GENÉRICOS ORIENTADOS A DATOS ---
 npcs_activos = {}
 interactuables_activos = {}
+triggers_pisar_activos = {}
 
 jugador_bloqueado = False
 script_nivel_actual = None
@@ -71,42 +62,54 @@ def cargar_nivel(nombre_modulo):
 
 
 def _ejecutar_carga_real(nombre_modulo):
-    global matriz_activa, fondo_actual, mateo_x, mateo_y, lucas_x, lucas_y
+    global matriz_activa, fondo_actual, mateo_x, mateo_y
     global columnas_mapa, filas_mapa, imagenes_objetos
-    global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
-    global sprites_mateo, sprites_lucas, sprite_lucas_foto, tiene_sprite_foto
-    global direccion_mateo, direccion_lucas
+    global mateo_px_x, mateo_px_y
+    global sprites_mateo, direccion_mateo
     global jugador_bloqueado, script_nivel_actual
-    global npcs_activos, interactuables_activos
+    global npcs_activos, interactuables_activos, triggers_pisar_activos
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
 
-    matriz_activa = mapa_datos.MATRIZ
+    matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
     mateo_x, mateo_y = mapa_datos.INICIO_X, mapa_datos.INICIO_Y
-    
-    lucas_x, lucas_y = 1, 15
     direccion_mateo = "abajo"
-    direccion_lucas = "der"
     jugador_bloqueado = False
     
-    # --- CARGAR SISTEMAS GENÉRICOS DEL MAPA ---
+    # --- CARGAR NPCS GENÉRICOS DEL MAPA ---
     npcs_activos.clear()
     if hasattr(mapa_datos, 'NPCS'):
         for npc_id, datos in mapa_datos.NPCS.items():
+            sprites_esp = {}
+            for clave_esp, ruta_esp in datos.get("sprites_especiales", {}).items():
+                try:
+                    img_esp = pygame.image.load(ruta_esp).convert_alpha()
+                    sprites_esp[clave_esp] = pygame.transform.scale(img_esp, (TAMANO_CASILLA, TAMANO_CASILLA))
+                except (pygame.error, FileNotFoundError):
+                    pass
+
             npcs_activos[npc_id] = {
                 "x": datos["x"],
                 "y": datos["y"],
                 "px_x": float(datos["x"] * TAMANO_CASILLA),
                 "px_y": float(datos["y"] * TAMANO_CASILLA),
-                "direccion": datos["direccion"],
+                "direccion": datos.get("direccion", "abajo"),
                 "visible": datos.get("visible", True),
-                "sprites": cargar_sprites_personaje(datos["carpeta_sprite"])
+                "sprites": cargar_sprites_personaje(datos["carpeta_sprite"]),
+                "sprites_especiales": sprites_esp,
+                "sprite_override": None,
+                "comportamiento": datos.get("comportamiento", "estatico"),
+                "patrulla": dict(datos["patrulla"]) if "patrulla" in datos else {}
             }
             
+    # --- CARGAR INTERACTUABLES Y TRIGGERS DINÁMICOS ---
     interactuables_activos.clear()
     if hasattr(mapa_datos, 'INTERACTUABLES'):
         interactuables_activos.update(mapa_datos.INTERACTUABLES)
-    print("INTERACTUABLES cargados:", interactuables_activos)
+
+    triggers_pisar_activos.clear()
+    if hasattr(mapa_datos, 'TRIGGERS_PISAR'):
+        triggers_pisar_activos.update(mapa_datos.TRIGGERS_PISAR)
 
     try:
         script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
@@ -114,13 +117,9 @@ def _ejecutar_carga_real(nombre_modulo):
             script_nivel_actual.iniciar()
     except ImportError:
         script_nivel_actual = None
-        if nombre_modulo == "prologo":
-            sistema_dialogo.cargar_json("datos/prologo.json")
     
     mateo_px_x = float(mateo_x * TAMANO_CASILLA)
     mateo_px_y = float(mateo_y * TAMANO_CASILLA)
-    lucas_px_x = float(lucas_x * TAMANO_CASILLA)
-    lucas_px_y = float(lucas_y * TAMANO_CASILLA)
     
     filas_mapa = len(matriz_activa)
     columnas_mapa = len(matriz_activa[0])
@@ -144,25 +143,37 @@ def _ejecutar_carga_real(nombre_modulo):
                 pass
 
     sprites_mateo = cargar_sprites_personaje("mateo")
-    sprites_lucas = cargar_sprites_personaje("lucas")
 
-    try:
-        img_foto = pygame.image.load("recursos/sprites/personajes/lucas/foto.png").convert_alpha()
-        sprite_lucas_foto = pygame.transform.scale(img_foto, (TAMANO_CASILLA, TAMANO_CASILLA))
-        tiene_sprite_foto = True
-    except (pygame.error, FileNotFoundError):
-        sprite_lucas_foto = None
-        tiene_sprite_foto = False
+
+def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):
+    for npc_id, npc in npcs_activos.items():
+        if not npc["visible"]:
+            continue
+
+        x_pantalla = int(npc["px_x"]) - camara_x
+        y_pantalla = int(npc["px_y"]) - camara_y
+
+        override = npc.get("sprite_override")
+        if override and override in npc.get("sprites_especiales", {}):
+            pantalla.blit(npc["sprites_especiales"][override], (x_pantalla, y_pantalla))
+            continue
+
+        frame = 0
+        if animar:
+            obj_x = float(npc["x"] * TAMANO_CASILLA)
+            obj_y = float(npc["y"] * TAMANO_CASILLA)
+            esta_caminando = abs(npc["px_x"] - obj_x) > 0.5 or abs(npc["px_y"] - obj_y) > 0.5
+            frame = (pygame.time.get_ticks() // 200) % 2 if esta_caminando else 0
+
+        img = npc["sprites"][npc["direccion"]][frame]
+        if img.get_alpha() == 0:
+            pygame.draw.rect(pantalla, (200, 100, 200), (x_pantalla + 6, y_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
+        else:
+            pantalla.blit(img, (x_pantalla, y_pantalla))
 
 
 def solo_dibujar(pantalla):
-    camara_x = int(mateo_px_x) - (ANCHO_PANTALLA // 2)
-    camara_y = int(mateo_px_y) - (ALTO_PANTALLA // 2)
-    
-    limite_x = (columnas_mapa * TAMANO_CASILLA) - ANCHO_PANTALLA
-    limite_y = (filas_mapa * TAMANO_CASILLA) - ALTO_PANTALLA
-    camara_x = max(0, min(camara_x, max(0, limite_x)))
-    camara_y = max(0, min(camara_y, max(0, limite_y)))
+    camara_x, camara_y = calcular_camara()
 
     pantalla.blit(fondo_actual, (-camara_x, -camara_y))
 
@@ -175,27 +186,7 @@ def solo_dibujar(pantalla):
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
 
-    for npc_id, npc in npcs_activos.items():
-        if npc["visible"]:
-            x_pantalla = int(npc["px_x"]) - camara_x
-            y_pantalla = int(npc["px_y"]) - camara_y
-            img = npc["sprites"][npc["direccion"]][0]
-            if img.get_alpha() == 0:
-                pygame.draw.rect(pantalla, (200, 100, 200), (x_pantalla + 6, y_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-            else:
-                pantalla.blit(img, (x_pantalla, y_pantalla))
-
-    x_lucas_pantalla = int(lucas_px_x) - camara_x
-    y_lucas_pantalla = int(lucas_px_y) - camara_y
-    evento_en_curso = sistema_dialogo.obtener_evento_activo()
-    if evento_en_curso == "evento_6" and tiene_sprite_foto:
-        pantalla.blit(sprite_lucas_foto, (x_lucas_pantalla, y_lucas_pantalla))
-    else:
-        img_lucas = sprites_lucas[direccion_lucas][0]
-        if img_lucas.get_alpha() == 0:
-            pygame.draw.rect(pantalla, (255, 165, 0), (x_lucas_pantalla + 6, y_lucas_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-        else:
-            pantalla.blit(img_lucas, (x_lucas_pantalla, y_lucas_pantalla))
+    _dibujar_npcs(pantalla, camara_x, camara_y, animar=False)
 
     x_mateo_pantalla = int(mateo_px_x) - camara_x
     y_mateo_pantalla = int(mateo_px_y) - camara_y
@@ -207,9 +198,8 @@ def solo_dibujar(pantalla):
 
 
 def actualizar_y_dibujar(pantalla, estado_jugador):
-    global mateo_x, mateo_y, lucas_x, lucas_y, tiempo_ultimo_paso_mateo, tiempo_ultimo_paso_lucas, tiempo_ultima_interaccion
-    global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
-    global direccion_mateo, direccion_lucas
+    global mateo_x, mateo_y, tiempo_ultimo_paso_mateo, tiempo_ultima_interaccion
+    global mateo_px_x, mateo_px_y, direccion_mateo
     global transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
     
     tiempo_actual = pygame.time.get_ticks()
@@ -223,10 +213,8 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
 
     # 1. CONTROL DE MATEO
     if not jugador_bloqueado:
-        global tiempo_ultima_interaccion
         teclas = pygame.key.get_pressed()
         
-        # --- SISTEMA DINÁMICO DE INTERACCIÓN ---
         tiempo_desde_cierre = tiempo_actual - sistema_dialogo.obtener_tiempo_ultimo_cierre()
         if (teclas[pygame.K_SPACE]
                 and (tiempo_actual - tiempo_ultima_interaccion > 500)
@@ -239,15 +227,11 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             
             if 0 <= tx < columnas_mapa and 0 <= ty < filas_mapa:
                 casilla_frente = matriz_activa[ty][tx]
-                print(f"Frente a Mateo: ({tx}, {ty}) = {casilla_frente}")
-                
-                # Lee directamente el diccionario proporcionado por el mapa
                 if casilla_frente in interactuables_activos:
                     nombre_evento = interactuables_activos[casilla_frente]
                     sistema_dialogo.iniciar_dialogo(nombre_evento)
                     tiempo_ultima_interaccion = tiempo_actual
                     nuevo_estado_juego = "DIALOGO"
-                    
 
         esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
         retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
@@ -272,68 +256,30 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 if 0 <= nx < columnas_mapa and 0 <= ny < filas_mapa:
                     casilla_destino = matriz_activa[ny][nx]
                     
-                    es_muro = (casilla_destino == 1)
-                    if casilla_destino in interactuables_activos:      # ← AÑADIR ESTO
-                        es_muro = True
+                    es_muro = (casilla_destino == 1) or (casilla_destino in interactuables_activos)
                     if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
                         es_muro = True
                     
-                    # Colisión dinámica con cualquier NPC
-                    bloquea_npc = False
-                    for npc_id, npc in npcs_activos.items():
-                        if npc["visible"] and (nx, ny) == (npc["x"], npc["y"]):
-                            bloquea_npc = True
-                            break
+                    bloquea_npc = any(
+                        npc["visible"] and (nx, ny) == (npc["x"], npc["y"])
+                        for npc in npcs_activos.values()
+                    )
                     
-                    if not es_muro and (nx, ny) != (lucas_x, lucas_y) and not bloquea_npc:
+                    if not es_muro and not bloquea_npc:
                         mateo_x, mateo_y = nx, ny
                         tiempo_ultimo_paso_mateo = tiempo_actual
                         
-                        # Triggers de pisar (mantendremos esto genérico en el futuro)
-                        if casilla_destino in [5, 6, 9]:
-                            sistema_dialogo.iniciar_dialogo(f"evento_{casilla_destino}")
+                        # Triggers dinámicos al pisar
+                        if casilla_destino in triggers_pisar_activos:
+                            nombre_evento = triggers_pisar_activos[casilla_destino]
+                            sistema_dialogo.iniciar_dialogo(nombre_evento)
                             for fila in range(filas_mapa):
                                 if matriz_activa[fila][nx] == casilla_destino:
                                     matriz_activa[fila][nx] = 0
                             nuevo_estado_juego = "DIALOGO"
 
-    # 2. IA DE LUCAS
-    if tiempo_actual - tiempo_ultimo_paso_lucas > RETRASO_LUCAS:
-        if lucas_x < 37 and lucas_y == 15:
-            nx_lucas = lucas_x + 1
-            ny_lucas = lucas_y
-            direccion_lucas = "der"
-            
-            if nx_lucas == mateo_x and ny_lucas == mateo_y:
-                for dx, dy in [(0, -1), (0, 1), (1, 0)]:
-                    mx_nuevo = mateo_x + dx
-                    my_nuevo = mateo_y + dy
-                    if 0 <= mx_nuevo < columnas_mapa and 0 <= my_nuevo < filas_mapa:
-                        casilla_empuje = matriz_activa[my_nuevo][mx_nuevo]
-                        muro_empuje = (casilla_empuje == 1)
-                        if casilla_empuje in imagenes_objetos and imagenes_objetos[casilla_empuje]["colision"]:
-                            muro_empuje = True
-                            
-                        # Lucas tampoco empuja sobre un NPC
-                        bloquea_npc = False
-                        for npc_id, npc in npcs_activos.items():
-                            if npc["visible"] and (mx_nuevo, my_nuevo) == (npc["x"], npc["y"]):
-                                bloquea_npc = True
-                                break
-                                
-                        if not muro_empuje and (mx_nuevo, my_nuevo) != (lucas_x, lucas_y) and not bloquea_npc:
-                            mateo_x, mateo_y = mx_nuevo, my_nuevo
-                            lucas_x, lucas_y = nx_lucas, ny_lucas
-                            break
-            else:
-                casilla_frente_lucas = matriz_activa[ny_lucas][nx_lucas]
-                muro_lucas = (casilla_frente_lucas == 1)
-                if casilla_frente_lucas in imagenes_objetos and imagenes_objetos[casilla_frente_lucas]["colision"]:
-                    muro_lucas = True
-                if not muro_lucas and casilla_frente_lucas not in [5, 6, 9]:
-                    lucas_x, lucas_y = nx_lucas, ny_lucas
-            
-            tiempo_ultimo_paso_lucas = tiempo_actual
+    # 2. ACTUALIZACIÓN DE NPCS GENÉRICOS
+    sistema_npc.actualizar_npcs(tiempo_actual)
 
     # 3. INTERPOLACIÓN LERP
     mateo_obj_x = float(mateo_x * TAMANO_CASILLA)
@@ -341,12 +287,6 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     mateo_px_x += (mateo_obj_x - mateo_px_x) * VELOCIDAD_SUAVIZADO
     mateo_px_y += (mateo_obj_y - mateo_px_y) * VELOCIDAD_SUAVIZADO
 
-    lucas_obj_x = float(lucas_x * TAMANO_CASILLA)
-    lucas_obj_y = float(lucas_y * TAMANO_CASILLA)
-    lucas_px_x += (lucas_obj_x - lucas_px_x) * VELOCIDAD_SUAVIZADO
-    lucas_px_y += (lucas_obj_y - lucas_px_y) * VELOCIDAD_SUAVIZADO
-
-    # LERP para todos los NPCs genéricos
     for npc_id, npc in npcs_activos.items():
         if npc["visible"]:
             obj_x = float(npc["x"] * TAMANO_CASILLA)
@@ -368,38 +308,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
 
-    # Renderizado de NPCs genéricos ANTES de Mateo y Lucas
-    for npc_id, npc in npcs_activos.items():
-        if npc["visible"]:
-            x_pantalla = int(npc["px_x"]) - camara_x
-            y_pantalla = int(npc["px_y"]) - camara_y
-            obj_x = float(npc["x"] * TAMANO_CASILLA)
-            obj_y = float(npc["y"] * TAMANO_CASILLA)
-            
-            esta_caminando = abs(npc["px_x"] - obj_x) > 0.5 or abs(npc["px_y"] - obj_y) > 0.5
-            frame = (pygame.time.get_ticks() // 200) % 2 if esta_caminando else 0
-            img = npc["sprites"][npc["direccion"]][frame]
-
-            if img.get_alpha() == 0:
-                pygame.draw.rect(pantalla, (200, 100, 200), (x_pantalla + 6, y_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-            else:
-                pantalla.blit(img, (x_pantalla, y_pantalla))
-
-    x_lucas_pantalla = int(lucas_px_x) - camara_x
-    y_lucas_pantalla = int(lucas_px_y) - camara_y
-    
-    evento_en_curso = sistema_dialogo.obtener_evento_activo()
-    if evento_en_curso == "evento_6" and tiene_sprite_foto:
-        pantalla.blit(sprite_lucas_foto, (x_lucas_pantalla, y_lucas_pantalla))
-    else:
-        esta_caminando_lucas = abs(lucas_px_x - lucas_obj_x) > 0.5 or abs(lucas_px_y - lucas_obj_y) > 0.5
-        frame_lucas = (pygame.time.get_ticks() // 200) % 2 if esta_caminando_lucas else 0
-        img_lucas = sprites_lucas[direccion_lucas][frame_lucas]
-        
-        if img_lucas.get_alpha() == 0:
-            pygame.draw.rect(pantalla, (255, 165, 0), (x_lucas_pantalla + 6, y_lucas_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
-        else:
-            pantalla.blit(img_lucas, (x_lucas_pantalla, y_lucas_pantalla))
+    _dibujar_npcs(pantalla, camara_x, camara_y, animar=True)
 
     x_mateo_pantalla = int(mateo_px_x) - camara_x
     y_mateo_pantalla = int(mateo_px_y) - camara_y

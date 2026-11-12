@@ -2,6 +2,32 @@
 
 FONDO_IMG = "recursos/sprites/fondos/fondo_prologo.png"  # Tu imagen de 1600x1200 px
 
+NPCS = {
+    "lucas": {
+        "x": 1,
+        "y": 15,
+        "direccion": "der",
+        "visible": True,
+        "carpeta_sprite": "lucas",
+        "sprites_especiales": {
+            "foto": "recursos/sprites/personajes/lucas/foto.png"
+        },
+        "comportamiento": "patrulla",
+        "patrulla": {
+            "velocidad_ms": 250,
+            "hasta_x": 37,
+            "empuja_jugador": True,
+            "esperar_en_x": [9, 23, 37]
+        }
+    }
+}
+
+TRIGGERS_PISAR = {
+    5: "evento_5",
+    6: "evento_6",
+    9: "evento_9"
+}
+
 # Posición inicial de Mateo (pegado a la izquierda, en el centro vertical)
 INICIO_X, INICIO_Y = 2, 15
 
