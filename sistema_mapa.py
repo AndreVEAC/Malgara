@@ -24,6 +24,7 @@ RETRASO_MATEO = 250
 npcs_activos = {}
 interactuables_activos = {}
 triggers_pisar_activos = {}
+portales_activos = {}
 
 jugador_bloqueado = False
 script_nivel_actual = None
@@ -32,6 +33,9 @@ transicion_activa = False
 tipo_transicion = None
 alpha_transicion = 0
 mapa_pendiente = None
+spawn_pendiente = None
+
+eventos_completados = set()
 
 
 def cargar_sprites_personaje(carpeta):
@@ -50,8 +54,10 @@ def cargar_sprites_personaje(carpeta):
     return anim
 
 
-def cargar_nivel(nombre_modulo):
-    global transicion_activa, tipo_transicion, mapa_pendiente, fondo_actual
+def cargar_nivel(nombre_modulo, spawn_x=None, spawn_y=None):
+    global transicion_activa, tipo_transicion, mapa_pendiente, spawn_pendiente, fondo_actual
+
+    spawn_pendiente = (spawn_x, spawn_y) if (spawn_x is not None and spawn_y is not None) else None
 
     if fondo_actual is None:
         _ejecutar_carga_real(nombre_modulo)
@@ -67,12 +73,19 @@ def _ejecutar_carga_real(nombre_modulo):
     global mateo_px_x, mateo_px_y
     global sprites_mateo, direccion_mateo
     global jugador_bloqueado, script_nivel_actual
-    global npcs_activos, interactuables_activos, triggers_pisar_activos
+    global npcs_activos, interactuables_activos, triggers_pisar_activos, portales_activos
+    global spawn_pendiente
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
-    mateo_x, mateo_y = mapa_datos.INICIO_X, mapa_datos.INICIO_Y
+    
+    if spawn_pendiente is not None:
+        mateo_x, mateo_y = spawn_pendiente
+        spawn_pendiente = None
+    else:
+        mateo_x, mateo_y = mapa_datos.INICIO_X, mapa_datos.INICIO_Y
+
     direccion_mateo = "abajo"
     jugador_bloqueado = False
     
@@ -102,7 +115,7 @@ def _ejecutar_carga_real(nombre_modulo):
                 "patrulla": dict(datos["patrulla"]) if "patrulla" in datos else {}
             }
             
-    # --- CARGAR INTERACTUABLES Y TRIGGERS DINÁMICOS ---
+    # --- CARGAR INTERACTUABLES, TRIGGERS Y PORTALES ---
     interactuables_activos.clear()
     if hasattr(mapa_datos, 'INTERACTUABLES'):
         interactuables_activos.update(mapa_datos.INTERACTUABLES)
@@ -110,6 +123,10 @@ def _ejecutar_carga_real(nombre_modulo):
     triggers_pisar_activos.clear()
     if hasattr(mapa_datos, 'TRIGGERS_PISAR'):
         triggers_pisar_activos.update(mapa_datos.TRIGGERS_PISAR)
+
+    portales_activos.clear()
+    if hasattr(mapa_datos, 'PORTALES'):
+        portales_activos.update(mapa_datos.PORTALES)
 
     try:
         script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
@@ -200,7 +217,7 @@ def solo_dibujar(pantalla):
 def actualizar_y_dibujar(pantalla, estado_jugador):
     global mateo_x, mateo_y, tiempo_ultimo_paso_mateo, tiempo_ultima_interaccion
     global mateo_px_x, mateo_px_y, direccion_mateo
-    global transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
+    global jugador_bloqueado, transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
     
     tiempo_actual = pygame.time.get_ticks()
     nuevo_estado_juego = "EXPLORACION"
@@ -277,6 +294,16 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                                 if matriz_activa[fila][nx] == casilla_destino:
                                     matriz_activa[fila][nx] = 0
                             nuevo_estado_juego = "DIALOGO"
+
+                        # Portales bidireccionales al pisar
+                        elif casilla_destino in portales_activos:
+                            datos_portal = portales_activos[casilla_destino]
+                            jugador_bloqueado = True
+                            cargar_nivel(
+                                datos_portal["mapa"],
+                                datos_portal.get("spawn_x"),
+                                datos_portal.get("spawn_y")
+                            )
 
     # 2. ACTUALIZACIÓN DE NPCS GENÉRICOS
     sistema_npc.actualizar_npcs(tiempo_actual)
