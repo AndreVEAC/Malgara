@@ -40,6 +40,8 @@ fuente_notificacion = None
 sonido_bip = None
 sonido_notificacion = None
 
+tiempo_ultimo_cierre_dialogo = 0
+
 # Colores de la interfaz
 COLOR_CUADRO = (15, 15, 25, 230)
 COLOR_BORDE = (220, 220, 240)
@@ -111,7 +113,9 @@ def iniciar_dialogo(nombre_evento):
         opcion_seleccionada = 0
         # Si el jugador ya traía ESPACIO presionado, que no salte la primera línea
         bloqueo_espacio = True
+        print(f"[DEBUG] Diálogo iniciado: {nombre_evento}")
     else:
+        print(f"[DEBUG] Evento NO encontrado: {nombre_evento}. Disponibles: {list(datos_dialogo.keys())}")
         evento_actual = None
         nombre_evento_activo = None
 
@@ -132,6 +136,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
     global evento_actual, nombre_evento_activo, indice_linea, indice_letra, tiempo_ultima_letra
     global en_modo_decision, opciones_actuales, opcion_seleccionada
     global tiempo_inicio_espacio, tiempo_ultimo_salto_rapido, bloqueo_espacio
+    global tiempo_ultimo_cierre_dialogo
 
     tiempo_actual = pygame.time.get_ticks()
 
@@ -155,6 +160,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
             else:
                 evento_actual = None
                 nombre_evento_activo = None
+                tiempo_ultimo_cierre_dialogo = tiempo_actual
                 return "EXPLORACION"
 
     # ----------------------------------------------------
@@ -224,6 +230,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                     else:
                         evento_actual = None
                         nombre_evento_activo = None
+                        tiempo_ultimo_cierre_dialogo = tiempo_actual
                         return "EXPLORACION"
 
     # LÓGICA DE MENÚ DE DECISIONES
@@ -262,6 +269,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                     evento_actual = None
                     nombre_evento_activo = None
                     en_modo_decision = False
+                    tiempo_ultimo_cierre_dialogo = tiempo_actual
                     return "EXPLORACION"
 
     # RENDERIZADO VISUAL
@@ -332,3 +340,6 @@ def dibujar_notificacion_global(pantalla):
         pantalla.blit(surf_txt_notif, (pos_x + 15, pos_y + 10))
     else:
         texto_notificacion = ""
+        
+def obtener_tiempo_ultimo_cierre():
+    return tiempo_ultimo_cierre_dialogo

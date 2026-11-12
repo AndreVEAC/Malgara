@@ -106,6 +106,7 @@ def _ejecutar_carga_real(nombre_modulo):
     interactuables_activos.clear()
     if hasattr(mapa_datos, 'INTERACTUABLES'):
         interactuables_activos.update(mapa_datos.INTERACTUABLES)
+    print("INTERACTUABLES cargados:", interactuables_activos)
 
     try:
         script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
@@ -226,7 +227,10 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         teclas = pygame.key.get_pressed()
         
         # --- SISTEMA DINÁMICO DE INTERACCIÓN ---
-        if teclas[pygame.K_SPACE] and (tiempo_actual - tiempo_ultima_interaccion > 500):
+        tiempo_desde_cierre = tiempo_actual - sistema_dialogo.obtener_tiempo_ultimo_cierre()
+        if (teclas[pygame.K_SPACE]
+                and (tiempo_actual - tiempo_ultima_interaccion > 500)
+                and tiempo_desde_cierre > 300):
             tx, ty = mateo_x, mateo_y
             if direccion_mateo == "arriba": ty -= 1
             elif direccion_mateo == "abajo": ty += 1
@@ -235,6 +239,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             
             if 0 <= tx < columnas_mapa and 0 <= ty < filas_mapa:
                 casilla_frente = matriz_activa[ty][tx]
+                print(f"Frente a Mateo: ({tx}, {ty}) = {casilla_frente}")
                 
                 # Lee directamente el diccionario proporcionado por el mapa
                 if casilla_frente in interactuables_activos:
@@ -268,6 +273,8 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                     casilla_destino = matriz_activa[ny][nx]
                     
                     es_muro = (casilla_destino == 1)
+                    if casilla_destino in interactuables_activos:      # ← AÑADIR ESTO
+                        es_muro = True
                     if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
                         es_muro = True
                     
