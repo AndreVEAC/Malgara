@@ -29,6 +29,13 @@ tiempo_ultimo_paso_lucas = 0
 RETRASO_MATEO = 250 
 RETRASO_LUCAS = 250  
 
+# [ABUELA] Variables globales nuevas
+sprites_abuela = {}
+abuela_x, abuela_y = 0, 0
+abuela_px_x, abuela_px_y = 0.0, 0.0
+direccion_abuela = "abajo"
+abuela_visible = False
+
 # NUEVAS VARIABLES PARA LA ARQUITECTURA
 jugador_bloqueado = False
 script_nivel_actual = None
@@ -63,7 +70,6 @@ def cargar_nivel(nombre_modulo):
     if fondo_actual is None:
         _ejecutar_carga_real(nombre_modulo)
     else:
-        # Si ya había un mapa antes, hacemos la transición cinematográfica
         transicion_activa = True
         tipo_transicion = "fade_out"
         mapa_pendiente = nombre_modulo
@@ -77,6 +83,9 @@ def _ejecutar_carga_real(nombre_modulo):
     global sprites_mateo, sprites_lucas, sprite_lucas_foto, tiene_sprite_foto
     global direccion_mateo, direccion_lucas
     global jugador_bloqueado, script_nivel_actual
+    # [ABUELA] Globals nuevos
+    global sprites_abuela, abuela_x, abuela_y, abuela_px_x, abuela_px_y
+    global direccion_abuela, abuela_visible
     
     # 1. Cargamos el mapa (los ladrillos) de forma dinámica
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
@@ -89,6 +98,12 @@ def _ejecutar_carga_real(nombre_modulo):
     direccion_mateo = "abajo"
     direccion_lucas = "der"
     jugador_bloqueado = False
+
+    # [ABUELA] Valores por defecto al cargar un nivel
+    abuela_x, abuela_y = 0, 0
+    abuela_px_x, abuela_px_y = 0.0, 0.0
+    direccion_abuela = "abajo"
+    abuela_visible = False
     
     # 2. Cargamos el Script del Nivel si existe (el Director)
     try:
@@ -97,7 +112,6 @@ def _ejecutar_carga_real(nombre_modulo):
             script_nivel_actual.iniciar()
     except ImportError:
         script_nivel_actual = None
-        # Si es el prologo y no tiene script, cargamos su JSON por defecto
         if nombre_modulo == "prologo":
             sistema_dialogo.cargar_json("datos/prologo.json")
     
@@ -105,16 +119,18 @@ def _ejecutar_carga_real(nombre_modulo):
     mateo_px_y = float(mateo_y * TAMANO_CASILLA)
     lucas_px_x = float(lucas_x * TAMANO_CASILLA)
     lucas_px_y = float(lucas_y * TAMANO_CASILLA)
+    # [ABUELA] Sincronizar pixel con casilla
+    abuela_px_x = float(abuela_x * TAMANO_CASILLA)
+    abuela_px_y = float(abuela_y * TAMANO_CASILLA)
     
     filas_mapa = len(matriz_activa)
     columnas_mapa = len(matriz_activa[0])
     
-    # 1. Cargar el fondo (Ahora atrapa FileNotFoundError para no crashear)
     try:
         fondo_actual = pygame.image.load(mapa_datos.FONDO_IMG).convert()
     except (pygame.error, AttributeError, FileNotFoundError):
         fondo_actual = pygame.Surface((columnas_mapa * TAMANO_CASILLA, filas_mapa * TAMANO_CASILLA))
-        fondo_actual.fill((30, 80, 40))  # Color verde oscuro de respaldo
+        fondo_actual.fill((30, 80, 40))
         
     imagenes_objetos.clear()
     if hasattr(mapa_datos, 'DICCIONARIO_OBJETOS'):
@@ -125,11 +141,13 @@ def _ejecutar_carga_real(nombre_modulo):
                     "img": img,
                     "colision": datos["colision"]
                 }
-            except (pygame.error, FileNotFoundError):  # También lo agregamos aquí
+            except (pygame.error, FileNotFoundError):
                 print(f"Error: No se encontró la imagen {datos['ruta']}")
 
     sprites_mateo = cargar_sprites_personaje("mateo")
     sprites_lucas = cargar_sprites_personaje("lucas")
+    # [ABUELA] Cargar sprites de la abuela
+    sprites_abuela = cargar_sprites_personaje("abuela")
 
     try:
         img_foto = pygame.image.load("recursos/sprites/personajes/lucas/foto.png").convert_alpha()
@@ -160,6 +178,16 @@ def solo_dibujar(pantalla):
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
 
+    # [ABUELA] Dibujo de respaldo en solo_dibujar (opcional pero consistente)
+    if abuela_visible:
+        x_abuela_pantalla = int(abuela_px_x) - camara_x
+        y_abuela_pantalla = int(abuela_px_y) - camara_y
+        img_abuela = sprites_abuela[direccion_abuela][0]
+        if img_abuela.get_alpha() == 0:
+            pygame.draw.rect(pantalla, (200, 100, 100), (x_abuela_pantalla + 6, y_abuela_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
+        else:
+            pantalla.blit(img_abuela, (x_abuela_pantalla, y_abuela_pantalla))
+
     x_lucas_pantalla = int(lucas_px_x) - camara_x
     y_lucas_pantalla = int(lucas_px_y) - camara_y
     evento_en_curso = sistema_dialogo.obtener_evento_activo()
@@ -186,29 +214,25 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     global mateo_px_x, mateo_px_y, lucas_px_x, lucas_px_y
     global direccion_mateo, direccion_lucas
     global transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
+    # [ABUELA] Globals necesarios para actualizar/dibujar
+    global abuela_px_x, abuela_px_y, abuela_x, abuela_y
+    global direccion_abuela, abuela_visible
     
     tiempo_actual = pygame.time.get_ticks()
     nuevo_estado_juego = "EXPLORACION"
     
-    # ==================================================
-    # EJECUTAR EL GUION DEL DIRECTOR (Si el mapa lo tiene)
-    # ==================================================
     if script_nivel_actual and hasattr(script_nivel_actual, "actualizar"):
         script_nivel_actual.actualizar()
         
-    # ==================================================
-    # Si el director inició un diálogo mágicamente, le avisamos al main.py
-    # ==================================================
     if sistema_dialogo.obtener_evento_activo() is not None:
         nuevo_estado_juego = "DIALOGO"
-    
+
     # ----------------------------------------------------
-    # 1. CONTROL DE MATEO (Añadimos restricción jugador_bloqueado y Sprint)
+    # 1. CONTROL DE MATEO
     # ----------------------------------------------------
     if not jugador_bloqueado:
         teclas = pygame.key.get_pressed()
         
-        # Detectar Sprint con Shift
         esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
         retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
 
@@ -236,7 +260,10 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                     if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
                         es_muro = True
                     
-                    if not es_muro and (nx, ny) != (lucas_x, lucas_y):
+                    # [ABUELA] No se puede pisar a la abuela si está visible
+                    bloquea_abuela = abuela_visible and (nx, ny) == (abuela_x, abuela_y)
+                    
+                    if not es_muro and (nx, ny) != (lucas_x, lucas_y) and not bloquea_abuela:
                         mateo_x, mateo_y = nx, ny
                         tiempo_ultimo_paso_mateo = tiempo_actual
                         
@@ -248,7 +275,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                             nuevo_estado_juego = "DIALOGO"
 
     # ----------------------------------------------------
-    # 2. IA DE LUCAS (Mantenemos tu ruta hardcodeada para el prólogo)
+    # 2. IA DE LUCAS
     # ----------------------------------------------------
     if tiempo_actual - tiempo_ultimo_paso_lucas > RETRASO_LUCAS:
         if lucas_x < 37 and lucas_y == 15:
@@ -265,7 +292,9 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         muro_empuje = (casilla_empuje == 1)
                         if casilla_empuje in imagenes_objetos and imagenes_objetos[casilla_empuje]["colision"]:
                             muro_empuje = True
-                        if not muro_empuje and (mx_nuevo, my_nuevo) != (lucas_x, lucas_y):
+                        # [ABUELA] No empujar a Mateo sobre la abuela
+                        bloquea_abuela = abuela_visible and (mx_nuevo, my_nuevo) == (abuela_x, abuela_y)
+                        if not muro_empuje and (mx_nuevo, my_nuevo) != (lucas_x, lucas_y) and not bloquea_abuela:
                             mateo_x, mateo_y = mx_nuevo, my_nuevo
                             lucas_x, lucas_y = nx_lucas, ny_lucas
                             break
@@ -292,6 +321,12 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     lucas_px_x += (lucas_obj_x - lucas_px_x) * VELOCIDAD_SUAVIZADO
     lucas_px_y += (lucas_obj_y - lucas_px_y) * VELOCIDAD_SUAVIZADO
 
+    # [ABUELA] Interpolación LERP de la abuela
+    abuela_obj_x = float(abuela_x * TAMANO_CASILLA)
+    abuela_obj_y = float(abuela_y * TAMANO_CASILLA)
+    abuela_px_x += (abuela_obj_x - abuela_px_x) * VELOCIDAD_SUAVIZADO
+    abuela_px_y += (abuela_obj_y - abuela_px_y) * VELOCIDAD_SUAVIZADO
+
     camara_x, camara_y = calcular_camara()
 
     # ----------------------------------------------------
@@ -307,6 +342,19 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 y_obj = (fila * TAMANO_CASILLA) - camara_y
                 if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
                     pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
+
+    # [ABUELA] Render de la abuela ANTES de Mateo y Lucas
+    if abuela_visible:
+        x_abuela_pantalla = int(abuela_px_x) - camara_x
+        y_abuela_pantalla = int(abuela_px_y) - camara_y
+        esta_caminando_abuela = abs(abuela_px_x - abuela_obj_x) > 0.5 or abs(abuela_px_y - abuela_obj_y) > 0.5
+        frame_abuela = (pygame.time.get_ticks() // 200) % 2 if esta_caminando_abuela else 0
+        img_abuela = sprites_abuela[direccion_abuela][frame_abuela]
+
+        if img_abuela.get_alpha() == 0:
+            pygame.draw.rect(pantalla, (200, 100, 100), (x_abuela_pantalla + 6, y_abuela_pantalla + 6, TAMANO_CASILLA - 12, TAMANO_CASILLA - 12))
+        else:
+            pantalla.blit(img_abuela, (x_abuela_pantalla, y_abuela_pantalla))
 
     x_lucas_pantalla = int(lucas_px_x) - camara_x
     y_lucas_pantalla = int(lucas_px_y) - camara_y
@@ -351,7 +399,6 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 alpha_transicion = 0
                 transicion_activa = False
 
-    # Dibujar la capa de oscuridad encima de todo
     if alpha_transicion > 0:
         superficie_negra = pygame.Surface((ANCHO_PANTALLA, ALTO_PANTALLA))
         superficie_negra.fill((0, 0, 0))
@@ -359,6 +406,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         pantalla.blit(superficie_negra, (0, 0))
 
     return nuevo_estado_juego
+
 
 def calcular_camara():
     camara_x = int(mateo_px_x) - (ANCHO_PANTALLA // 2)

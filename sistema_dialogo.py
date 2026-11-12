@@ -18,6 +18,7 @@ opcion_seleccionada = 0
 # Notificación estilo Telltale
 texto_notificacion = ""
 tiempo_inicio_notificacion = 0
+tiempo_ultima_interaccion = 0
 DURACION_NOTIFICACION = 3500
 
 # Animación tipo máquina de escribir
