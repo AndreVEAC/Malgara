@@ -30,7 +30,7 @@ TRIGGERS_PISAR = {
 
 PORTALES = {
     98: { "mapa": "intro", "spawn_x": 18, "spawn_y": 7 },
-    99: { "mapa": "llegada", "spawn_x": 2, "spawn_y": 7 }
+    99: { "mapa": "llegada", "spawn_x": 1, "spawn_y": 7 }
 }
 
 # Posición inicial de Mateo (pegado a la izquierda, en el centro vertical)
