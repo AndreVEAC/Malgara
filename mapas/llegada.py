@@ -1,5 +1,5 @@
 INICIO_X = 2
-INICIO_Y = 9
+INICIO_Y = 7
 FONDO_IMG = "recursos/sprites/fondos/fondo_entrada.png"
 
 INTERACTUABLES = {
@@ -9,15 +9,31 @@ INTERACTUABLES = {
 
 # --- SISTEMA GENÉRICO DE NPCs ---
 NPCS = {
+    "lucas": {
+        "x": 2,
+        "y": 8,
+        "direccion": "der",
+        "carpeta_sprite": "lucas",
+        "visible": True,
+        "comportamiento": "estatico"
+    },
     "abuela": {
-        "x": 16, 
-        "y": 5, 
-        "direccion": "abajo", 
+        "x": 16,
+        "y": 5,
+        "direccion": "abajo",
         "carpeta_sprite": "abuela",
-        "visible": True
+        "visible": True,
+        "comportamiento": "estatico"
     }
 }
 
+PORTALES = {
+    98: {
+        "mapa": "prologo",
+        "spawn_x": 37,
+        "spawn_y": 15
+    }
+}
 # Matriz completa para exploración y cinemática (15 filas x 20 columnas)
 # 1 = Colisión de la casa / muros
 # 10 = Colisión interactuable del pozo
@@ -30,9 +46,9 @@ MATRIZ = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 11, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -36,6 +36,7 @@ mapa_pendiente = None
 spawn_pendiente = None
 
 eventos_completados = set()
+estado_npcs_guardado = {}
 
 
 def cargar_sprites_personaje(carpeta):
@@ -57,6 +58,7 @@ def cargar_sprites_personaje(carpeta):
 def cargar_nivel(nombre_modulo, spawn_x=None, spawn_y=None):
     global transicion_activa, tipo_transicion, mapa_pendiente, spawn_pendiente, fondo_actual
 
+    
     spawn_pendiente = (spawn_x, spawn_y) if (spawn_x is not None and spawn_y is not None) else None
 
     if fondo_actual is None:
@@ -79,6 +81,9 @@ def _ejecutar_carga_real(nombre_modulo):
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
+    
+    filas_mapa = len(matriz_activa)
+    columnas_mapa = len(matriz_activa[0])
     
     if spawn_pendiente is not None:
         mateo_x, mateo_y = spawn_pendiente
@@ -137,9 +142,6 @@ def _ejecutar_carga_real(nombre_modulo):
     
     mateo_px_x = float(mateo_x * TAMANO_CASILLA)
     mateo_px_y = float(mateo_y * TAMANO_CASILLA)
-    
-    filas_mapa = len(matriz_activa)
-    columnas_mapa = len(matriz_activa[0])
     
     try:
         fondo_actual = pygame.image.load(mapa_datos.FONDO_IMG).convert()
