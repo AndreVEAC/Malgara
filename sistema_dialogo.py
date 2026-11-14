@@ -1,6 +1,7 @@
 import pygame
 import json
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA
+import sistema_mapa
 
 # ==========================================
 # VARIABLES GLOBALES DEL SISTEMA DE DIÁLOGOS
@@ -243,7 +244,13 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                 elif ev.key == pygame.K_DOWN:
                     opcion_seleccionada = (opcion_seleccionada + 1) % len(opciones_actuales)
                 elif ev.key == pygame.K_SPACE:
+                    
                     eleccion = opciones_actuales[opcion_seleccionada]
+                    # Avisar al director antes de cambiar al diálogo de respuesta.
+
+                    director = sistema_mapa.script_nivel_actual
+                    if director and hasattr(director, "al_elegir_opcion"):
+                        director.al_elegir_opcion(nombre_evento_activo)
 
                     # 1. Impacto de confianza de Lucas
                     if "efecto_lucas" in eleccion:

@@ -150,16 +150,33 @@ def _ejecutar_carga_real(nombre_modulo):
         fondo_actual.fill((30, 80, 40))
         
     imagenes_objetos.clear()
-    if hasattr(mapa_datos, 'DICCIONARIO_OBJETOS'):
-        for numero, datos in mapa_datos.DICCIONARIO_OBJETOS.items():
-            try:
-                img = pygame.image.load(datos["ruta"]).convert_alpha()
-                imagenes_objetos[numero] = {
-                    "img": img,
-                    "colision": datos["colision"]
-                }
-            except (pygame.error, FileNotFoundError):
-                pass
+
+    for numero, datos in getattr(
+        mapa_datos, "DICCIONARIO_OBJETOS", {}
+    ).items():
+        img = pygame.image.load(datos["ruta"]).convert_alpha()
+
+        # El tamaño es opcional para conservar los objetos antiguos.
+        if "ancho_casillas" in datos or "alto_casillas" in datos:
+            ancho = int(
+                datos.get(
+                    "ancho_casillas",
+                    img.get_width() / TAMANO_CASILLA
+                ) * TAMANO_CASILLA
+            )
+            alto = int(
+                datos.get(
+                    "alto_casillas",
+                    img.get_height() / TAMANO_CASILLA
+                ) * TAMANO_CASILLA
+            )
+            img = pygame.transform.scale(img, (ancho, alto))
+
+        imagenes_objetos[numero] = {
+            "img": img,
+            "colision": datos.get("colision", False),
+            "profundidad": datos.get("profundidad", False)
+        }
 
     sprites_mateo = cargar_sprites_personaje("mateo")
 
@@ -192,28 +209,7 @@ def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):
 
 
 def solo_dibujar(pantalla):
-    camara_x, camara_y = calcular_camara()
-
-    pantalla.blit(fondo_actual, (-camara_x, -camara_y))
-
-    for fila in range(filas_mapa):
-        for col in range(columnas_mapa):
-            casilla = matriz_activa[fila][col]
-            if casilla in imagenes_objetos:
-                x_obj = (col * TAMANO_CASILLA) - camara_x
-                y_obj = (fila * TAMANO_CASILLA) - camara_y
-                if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
-                    pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
-
-    _dibujar_npcs(pantalla, camara_x, camara_y, animar=False)
-
-    x_mateo_pantalla = int(mateo_px_x) - camara_x
-    y_mateo_pantalla = int(mateo_px_y) - camara_y
-    img_mateo = sprites_mateo[direccion_mateo][0]
-    if img_mateo.get_alpha() == 0:
-        pygame.draw.rect(pantalla, VERDE_MATEO, (x_mateo_pantalla + 4, y_mateo_pantalla + 4, TAMANO_CASILLA - 8, TAMANO_CASILLA - 8))
-    else:
-        pantalla.blit(img_mateo, (x_mateo_pantalla, y_mateo_pantalla))
+    _dibujar_escenario(pantalla, animar=False)
 
 
 def actualizar_y_dibujar(pantalla, estado_jugador):
@@ -323,32 +319,8 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             npc["px_x"] += (obj_x - npc["px_x"]) * VELOCIDAD_SUAVIZADO
             npc["px_y"] += (obj_y - npc["px_y"]) * VELOCIDAD_SUAVIZADO
 
-    camara_x, camara_y = calcular_camara()
-
-    # 4. RENDERIZADO VISUAL
-    pantalla.blit(fondo_actual, (-camara_x, -camara_y))
-
-    for fila in range(filas_mapa):
-        for col in range(columnas_mapa):
-            casilla = matriz_activa[fila][col]
-            if casilla in imagenes_objetos:
-                x_obj = (col * TAMANO_CASILLA) - camara_x
-                y_obj = (fila * TAMANO_CASILLA) - camara_y
-                if -TAMANO_CASILLA <= x_obj <= ANCHO_PANTALLA and -TAMANO_CASILLA <= y_obj <= ALTO_PANTALLA:
-                    pantalla.blit(imagenes_objetos[casilla]["img"], (x_obj, y_obj))
-
-    _dibujar_npcs(pantalla, camara_x, camara_y, animar=True)
-
-    x_mateo_pantalla = int(mateo_px_x) - camara_x
-    y_mateo_pantalla = int(mateo_px_y) - camara_y
-    esta_caminando_mateo = abs(mateo_px_x - mateo_obj_x) > 0.5 or abs(mateo_px_y - mateo_obj_y) > 0.5
-    frame_mateo = (pygame.time.get_ticks() // 150) % 2 if esta_caminando_mateo else 0
-    img_mateo = sprites_mateo[direccion_mateo][frame_mateo]
-    
-    if img_mateo.get_alpha() == 0:
-        pygame.draw.rect(pantalla, VERDE_MATEO, (x_mateo_pantalla + 4, y_mateo_pantalla + 4, TAMANO_CASILLA - 8, TAMANO_CASILLA - 8))
-    else:
-        pantalla.blit(img_mateo, (x_mateo_pantalla, y_mateo_pantalla))
+    # 4. RENDERIZADO CON PROFUNDIDAD
+    _dibujar_escenario(pantalla, animar=True)
 
     # 5. GESTIÓN DEL FUNDIDO A NEGRO
     if transicion_activa:
@@ -381,3 +353,110 @@ def calcular_camara():
     camara_x = max(0, min(camara_x, max(0, limite_x)))
     camara_y = max(0, min(camara_y, max(0, limite_y)))
     return camara_x, camara_y
+
+def _dibujar_escenario(pantalla, animar=True):
+    camara_x, camara_y = calcular_camara()
+    pantalla.blit(fondo_actual, (-camara_x, -camara_y))
+
+    elementos = []
+    tiempo = pygame.time.get_ticks()
+    ventana = pantalla.get_rect()
+
+    # Objetos del mapa.
+    for fila, casillas in enumerate(matriz_activa):
+        for col, numero in enumerate(casillas):
+            objeto = imagenes_objetos.get(numero)
+            if objeto is None:
+                continue
+
+            img = objeto["img"]
+
+            if objeto.get("profundidad", False):
+                # La casilla marcada representa la base.
+                # La imagen crece hacia arriba y queda centrada.
+                base_y = (fila + 1) * TAMANO_CASILLA
+                centro_x = (col + 0.5) * TAMANO_CASILLA
+
+                x = int(centro_x - img.get_width() / 2) - camara_x
+                y = int(base_y - img.get_height()) - camara_y
+
+                elementos.append((base_y, img, x, y))
+
+            else:
+                # Objetos antiguos: conservar su posición y capa.
+                x = col * TAMANO_CASILLA - camara_x
+                y = fila * TAMANO_CASILLA - camara_y
+
+                if img.get_rect(topleft=(x, y)).colliderect(ventana):
+                    pantalla.blit(img, (x, y))
+
+    # NPC visibles.
+    for npc in npcs_activos.values():
+        if not npc["visible"]:
+            continue
+
+        override = npc.get("sprite_override")
+        especiales = npc.get("sprites_especiales", {})
+
+        if override and override in especiales:
+            img = especiales[override]
+        else:
+            caminando = (
+                abs(npc["px_x"] - npc["x"] * TAMANO_CASILLA) > 0.5
+                or abs(npc["px_y"] - npc["y"] * TAMANO_CASILLA) > 0.5
+            )
+
+            frame = (
+                (tiempo // 200) % 2
+                if animar and caminando
+                else 0
+            )
+            img = npc["sprites"][npc["direccion"]][frame]
+
+        elementos.append((
+            npc["px_y"] + TAMANO_CASILLA,
+            img,
+            int(npc["px_x"]) - camara_x,
+            int(npc["px_y"]) - camara_y
+        ))
+
+    # Mateo.
+    caminando = (
+        abs(mateo_px_x - mateo_x * TAMANO_CASILLA) > 0.5
+        or abs(mateo_px_y - mateo_y * TAMANO_CASILLA) > 0.5
+    )
+
+    frame = (
+        (tiempo // 150) % 2
+        if animar and caminando
+        else 0
+    )
+    img = sprites_mateo[direccion_mateo][frame]
+
+    elementos.append((
+        mateo_px_y + TAMANO_CASILLA,
+        img,
+        int(mateo_px_x) - camara_x,
+        int(mateo_px_y) - camara_y
+    ))
+
+    # Los elementos más abajo se dibujan al final.
+    elementos.sort(key=lambda elemento: elemento[0])
+
+    for _, img, x, y in elementos:
+        # Comprobar el rectángulo completo permite mostrar postes
+        # cuya base queda fuera de la pantalla.
+        if img.get_rect(topleft=(x, y)).colliderect(ventana):
+            pantalla.blit(img, (x, y))
+            
+def casilla_bloqueada(x, y):
+    if not (0 <= x < columnas_mapa and 0 <= y < filas_mapa):
+        return True
+
+    casilla = matriz_activa[y][x]
+
+    if casilla == 1 or casilla in interactuables_activos:
+        return True
+
+    objeto = imagenes_objetos.get(casilla)
+    return bool(objeto and objeto["colision"])

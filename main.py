@@ -15,7 +15,7 @@ estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
 # Cargamos el prólogo al iniciar el juego
-sistema_mapa.cargar_nivel("llegada")
+sistema_mapa.cargar_nivel("pueblo_1")
 sistema_audio.reproducir_ambiente("viento_desierto")
 
 ejecutando = True

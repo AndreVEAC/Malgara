@@ -1,0 +1,420 @@
+{
+  "evento_pers_1": {
+    "lineas": [
+      {"hablante": "Señora de la banca", "texto": "¡Ustedes deben ser los muchachos!"},
+      {"hablante": "Mateo", "texto": "¿Ya se enteró todo el pueblo?"},
+      {"hablante": "Señora de la banca", "texto": "Tu abuela pasó por aquí hace un rato."},
+      {"hablante": "Señora de la banca", "texto": "Hacía mucho que no la veía tan contenta."},
+      {"hablante": "Lucas", "texto": "A nosotros casi no nos dejó hablar."},
+      {"hablante": "Señora de la banca", "texto": "Eso es que les tiene cariño."},
+      {"hablante": "Señora de la banca", "texto": "Siéntense. Les guardé este lugar."}
+    ],
+    "opciones": [
+      {
+        "texto": "Siéntate, Lucas. Te lo ganaste.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas aprecia que pienses en él.",
+        "siguiente_evento": "banca_amable"
+      },
+      {
+        "texto": "Gracias, queremos conocer el pueblo.",
+        "siguiente_evento": "banca_neutral"
+      },
+      {
+        "texto": "No lo anime, solo se queja.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas recordará ese comentario.",
+        "siguiente_evento": "banca_burla"
+      }
+    ]
+  },
+  "banca_amable": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "¿Ves? Alguien respeta mis pies."},
+      {"hablante": "Señora de la banca", "texto": "Aquí nadie los apresura."}
+    ]
+  },
+  "banca_neutral": {
+    "lineas": [
+      {"hablante": "Señora de la banca", "texto": "Claro, hijos, la banca no se mueve."}
+    ]
+  },
+  "banca_burla": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Llevé todo el camino mi mochila."},
+      {"hablante": "Señora de la banca", "texto": "Pues descansen los dos, aunque sea luego."}
+    ]
+  },
+
+  "evento_pers_2": {
+    "lineas": [
+      {"hablante": "Hombre de las llaves", "texto": "Buenas. ¿Encontraron bien el camino?"},
+      {"hablante": "Mateo", "texto": "Nos costó un poco."},
+      {"hablante": "Hombre de las llaves", "texto": "Seguramente tardaron más de lo esperado para llegar."},
+      {"hablante": "Lucas", "texto": "Se lo aseguro."},
+      {"hablante": "Hombre de las llaves", "texto": "Si algo falla en la casa, me avisan."},
+      {"hablante": "Hombre de las llaves", "texto": "Las puertas viejas tienen su maña."},
+      {"hablante": "Mateo", "texto": "¿Cuesta abrirlas?"},
+      {"hablante": "Hombre de las llaves", "texto": "Con la llave buena, ninguna."}
+    ],
+    "opciones": [
+      {
+        "texto": "¿Y quién tiene las llaves?",
+        "siguiente_evento": "llaves_pregunta"
+      },
+      {
+        "texto": "Lucas también tiene lo suyo...con las maletas de 30 kilos.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas disfruta tus bromas.",
+        "siguiente_evento": "llaves_broma"
+      },
+      {
+        "texto": "Ojalá no se atasque cuando quiera irme.",
+        "siguiente_evento": "llaves_salida"
+      }
+    ]
+  },
+  "llaves_pregunta": {
+    "lineas": [
+      {"hablante": "Hombre de las llaves", "texto": "Tu abuela sabrá a quién pedirlas."},
+      {"hablante": "Hombre de las llaves", "texto": "Yo solo arreglo las cerraduras."}
+    ]
+  },
+  "llaves_broma": {
+    "lineas": [
+        { "hablante": "Hombre de las llaves", "texto": "Treinta kilos... Y usted, ¿qué lleva?" },
+        { "hablante": "Mateo", "texto": "Lo necesario." },
+        { "hablante": "Hombre de las llaves", "texto": "Bien. Porque el que carga con la maleta del otro..." },
+        { "hablante": "Hombre de las llaves", "texto": "...termina cargando con todo." },
+        { "hablante": "Lucas", "texto": "Me gusta este hombre." }
+    ]
+    },
+  "llaves_salida": {
+    "lineas": [
+      {"hablante": "Hombre de las llaves", "texto": "Si está duro, no tires fuerte. Me llamas."}
+    ]
+  },
+
+  "evento_pers_3": {
+    "lineas": [
+      {"hablante": "Cuidadora de flores", "texto": "¿Tú eres el fotógrafo?"},
+      {"hablante": "Lucas", "texto": "Depende. ¿Quién pregunta?"},
+      {"hablante": "Cuidadora de flores", "texto": "La que cuida estas flores."},
+      {"hablante": "Lucas", "texto": "Entonces sí. Buen trabajo, por cierto."},
+      {"hablante": "Cuidadora de flores", "texto": "Tu abuela dijo que venían juntos."},
+      {"hablante": "Cuidadora de flores", "texto": "¿También sales en las fotos?"},
+      {"hablante": "Lucas", "texto": "Casi nunca. Alguien tiene que hacerlas."}
+    ],
+    "opciones": [
+      {
+        "texto": "Yo sostengo la cámara a la siguiente",
+        "efecto_lucas": 2,
+        "notificacion": "Lucas recordará que lo incluiste.",
+        "siguiente_evento": "flores_juntos"
+      },
+      {
+        "texto": "Prefiero recordar las cosas sin fotos.",
+        "siguiente_evento": "flores_recuerdos"
+      },
+      {
+        "texto": "las cámaras para los fotógrafos",
+        "efecto_lucas": -2,
+        "notificacion": "A Lucas le molestó ese comentario.",
+        "siguiente_evento": "flores_desprecio"
+      }
+    ]
+  },
+  "flores_juntos": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Es lo mejor que has dicho en todo el día."}
+    ]
+  },
+  "flores_recuerdos": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Yo también. Pero mi memoria desenfoca."},
+      {"hablante": "Cuidadora de flores", "texto": "La mía ya recorta personas."}
+    ]
+  },
+  "flores_desprecio": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Qué bien hablas de tus compañeros."},
+      {"hablante": "Cuidadora de flores", "texto": "Pues a mí me parece simpático."}
+    ]
+  },
+
+  "evento_pers_4": {
+    "lineas": [
+      {"hablante": "Panadero", "texto": "¡Los muchachos! Tu abuela me avisó."},
+      {"hablante": "Lucas", "texto": "Nosotros encontramos el sitio por el olor."},
+      {"hablante": "Panadero", "texto": "Eso vale más que poner un letrero."},
+      {"hablante": "Mateo", "texto": "¿Lleva mucho con la panadería?"},
+      {"hablante": "Panadero", "texto": "Desde que alcanzaba el mostrador."},
+      {"hablante": "Panadero", "texto": "Ahora me cuesta más amasar."},
+      {"hablante": "Panadero", "texto": "Pero cerrar me costaría todavía más."},
+      {"hablante": "Lucas", "texto": "A mí ya me daría pena que cerrara."}
+    ],
+    "opciones": [
+      {
+        "texto": "Y eso que aún no has probado el pan.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas disfruta tu sentido del humor.",
+        "siguiente_evento": "pan_broma"
+      },
+      {
+        "texto": "Se nota que le tiene cariño al oficio.",
+        "siguiente_evento": "pan_oficio"
+      },
+      {
+        "texto": "Solo lo dice porque tenemos hambre.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas sintió que fue innecesario.",
+        "siguiente_evento": "pan_burla"
+      }
+    ]
+  },
+  "pan_broma": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Estoy valorando el ambiente."},
+      {"hablante": "Panadero", "texto": "Este muchacho sabe quedar bien."}
+    ]
+  },
+  "pan_oficio": {
+    "lineas": [
+      {"hablante": "Panadero", "texto": "Aquí conocí a mi mujer."},
+      {"hablante": "Panadero", "texto": "Entró por pan. Volvió por mí."},
+      {"hablante": "Lucas", "texto": "Voy a tener que revisar más las panaderías."}
+    ]
+  },
+  "pan_burla": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "También puedo ser amable sin hambre."},
+      {"hablante": "Panadero", "texto": "Pues aquí caben las dos cosas."}
+    ]
+  },
+
+  "evento_pers_5": {
+    "lineas": [
+      {"hablante": "Muchacho curioso", "texto": "¿Es verdad que vienen de la ciudad?"},
+      {"hablante": "Mateo", "texto": "Sí. Soy Mateo. Él es Lucas."},
+      {"hablante": "Muchacho curioso", "texto": "Yo nunca he salido del valle."},
+      {"hablante": "Muchacho curioso", "texto": "¿Hay tiendas abiertas de noche?"},
+      {"hablante": "Lucas", "texto": "Algunas. He cenado en varias."},
+      {"hablante": "Muchacho curioso", "texto": "Aquí a esa hora ya está todo cerrado."},
+      {"hablante": "Muchacho curioso", "texto": "¿Y ustedes qué hacen tan tarde?"}
+    ],
+    "opciones": [
+      {
+        "texto": "Trabajar. No siempre es emocionante.",
+        "siguiente_evento": "joven_trabajo"
+      },
+      {
+        "texto": "Lucas se distrae con las fotos. Yo lo arrastro.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas se toma bien tu broma.",
+        "siguiente_evento": "joven_broma"
+      },
+      {
+        "texto": "¿Y tú por qué andas despierto a esta hora?",
+        "efecto_lucas": -2,
+        "notificacion": "Lucas desaprueba tu indiferencia",
+        "siguiente_evento": "joven_desprecio"
+      }
+    ]
+  },
+  "joven_trabajo": {
+    "lineas": [
+      {"hablante": "Muchacho curioso", "texto": "Ah. Yo pensaba que habría más cosas."},
+      {"hablante": "Lucas", "texto": "También hay cosas. A veces hasta dormimos."}
+    ]
+  },
+  "joven_broma": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "No es mi culpa que haya tantas cosas que fotografiar."},
+      {"hablante": "Mateo", "texto": "Todavía no llevamos dos días."}
+    ]
+  },
+  "joven_desprecio": {
+    "lineas": [
+      {"hablante": "Muchacho curioso", "texto": "Pues… me la paso encerrado"},
+      {"hablante": "Lucas", "texto": "Es normal en chicos de tu edad"}
+    ]
+  },
+
+  "evento_pers_6": {
+    "lineas": [
+      {"hablante": "Mujer", "texto": "Cuidado con ese barril."},
+      {"hablante": "Mateo", "texto": "¿Estorba el paso?"},
+      {"hablante": "Mujer", "texto": "Un poco. Dentro queda buen hueco."},
+      {"hablante": "Mujer", "texto": "Yo me pongo ahí cuando barren."},
+      {"hablante": "Lucas", "texto": "¿Para no ayudar?"},
+      {"hablante": "Mujer", "texto": "Para que no me llenen de polvo."},
+      {"hablante": "Mujer", "texto": "De lejos no te ven."}
+    ],
+    "opciones": [
+      {
+        "texto": "¿Y funciona?",
+        "siguiente_evento": "mujer_barriles"
+      },
+      {
+        "texto": "Ya sabemos como evitar las tareas.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas se rió",
+        "siguiente_evento": "mujer_broma"
+      },
+      {
+        "texto": "Habrá sitios más cómodos para descansar.",
+        "siguiente_evento": "mujer_descanso"
+      }
+    ]
+  },
+  "mujer_barriles": {
+    "lineas": [
+      {"hablante": "Mujer", "texto": "Definitivamente, es difícil que te vean"}
+    ]
+  },
+  "mujer_broma": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Estoy haciendo turismo, no servicio social."},
+      {"hablante": "Mujer", "texto": "Pues disfruten mientras hay luz."}
+    ]
+  },
+  "mujer_descanso": {
+    "lineas": [
+      {"hablante": "Mujer", "texto": "Claro. Solo te decía por si hace falta."}
+    ]
+  },
+
+  "pers_1_repetir": {
+    "lineas": [
+      {"hablante": "Señora de la banca", "texto": "Aquí seguiré, hijos. Disfruten el paseo."}
+    ]
+  },
+  "pers_2_repetir": {
+    "lineas": [
+      {"hablante": "Hombre de las llaves", "texto": "Si necesitan algo, pregunten por aquí."}
+    ]
+  },
+  "pers_3_repetir": {
+    "lineas": [
+      {"hablante": "Cuidadora de flores", "texto": "Vuelvan cuando quieran. Las flores también."}
+    ]
+  },
+  "pers_4_repetir": {
+    "lineas": [
+      {"hablante": "Panadero", "texto": "Con este olor, seguro que vuelven."}
+    ]
+  },
+  "pers_5_repetir": {
+    "lineas": [
+      {"hablante": "Muchacho curioso", "texto": "Luego me cuentan más de la ciudad."}
+    ]
+  },
+  "pers_6_repetir": {
+    "lineas": [
+      {"hablante": "Mujer", "texto": "Con permiso. Aquí estoy bien, a la sombra."}
+    ]
+  },
+
+  "evento_fuente": {
+    "lineas": [
+        {"hablante": "Mateo", "texto": "El agua de la fuente está bastante clara."},
+        {"hablante": "Lucas", "texto": "Busca una moneda dentro."},
+        {"hablante": "Mateo", "texto": "¿Para qué?"},
+        {"hablante": "Lucas", "texto": "Para ver si alguien pidió un deseo."}
+    ],
+    "opciones": [
+        {
+        "texto": "Sí, buscar una moneda.",
+        "siguiente_evento": "fuente_buscar"
+        },
+        {
+        "texto": "No, mejor sigamos.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas no te considera divertido.",
+        "siguiente_evento": "fuente_no_buscar"
+        }
+    ]
+    },
+  "fuente_buscar": {
+    "lineas": [
+        {"hablante": "Mateo", "texto": "No hay nada."},
+        {"hablante": "Lucas", "texto": "Eso fue muy anticlimático."}
+    ]
+    },
+  "fuente_no_buscar": {
+    "lineas": [
+        {"hablante": "Mateo", "texto": "No. Mejor sigamos buscando a mi abuela."},
+        {"hablante": "Lucas", "texto": "Bueno, señor ocupado."}
+    ]
+    },
+  "fuente_repetir": {
+    "lineas": [
+        {"hablante": "Mateo", "texto": "El sonido del agua es agradable."}
+    ]
+    },
+
+  "evento_casa": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "La casa de la abuela." },
+      { "hablante": "Mateo", "texto": "Tiene las ventanas cerradas." },
+      { "hablante": "Mateo", "texto": "Mejor busco a la abuela antes de entrar." }
+    ]
+  },
+
+  "evento_flores": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Un puesto de flores." },
+      { "hablante": "Mateo", "texto": "Huele a cempasúchil y a algo más dulce." },
+      { "hablante": "Mateo", "texto": "Quizá luego. Primero tengo que encontrar a la abuela." }
+    ]
+  },
+
+  "evento_botica": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "La botánica del pueblo." },
+      { "hablante": "Mateo", "texto": "En la vitrina hay hierbas que no reconozco." },
+      { "hablante": "Mateo", "texto": "No es momento de entrar. La abuela me espera." }
+    ]
+  },
+
+  "evento_panaderia": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "La panadería." },
+      { "hablante": "Mateo", "texto": "El olor a pan recién hecho llega hasta la calle." },
+      { "hablante": "Mateo", "texto": "Después. Primero la abuela." }
+    ]
+  },
+
+  "evento_sastreria": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Una sastrería." },
+      { "hablante": "Mateo", "texto": "En el escaparate hay un traje de novio antiguo." },
+      { "hablante": "Mateo", "texto": "Ahora no. La abuela me está esperando." }
+    ]
+  },
+
+  "evento_pozo": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Un pozo profundo." },
+      { "hablante": "Mateo", "texto": "El agua debe estar muy abajo." },
+      { "hablante": "Mateo", "texto": "Alguien dejó una cuerda atada al brocal." }
+    ]
+  },
+
+  "evento_barril": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Un barril de madera." },
+      { "hablante": "Mateo", "texto": "Huele a vino viejo y a polvo." },
+      { "hablante": "Mateo", "texto": "Está vacío. O eso parece." }
+    ]
+  },
+
+  "evento_banca": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Una banca de hierro forjado." },
+      { "hablante": "Mateo", "texto": "Alguien grabó unas iniciales en el respaldo." },
+      { "hablante": "Mateo", "texto": "«E. y J.»" },
+      { "hablante": "Mateo", "texto": "No sé por qué, pero me suena." }
+    ]
+  }
+}

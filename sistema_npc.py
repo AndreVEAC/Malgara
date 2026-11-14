@@ -71,12 +71,9 @@ def _actualizar_patrulla(npc, tiempo_actual):
         if otro["visible"] and (nx, ny) == (otro["x"], otro["y"]):
             return
 
-    # Colisión con muros
-    if sistema_mapa.matriz_activa[ny][nx] == 1:
+    if sistema_mapa.casilla_bloqueada(nx, ny):
         return
-    if sistema_mapa.matriz_activa[ny][nx] in sistema_mapa.interactuables_activos:
-        return
-
+    
     npc["x"], npc["y"] = nx, ny
 
 
@@ -99,16 +96,14 @@ def _intentar_empujar_mateo(dx, dy):
 def _puede_mover_mateo(ex, ey):
     nx = sistema_mapa.mateo_x + ex
     ny = sistema_mapa.mateo_y + ey
-    if not (0 <= nx < sistema_mapa.columnas_mapa and 0 <= ny < sistema_mapa.filas_mapa):
+
+    if sistema_mapa.casilla_bloqueada(nx, ny):
         return False
-    casilla = sistema_mapa.matriz_activa[ny][nx]
-    if casilla == 1:
-        return False
-    if casilla in sistema_mapa.interactuables_activos:
-        return False
+
     for npc in sistema_mapa.npcs_activos.values():
         if npc["visible"] and (nx, ny) == (npc["x"], npc["y"]):
             return False
+
     return True
 
 
