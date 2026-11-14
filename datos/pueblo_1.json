@@ -355,17 +355,16 @@
 
   "evento_casa": {
     "lineas": [
-      { "hablante": "Mateo", "texto": "La casa de la abuela." },
+      { "hablante": "Mateo", "texto": "Una casa de un habitante" },
       { "hablante": "Mateo", "texto": "Tiene las ventanas cerradas." },
-      { "hablante": "Mateo", "texto": "Mejor busco a la abuela antes de entrar." }
+      { "hablante": "Mateo", "texto": "Mejor busco a la abuela" }
     ]
   },
 
-  "evento_flores": {
+  "evento_maceta": {
     "lineas": [
-      { "hablante": "Mateo", "texto": "Un puesto de flores." },
-      { "hablante": "Mateo", "texto": "Huele a cempasúchil y a algo más dulce." },
-      { "hablante": "Mateo", "texto": "Quizá luego. Primero tengo que encontrar a la abuela." }
+      { "hablante": "Mateo", "texto": "Una maceta enorme." },
+      { "hablante": "Mateo", "texto": "Hacen mas bonito el lugar." }
     ]
   },
 
@@ -393,9 +392,17 @@
     ]
   },
 
+  "evento_flores": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Un puesto de flores." },
+      { "hablante": "Mateo", "texto": "Huele a cempasúchil y a algo más dulce." },
+      { "hablante": "Mateo", "texto": "Quizá luego. Primero tengo que encontrar a la abuela." }
+    ]
+  },
+
   "evento_pozo": {
     "lineas": [
-      { "hablante": "Mateo", "texto": "Un pozo profundo." },
+      { "hablante": "Mateo", "texto": "Otro pozo profundo." },
       { "hablante": "Mateo", "texto": "El agua debe estar muy abajo." },
       { "hablante": "Mateo", "texto": "Alguien dejó una cuerda atada al brocal." }
     ]
@@ -405,16 +412,13 @@
     "lineas": [
       { "hablante": "Mateo", "texto": "Un barril de madera." },
       { "hablante": "Mateo", "texto": "Huele a vino viejo y a polvo." },
-      { "hablante": "Mateo", "texto": "Está vacío. O eso parece." }
+      { "hablante": "Mateo", "texto": "Está vacío" }
     ]
   },
 
   "evento_banca": {
     "lineas": [
-      { "hablante": "Mateo", "texto": "Una banca de hierro forjado." },
-      { "hablante": "Mateo", "texto": "Alguien grabó unas iniciales en el respaldo." },
-      { "hablante": "Mateo", "texto": "«E. y J.»" },
-      { "hablante": "Mateo", "texto": "No sé por qué, pero me suena." }
+      { "hablante": "Mateo", "texto": "Una banca de hierro forjado." }
     ]
   }
 }

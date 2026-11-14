@@ -1,6 +1,8 @@
 # mapas/prologo.py
 
 FONDO_IMG = "recursos/sprites/fondos/fondo_prologo.png"  # Tu imagen de 1600x1200 px
+AMBIENTE = "viento_desierto"
+VOLUMEN_AMBIENTE = 0.4
 
 NPCS = {
     "lucas": {

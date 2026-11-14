@@ -4,7 +4,6 @@ from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TITULO_JUEGO, FPS
 from estado import EstadoJuego
 import sistema_mapa
 import sistema_dialogo
-import sistema_audio
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -14,9 +13,8 @@ reloj = pygame.time.Clock()
 estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
-# Cargamos el prólogo al iniciar el juego
+# Cargamos el intro al iniciar el juego
 sistema_mapa.cargar_nivel("pueblo_1")
-sistema_audio.reproducir_ambiente("viento_desierto")
 
 ejecutando = True
 ejecutando = True

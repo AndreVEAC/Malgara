@@ -235,7 +235,6 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                         return "EXPLORACION"
 
     # LÓGICA DE MENÚ DE DECISIONES
-    # LÓGICA DE MENÚ DE DECISIONES
     else:
         for ev in eventos:
             if ev.type == pygame.KEYDOWN:

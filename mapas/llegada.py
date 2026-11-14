@@ -1,6 +1,8 @@
 INICIO_X = 2
 INICIO_Y = 7
 FONDO_IMG = "recursos/sprites/fondos/fondo_entrada.png"
+AMBIENTE = "viento_desierto"
+VOLUMEN_AMBIENTE = 0.4
 
 INTERACTUABLES = {
     10: "evento_pozo",

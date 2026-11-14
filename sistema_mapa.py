@@ -4,6 +4,7 @@ from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TAMANO_CASILLA, VERDE_MATEO
 import sistema_dialogo
 import sistema_npc
+import sistema_audio
 
 matriz_activa = []
 fondo_actual = None
@@ -117,7 +118,8 @@ def _ejecutar_carga_real(nombre_modulo):
                 "sprites_especiales": sprites_esp,
                 "sprite_override": None,
                 "comportamiento": datos.get("comportamiento", "estatico"),
-                "patrulla": dict(datos["patrulla"]) if "patrulla" in datos else {}
+                "patrulla": dict(datos.get("patrulla", {})),
+                "seguimiento": dict(datos.get("seguimiento", {})),          
             }
             
     # --- CARGAR INTERACTUABLES, TRIGGERS Y PORTALES ---
@@ -179,6 +181,14 @@ def _ejecutar_carga_real(nombre_modulo):
         }
 
     sprites_mateo = cargar_sprites_personaje("mateo")
+        # Si el mapa declara un ambiente, aplicarlo.
+    # Si no lo declara, conservar el que ya está sonando.
+    if hasattr(mapa_datos, "AMBIENTE"):
+        sistema_audio.reproducir_ambiente(
+            mapa_datos.AMBIENTE,
+            volumen=getattr(mapa_datos, "VOLUMEN_AMBIENTE", 0.4),
+            fade_ms=1000
+        )
 
 
 def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):

@@ -1,6 +1,8 @@
 FONDO_IMG = "recursos/sprites/fondos/intro_fondo.png"  # El fondo que diseñes
 INICIO_X = 7
 INICIO_Y = 7
+AMBIENTE = "viento_desierto"
+VOLUMEN_AMBIENTE = 0.4
 
 NPCS = {
     "lucas": {
