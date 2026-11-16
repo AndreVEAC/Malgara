@@ -5,6 +5,7 @@ from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TAMANO_CASILLA, VERDE_M
 import sistema_dialogo
 import sistema_npc
 import sistema_audio
+from collections import deque
 
 matriz_activa = []
 fondo_actual = None
@@ -181,6 +182,8 @@ def _ejecutar_carga_real(nombre_modulo):
         }
 
     sprites_mateo = cargar_sprites_personaje("mateo")
+    
+    colocar_seguidores_cerca()
         # Si el mapa declara un ambiente, aplicarlo.
     # Si no lo declara, conservar el que ya está sonando.
     if hasattr(mapa_datos, "AMBIENTE"):
@@ -189,7 +192,6 @@ def _ejecutar_carga_real(nombre_modulo):
             volumen=getattr(mapa_datos, "VOLUMEN_AMBIENTE", 0.4),
             fade_ms=1000
         )
-
 
 def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):
     for npc_id, npc in npcs_activos.items():
@@ -470,3 +472,67 @@ def casilla_bloqueada(x, y):
 
     objeto = imagenes_objetos.get(casilla)
     return bool(objeto and objeto["colision"])
+
+def colocar_seguidores_cerca():
+    """Colocar los seguidores cerca del punto de entrada de Mateo."""
+    for npc in npcs_activos.values():
+        if (
+            not npc.get("visible", True)
+            or npc.get("comportamiento") != "sigue_jugador"
+        ):
+            continue
+
+        ocupadas = {
+            (otro["x"], otro["y"])
+            for otro in npcs_activos.values()
+            if otro is not npc and otro.get("visible", True)
+        }
+
+        inicio = (mateo_x, mateo_y)
+        pendientes = deque([inicio])
+        visitadas = {inicio}
+        destino = None
+
+        while pendientes:
+            x, y = pendientes.popleft()
+
+            if (x, y) != inicio and (x, y) not in ocupadas:
+                destino = (x, y)
+                break
+
+            # Preferir aparecer debajo o al lado de Mateo.
+            for dx, dy in ((0, 1), (1, 0), (-1, 0), (0, -1)):
+                nx, ny = x + dx, y + dy
+
+                if (nx, ny) in visitadas:
+                    continue
+
+                visitadas.add((nx, ny))
+
+                if casilla_bloqueada(nx, ny):
+                    continue
+
+                if (nx, ny) in ocupadas:
+                    continue
+
+                casilla = matriz_activa[ny][nx]
+
+                # No colocar al acompañante sobre una salida o evento.
+                if (
+                    casilla in portales_activos
+                    or casilla in triggers_pisar_activos
+                ):
+                    continue
+
+                pendientes.append((nx, ny))
+
+        if destino is None:
+            continue
+
+        npc["x"], npc["y"] = destino
+
+        # Ajustar también los píxeles para evitar que se vea
+        # desplazarse desde su antigua posición.
+        npc["px_x"] = float(npc["x"] * TAMANO_CASILLA)
+        npc["px_y"] = float(npc["y"] * TAMANO_CASILLA)
+        npc["_tiempo_ultimo_paso"] = pygame.time.get_ticks()

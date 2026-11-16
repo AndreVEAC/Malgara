@@ -52,7 +52,7 @@ PORTALES = {
         "spawn_y": 7
     },
     97: {
-        "mapa": "pueblo_2",
+        "mapa": "pueblo_2_cinematica",
         "spawn_x": 1,
         "spawn_y": 7
     }
