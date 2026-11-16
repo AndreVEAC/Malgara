@@ -1,0 +1,163 @@
+{
+  "evento_antes_bienvenida": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Vaya... Esto sí es una bienvenida."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No sabía que vendría el pueblo entero."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mucho escándalo para dos recién llegados."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿No crees?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vamos, nos espera un largo día."
+      }
+    ]
+  },
+
+  "evento_bienvenida": {
+    "lineas": [
+      {
+        "hablante": "???",
+        "texto": "¡Ah, los muchachos!"
+      },
+      {
+        "hablante": "???",
+        "texto": "Disculpen el alboroto."
+      },
+      {
+        "hablante": "???",
+        "texto": "Casi no recibimos visitas."
+      },
+      {
+        "hablante": "???",
+        "texto": "Y menos visitas tan esperadas."
+      },
+      {
+        "hablante": "Abuela",
+        "texto": "¡Señor Eduardo, no los asuste!"
+      },
+      {
+        "hablante": "???",
+        "texto": "No los asusto, Elena."
+      },
+      {
+        "hablante": "???",
+        "texto": "Solo soy hospitalario."
+      },
+      {
+        "hablante": "???",
+        "texto": "Permítanme presentarme."
+      },
+      {
+        "hablante": "???",
+        "texto": "Soy Eduardo Álvarez, el líder de Malgara."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "He preparado un hogar temporal para ustedes."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Está justo al sur de la plaza."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Solo tienen que seguir el primer camino."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Es pequeño, pero acogedor."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Se lo agradecemos mucho."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "No hay de qué."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "En Malgara cuidamos a nuestros invitados."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Especialmente a los que vienen de lejos."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Díganme, ¿cuánto tiempo piensan quedarse?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Solo tres días."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Queremos ver de dónde viene mi familia."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Tres días."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Es una buena noticia."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Suficiente tiempo para encariñarse."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Verás, muchacho, Malgara no recibe a cualquiera."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Llevamos más de dos años sin invitados."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Y tú eres el nieto de Elena."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Eso los hace muy especiales."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Me siento halagado."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Nunca había recibido tanta atención."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Por supuesto, son nuestros invitados."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Ahora vayan a descansar."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Mañana empieza la celebración."
+      },
+      {
+        "hablante": "Eduardo Álvarez",
+        "texto": "Y no me gustaría que se la perdieran."
+      }
+    ]
+  }
+}
