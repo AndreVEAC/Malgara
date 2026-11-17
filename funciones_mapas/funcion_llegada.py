@@ -17,9 +17,28 @@ def iniciar():
     sistema_dialogo.cargar_json("datos/llegada.json")
 
     # Al volver a este mapa, la escena ya no se repite.
+    # Al volver, no repetir la escena de llegada.
     if "llegada_completada" in sistema_mapa.eventos_completados:
-        sistema_mapa.npcs_activos["abuela"]["visible"] = False
-        sistema_mapa.npcs_activos["lucas"]["visible"] = False
+        lucas = sistema_mapa.npcs_activos["lucas"]
+        abuela = sistema_mapa.npcs_activos["abuela"]
+
+        lucas["visible"] = False
+
+        # Después de la bienvenida, la abuela vuelve a su casa.
+        abuela["visible"] = (
+            "bienvenida_pueblo_completada"
+            in sistema_mapa.eventos_completados
+        )
+
+        abuela["x"] = 16
+        abuela["y"] = 5
+        abuela["px_x"] = float(16 * TAMANO_CASILLA)
+        abuela["px_y"] = float(5 * TAMANO_CASILLA)
+        abuela["direccion"] = "abajo"
+        abuela["comportamiento"] = "estatico"
+        abuela["pausado"] = True
+        abuela["sprite_override"] = None
+
         sistema_mapa.jugador_bloqueado = False
         estado_escena = "JUGABLE"
         return

@@ -420,5 +420,17 @@
     "lineas": [
       { "hablante": "Mateo", "texto": "Una banca de hierro forjado." }
     ]
+  },
+  "evento_casa_bloqueada": {
+  "lineas": [
+    {
+      "hablante": "Mateo",
+      "texto": "Primero tenemos que encontrar a mi abuela."
+    },
+    {
+      "hablante": "Lucas",
+      "texto": "A lo mejor ella sabe dónde podemos quedarnos."
+      }
+    ]
   }
 }

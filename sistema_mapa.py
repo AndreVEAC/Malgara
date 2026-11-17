@@ -39,6 +39,11 @@ spawn_pendiente = None
 
 eventos_completados = set()
 estado_npcs_guardado = {}
+bloqueos_activos = {}
+
+RUTA_CAJA_BLOQUEO = (
+    "recursos/sprites/objetos/caja_bloqueo.png"
+)
 
 
 def cargar_sprites_personaje(carpeta):
@@ -81,6 +86,7 @@ def _ejecutar_carga_real(nombre_modulo):
     global spawn_pendiente
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
+    bloqueos_activos.clear()
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
     
@@ -183,6 +189,8 @@ def _ejecutar_carga_real(nombre_modulo):
 
     sprites_mateo = cargar_sprites_personaje("mateo")
     
+    cargar_bloqueos(mapa_datos)
+    
     colocar_seguidores_cerca()
         # Si el mapa declara un ambiente, aplicarlo.
     # Si no lo declara, conservar el que ya está sonando.
@@ -235,11 +243,17 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     if script_nivel_actual and hasattr(script_nivel_actual, "actualizar"):
         script_nivel_actual.actualizar()
         
+    actualizar_bloqueos()
+        
     if sistema_dialogo.obtener_evento_activo() is not None:
         nuevo_estado_juego = "DIALOGO"
 
     # 1. CONTROL DE MATEO
-    if not jugador_bloqueado:
+    if (
+        not jugador_bloqueado
+        and not transicion_activa
+        and sistema_dialogo.obtener_evento_activo() is None
+    ):
         teclas = pygame.key.get_pressed()
         
         tiempo_desde_cierre = tiempo_actual - sistema_dialogo.obtener_tiempo_ultimo_cierre()
@@ -253,17 +267,30 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             elif direccion_mateo == "der": tx += 1
             
             if 0 <= tx < columnas_mapa and 0 <= ty < filas_mapa:
-                casilla_frente = matriz_activa[ty][tx]
-                if casilla_frente in interactuables_activos:
-                    nombre_evento = interactuables_activos[casilla_frente]
+                bloqueo = bloqueos_activos.get((tx, ty))
+
+                if bloqueo is not None:
+                    nombre_evento = bloqueo["dialogo"]
+                else:
+                    casilla_frente = matriz_activa[ty][tx]
+                    nombre_evento = interactuables_activos.get(
+                        casilla_frente
+                    )
+
+                if nombre_evento:
                     sistema_dialogo.iniciar_dialogo(nombre_evento)
                     tiempo_ultima_interaccion = tiempo_actual
-                    nuevo_estado_juego = "DIALOGO"
+
+                    if sistema_dialogo.obtener_evento_activo() is not None:
+                        nuevo_estado_juego = "DIALOGO"
 
         esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
         retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
 
-        if tiempo_actual - tiempo_ultimo_paso_mateo > retraso_actual:
+        if (
+            sistema_dialogo.obtener_evento_activo() is None
+            and tiempo_actual - tiempo_ultimo_paso_mateo > retraso_actual
+        ):
             nx, ny = mateo_x, mateo_y
             
             if teclas[K_UP]:
@@ -283,9 +310,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                 if 0 <= nx < columnas_mapa and 0 <= ny < filas_mapa:
                     casilla_destino = matriz_activa[ny][nx]
                     
-                    es_muro = (casilla_destino == 1) or (casilla_destino in interactuables_activos)
-                    if casilla_destino in imagenes_objetos and imagenes_objetos[casilla_destino]["colision"]:
-                        es_muro = True
+                    es_muro = casilla_bloqueada(nx, ny)
                     
                     bloquea_npc = any(
                         npc["visible"] and (nx, ny) == (npc["x"], npc["y"])
@@ -308,12 +333,27 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         # Portales bidireccionales al pisar
                         elif casilla_destino in portales_activos:
                             datos_portal = portales_activos[casilla_destino]
-                            jugador_bloqueado = True
-                            cargar_nivel(
-                                datos_portal["mapa"],
-                                datos_portal.get("spawn_x"),
-                                datos_portal.get("spawn_y")
+                            requisito = datos_portal.get("requiere_evento")
+
+                            desbloqueado = (
+                                requisito is None
+                                or requisito in eventos_completados
                             )
+
+                            if desbloqueado:
+                                jugador_bloqueado = True
+
+                                cargar_nivel(
+                                    datos_portal["mapa"],
+                                    datos_portal.get("spawn_x"),
+                                    datos_portal.get("spawn_y")
+                                )
+                            else:
+                                evento = datos_portal.get("evento_bloqueado")
+
+                                if evento:
+                                    sistema_dialogo.iniciar_dialogo(evento)
+                                    nuevo_estado_juego = "DIALOGO"
 
     # 2. ACTUALIZACIÓN DE NPCS GENÉRICOS
     sistema_npc.actualizar_npcs(tiempo_actual)
@@ -401,6 +441,15 @@ def _dibujar_escenario(pantalla, animar=True):
 
                 if img.get_rect(topleft=(x, y)).colliderect(ventana):
                     pantalla.blit(img, (x, y))
+                    
+    # Cajas de bloqueo.
+    for (col, fila), bloqueo in bloqueos_activos.items():
+        elementos.append((
+            (fila + 1) * TAMANO_CASILLA,
+            bloqueo["img"],
+            col * TAMANO_CASILLA - camara_x,
+            fila * TAMANO_CASILLA - camara_y,
+    ))
 
     # NPC visibles.
     for npc in npcs_activos.values():
@@ -465,10 +514,16 @@ def casilla_bloqueada(x, y):
     if not (0 <= x < columnas_mapa and 0 <= y < filas_mapa):
         return True
 
+    if (x, y) in bloqueos_activos:
+        return True
+
     casilla = matriz_activa[y][x]
 
     if casilla == 1 or casilla in interactuables_activos:
         return True
+
+    objeto = imagenes_objetos.get(casilla)
+    return bool(objeto and objeto["colision"])
 
     objeto = imagenes_objetos.get(casilla)
     return bool(objeto and objeto["colision"])
@@ -536,3 +591,51 @@ def colocar_seguidores_cerca():
         npc["px_x"] = float(npc["x"] * TAMANO_CASILLA)
         npc["px_y"] = float(npc["y"] * TAMANO_CASILLA)
         npc["_tiempo_ultimo_paso"] = pygame.time.get_ticks()
+        
+def cargar_bloqueos(mapa_datos):
+    bloqueos_activos.clear()
+    imagenes_cajas = {}
+
+    for bloqueo in getattr(mapa_datos, "BLOQUEOS", []):
+        evento = bloqueo.get("desbloquear_con")
+
+        if evento is not None and evento in eventos_completados:
+            continue
+
+        ruta = bloqueo.get("ruta", RUTA_CAJA_BLOQUEO)
+
+        if ruta not in imagenes_cajas:
+            imagen = pygame.image.load(ruta).convert_alpha()
+            imagenes_cajas[ruta] = pygame.transform.scale(
+                imagen,
+                (TAMANO_CASILLA, TAMANO_CASILLA)
+            )
+
+        for x, y in bloqueo.get("casillas", []):
+            if not (0 <= x < columnas_mapa and 0 <= y < filas_mapa):
+                raise ValueError(
+                    f"Bloqueo {bloqueo.get('id')}: "
+                    f"casilla fuera del mapa ({x}, {y})"
+                )
+
+            if (x, y) in bloqueos_activos:
+                raise ValueError(
+                    f"Dos bloqueos ocupan la casilla ({x}, {y})"
+                )
+
+            bloqueos_activos[(x, y)] = {
+                "img": imagenes_cajas[ruta],
+                "dialogo": bloqueo.get(
+                    "dialogo",
+                    "evento_camino_bloqueado"
+                ),
+                "desbloquear_con": evento,
+            }
+
+
+def actualizar_bloqueos():
+    for posicion, bloqueo in list(bloqueos_activos.items()):
+        evento = bloqueo["desbloquear_con"]
+
+        if evento is not None and evento in eventos_completados:
+            del bloqueos_activos[posicion]

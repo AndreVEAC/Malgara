@@ -159,5 +159,23 @@
         "texto": "Y no me gustaría que se la perdieran."
       }
     ]
+  },
+  "evento_banca": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Una banca para descansar." },
+    { "hablante": "Mateo", "texto": "Todavía podemos caminar un poco más." }
+    ]
+  },
+  "evento_estatua": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Una estatua." },
+      { "hablante": "Lucas", "texto": "De bronce. Y con placa y todo." },
+      { "hablante": "Mateo", "texto": "Dice: «Juan Malgara. Fundador de Malgara»." },
+      { "hablante": "Lucas", "texto": "Vaya, el nombre del pueblo es el apellido del fundador." },
+      { "hablante": "Mateo", "texto": "Sí. Pero mira cómo está vestido." },
+      { "hablante": "Lucas", "texto": "Traje, corbata... parece un banquero." },
+      { "hablante": "Mateo", "texto": "No encaja con el pueblo. Aquí todos visten de trabajo, de campo." },
+      { "hablante": "Lucas", "texto": "Quizás el pueblo era diferente cuando él lo fundó." }
+    ]
   }
 }

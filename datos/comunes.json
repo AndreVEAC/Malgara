@@ -1,0 +1,30 @@
+{
+  "evento_camino_bloqueado": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "El paso está lleno de cajas."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Parecen cosas para la celebración."
+      }
+    ]
+  },
+  "evento_maceta": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Alguien cuida muy bien estas plantas."
+      }
+    ]
+  },
+  "evento_barril": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Uno de esos barriles rojos."
+      }
+    ]
+  }
+}

@@ -17,6 +17,42 @@ CONVERSACIONES = {
 
 def iniciar():
     sistema_dialogo.cargar_json("datos/pueblo_1.json")
+    
+    # Tras la bienvenida, entrar directamente al pueblo explorable.
+    if "bienvenida_pueblo_completada" in sistema_mapa.eventos_completados:
+        for numero, portal in list(sistema_mapa.portales_activos.items()):
+            if portal["mapa"] == "pueblo_2_cinematica":
+                sistema_mapa.portales_activos[numero] = {
+                    **portal,
+                    "mapa": "pueblo_2",
+            }
+    
+    if (
+        "bienvenida_pueblo_completada"
+        in sistema_mapa.eventos_completados
+    ):
+        comentarios = {
+            "evento_casa": "Son muy hogareñas",
+            "evento_flores": "Quizá podamos volver a comprar algo después.",
+            "evento_botica": "Por suerte, ahora no necesitamos nada.",
+            "evento_panaderia": "Podemos volver cuando nos dé hambre.",
+            "evento_sastreria": "De momento no necesito ropa nueva.",
+        }
+
+        for nombre_evento, comentario in comentarios.items():
+            evento = sistema_dialogo.datos_dialogo.get(nombre_evento)
+
+            if evento and evento.get("lineas"):
+                # Conservar la descripción inicial del edificio.
+                descripcion = evento["lineas"][0]
+
+                evento["lineas"] = [
+                    descripcion,
+                    {
+                        "hablante": "Mateo",
+                        "texto": comentario
+                    }
+                ]
 
     for casilla, (evento, repeticion) in CONVERSACIONES.items():
         marca = f"pueblo_1:{evento}"

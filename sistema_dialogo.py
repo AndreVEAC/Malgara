@@ -85,14 +85,20 @@ def inicializar():
         sonido_notificacion = None
 
 # FUNCIÓN PARA LA ARQUITECTURA DINÁMICA
-def cargar_json(ruta="datos/prologo.json"):
+def cargar_json(ruta):
     global datos_dialogo
-    try:
-        with open(ruta, "r", encoding="utf-8") as f:
-            datos_dialogo = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"Error cargando {ruta}: {e}")
-        datos_dialogo = {}
+
+    # Empezar de cero para no conservar eventos del mapa anterior.
+    datos_dialogo = {}
+
+    # Diálogos disponibles en todos los mapas.
+    with open("datos/comunes.json", "r", encoding="utf-8") as archivo:
+        datos_dialogo.update(json.load(archivo))
+
+    # Diálogos del mapa actual.
+    # Si un nombre coincide, tiene prioridad la versión del mapa.
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        datos_dialogo.update(json.load(archivo))
 
 
 def iniciar_dialogo(nombre_evento):
@@ -245,6 +251,11 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                 elif ev.key == pygame.K_SPACE:
                     
                     eleccion = opciones_actuales[opcion_seleccionada]
+                    
+                    estado_jugador.registrar_decision(
+                        nombre_evento_activo,
+                        eleccion.get("texto", "")
+                    )
                     # Avisar al director antes de cambiar al diálogo de respuesta.
 
                     director = sistema_mapa.script_nivel_actual
@@ -254,8 +265,9 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                     # 1. Impacto de confianza de Lucas
                     if "efecto_lucas" in eleccion:
                         impacto = eleccion["efecto_lucas"]
-                        if hasattr(estado_jugador, "confianza_lucas"):
-                            estado_jugador.confianza_lucas += impacto
+                        estado_jugador.aplicar_efectos({
+                            "confianza_lucas": impacto
+                        })
 
                         texto_noti = eleccion.get("notificacion", "Lucas recordará esto.")
                         activar_notificacion(texto_noti)

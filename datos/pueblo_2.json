@@ -1,1 +1,403 @@
-{}
+{
+  "evento_pers_1_musico": {
+    "lineas": [
+      { "hablante": "Músico", "texto": "¿Les gusta la música?" },
+      { "hablante": "Músico", "texto": "Es la canción de la cosecha. La tocamos solo una vez al año." },
+      { "hablante": "Músico", "texto": "Es para los que se van... y para los que se quedan." }
+    ],
+    "opciones": [
+      {
+        "texto": "Suena alegre.",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas aprecia que notes los detalles.",
+        "siguiente_evento": "musico_alegre"
+      },
+      {
+        "texto": "¿Y qué se cosecha?",
+        "siguiente_evento": "musico_cosecha"
+      },
+      {
+        "texto": "¿No tienen algo más movido?",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas sintió que no captaste el tono.",
+        "siguiente_evento": "musico_movido"
+      }
+    ]
+  },
+  "musico_alegre": {
+    "lineas": [
+      { "hablante": "Lucas", "texto": "Sí, pero la letra es triste." },
+      { "hablante": "Músico", "texto": "Las mejores canciones siempre lo son." }
+    ]
+  },
+  "musico_cosecha": {
+    "lineas": [
+      { "hablante": "Músico", "texto": "Lo que el pueblo necesite." },
+      { "hablante": "Músico", "texto": "Este año, parece que necesitábamos visitas." }
+    ]
+  },
+  "musico_movido": {
+    "lineas": [
+      { "hablante": "Músico", "texto": "¿Más movido? No, muchacho. Aquí todo va a su ritmo." },
+      { "hablante": "Lucas", "texto": "El ritmo de un funeral." }
+    ]
+  },
+
+  "evento_pers_2_cocinera": {
+    "lineas": [
+      { "hablante": "Mujer en el altar", "texto": "¿Ya vieron el altar de la plaza?" },
+      { "hablante": "Mateo", "texto": "Sí. Está lleno de fotos." },
+      { "hablante": "Mujer en el altar", "texto": "Es la tradición más bonita de Malgara." },
+      { "hablante": "Mujer en el altar", "texto": "Cada vez que viene alguien de fuera, le tomamos una foto." },
+      { "hablante": "Mujer en el altar", "texto": "Así el pueblo siempre recuerda a sus invitados." },
+      { "hablante": "Lucas", "texto": "¿Y por qué las fotos son en blanco y negro?" },
+      { "hablante": "Mujer en el altar", "texto": "Ah, esas son las más viejas. De cuando no había cámaras de color." },
+      { "hablante": "Mujer en el altar", "texto": "Las nuevas están a un lado. Todavía no las colgamos." },
+      { "hablante": "Mateo", "texto": "¿Todavía no?" },
+      { "hablante": "Mujer en el altar", "texto": "Se cuelgan al final de la celebración. Cuando ya todos son parte del pueblo." }
+    ],
+    "opciones": [
+      {
+        "texto": "Qué detalle tan bonito.",
+        "siguiente_evento": "cocinera_detalle"
+      },
+      {
+        "texto": "¿Y a nosotros nos van a tomar una?",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas nota que haces preguntas importantes.",
+        "siguiente_evento": "cocinera_pregunta"
+      },
+      {
+        "texto": "Suena a que se quedan con un recuerdo... y con algo más.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas siente que fuiste muy directo.",
+        "siguiente_evento": "cocinera_sospecha"
+      }
+    ]
+  },
+  "cocinera_detalle": {
+    "lineas": [
+      { "hablante": "Mujer en el altar", "texto": "Lo es. Y este año será aún más especial." },
+      { "hablante": "Mujer en el altar", "texto": "Porque vienen ustedes." }
+    ]
+  },
+  "cocinera_pregunta": {
+    "lineas": [
+      { "hablante": "Mujer en el altar", "texto": "Claro. A todos los invitados." },
+      { "hablante": "Mujer en el altar", "texto": "Mañana, antes del banquete. Así salen guapos." }
+    ]
+  },
+  "cocinera_sospecha": {
+    "lineas": [
+      { "hablante": "Mujer en el altar", "texto": "¿Cómo cree? Es solo una tradición." },
+      { "hablante": "Lucas", "texto": "Mateo, no seas paranoico." }
+    ]
+  },
+
+  "evento_pers_3_niño": {
+    "lineas": [
+      { "hablante": "Niño con máscara", "texto": "¿Ustedes son los que se van a quedar en la casa del sur?" },
+      { "hablante": "Mateo", "texto": "Sí. ¿Por qué?" },
+      { "hablante": "Niño con máscara", "texto": "Mi mamá dijo que esa casa está maldita. Pero yo no le creo." },
+      { "hablante": "Niño con máscara", "texto": "Dice que los que duermen ahí no despiertan." }
+    ],
+    "opciones": [
+      {
+        "texto": "¿Por qué está maldita?",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas nota que indagas.",
+        "siguiente_evento": "niño_maldita"
+      },
+      {
+        "texto": "Los niños no deben decir esas cosas.",
+        "efecto_lucas": -2,
+        "notificacion": "Lucas sintió que fuiste cruel con un niño.",
+        "siguiente_evento": "niño_cruel"
+      },
+      {
+        "texto": "¿Y tú qué máscara traes?",
+        "siguiente_evento": "niño_mascara"
+      }
+    ]
+  },
+  "niño_maldita": {
+    "lineas": [
+      { "hablante": "Niño con máscara", "texto": "No sé. Pero mi abuela dice que es porque ahí se guarda la comida." },
+      { "hablante": "Mateo", "texto": "¿La comida?" },
+      { "hablante": "Niño con máscara", "texto": "La de la celebración." }
+    ]
+  },
+  "niño_cruel": {
+    "lineas": [
+      { "hablante": "Niño con máscara", "texto": "..." },
+      { "hablante": "Niño con máscara", "texto": "Perdón." },
+      { "hablante": "Lucas", "texto": "No era necesario, Mateo." }
+    ]
+  },
+  "niño_mascara": {
+    "lineas": [
+      { "hablante": "Niño con máscara", "texto": "Es la de mi papá." },
+      { "hablante": "Niño con máscara", "texto": "Me la puse para que no me reconozca cuando llegue la celebración." }
+    ]
+  },
+
+  "evento_pers_4_amargado": {
+    "lineas": [
+      { "hablante": "Hombre en la banca", "texto": "¿Ustedes son los nuevos?" },
+      { "hablante": "Mateo", "texto": "Sí. ¿Cómo lo supo?" },
+      { "hablante": "Hombre en la banca", "texto": "Porque no son de aquí. Y porque todos me lo dijeron." },
+      { "hablante": "Hombre en la banca", "texto": "No sé para qué se emocionan. Al final, todos terminan igual." },
+      { "hablante": "Lucas", "texto": "¿A qué se refiere?" },
+      { "hablante": "Hombre amargado", "texto": "A que se van. O no." },
+      { "hablante": "Hombre amargado", "texto": "Yo ya vi muchas celebraciones. Esta no va a ser diferente." }
+    ],
+    "opciones": [
+      {
+        "texto": "¿Y qué pasa en las celebraciones?",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas nota que haces preguntas importantes.",
+        "siguiente_evento": "amargado_pregunta"
+      },
+      {
+        "texto": "¿No le gusta la fiesta?",
+        "siguiente_evento": "amargado_fiesta"
+      },
+      {
+        "texto": "Debería animarse un poco.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas siente que fuiste muy condescendiente.",
+        "siguiente_evento": "amargado_animo"
+      }
+    ]
+  },
+  "amargado_pregunta": {
+    "lineas": [
+      { "hablante": "Hombre amargado", "texto": "Pasa lo de siempre. La gente se va contenta." },
+      { "hablante": "Hombre amargado", "texto": "O se queda. Depende de cómo lo vean." }
+    ]
+  },
+  "amargado_fiesta": {
+    "lineas": [
+      { "hablante": "Hombre amargado", "texto": "Las fiestas son para los que tienen algo que celebrar." },
+      { "hablante": "Hombre amargado", "texto": "Yo ya celebré todo lo que tenía que celebrar." }
+    ]
+  },
+  "amargado_animo": {
+    "lineas": [
+      { "hablante": "Hombre amargado", "texto": "¿Y usted quién es para decirme qué hacer?" },
+      { "hablante": "Hombre amargado", "texto": "Váyase a festejar con los demás. Yo estoy bien aquí." }
+    ]
+  },
+
+  "evento_pers_5_borracho": {
+    "lineas": [
+      { "hablante": "Hombre del barril", "texto": "¿Ustedes son los del banquete?" },
+      { "hablante": "Mateo", "texto": "¿Banquete?" },
+      { "hablante": "Hombre del barril", "texto": "El de mañana. ¿No los invitaron?" },
+      { "hablante": "Hombre del barril", "texto": "No se coman todo. Dejen algo para los demás." },
+      { "hablante": "Hombre del barril", "texto": "Yo ya me comí a tres. O cuatro. No me acuerdo." }
+    ],
+    "opciones": [
+      {
+        "texto": "¿De qué habla?",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas nota que preguntas.",
+        "siguiente_evento": "borracho_habla"
+      },
+      {
+        "texto": "Creo que ya tomó demasiado.",
+        "siguiente_evento": "borracho_tomado"
+      },
+      {
+        "texto": "¿A quién se comió?",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas sintió que fuiste muy intenso.",
+        "siguiente_evento": "borracho_intenso"
+      }
+    ]
+  },
+  "borracho_habla": {
+    "lineas": [
+      { "hablante": "Hombre del barril", "texto": "Del banquete. Del de mañana." },
+      { "hablante": "Hombre del barril", "texto": "Ustedes son los invitados, ¿no?" }
+    ]
+  },
+  "borracho_tomado": {
+    "lineas": [
+      { "hablante": "Hombre del barril", "texto": "Eso mismo dijo el último." },
+      { "hablante": "Mateo", "texto": "¿El último?" },
+      { "hablante": "Hombre del barril", "texto": "El último que se fue." }
+    ]
+  },
+  "borracho_intenso": {
+    "lineas": [
+      { "hablante": "Hombre del barril", "texto": "A nadie. Era broma." },
+      { "hablante": "Hombre del barril", "texto": "¿Por qué? ¿Tú quieres que te coma?" }
+    ]
+  },
+
+  "evento_pers_6_niña": {
+    "lineas": [
+      { "hablante": "Niña de la muñeca", "texto": "Mi mamá dice que mañana va a ser un día muy especial." },
+      { "hablante": "Niña de la muñeca", "texto": "Van a venir muchos invitados. Más que nunca." },
+      { "hablante": "Niña de la muñeca", "texto": "Y todos van a estar muy contentos." }
+    ],
+    "opciones": [
+      {
+        "texto": "¿Tú también vas a estar contenta?",
+        "efecto_lucas": 2,
+        "notificacion": "Lucas valora tu empatía.",
+        "siguiente_evento": "niña_contenta"
+      },
+      {
+        "texto": "¿Por qué hablas así?",
+        "siguiente_evento": "niña_habla"
+      },
+      {
+        "texto": "Deberías jugar a otra cosa.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas sintió que fuiste condescendiente.",
+        "siguiente_evento": "niña_juego"
+      }
+    ]
+  },
+  "niña_contenta": {
+    "lineas": [
+      { "hablante": "Niña de la muñeca", "texto": "Sí. Pero mi muñeca no." },
+      { "hablante": "Mateo", "texto": "¿Por qué no?" },
+      { "hablante": "Niña de la muñeca", "texto": "Porque ella no va a poder comer." }
+    ]
+  },
+  "niña_habla": {
+    "lineas": [
+      { "hablante": "Niña de la muñeca", "texto": "Porque mi mamá dice que los invitados no deben saberlo todo." },
+      { "hablante": "Lucas", "texto": "¿Saber qué?" },
+      { "hablante": "Niña de la muñeca", "texto": "Eso." }
+    ]
+  },
+  "niña_juego": {
+    "lineas": [
+      { "hablante": "Niña de la muñeca", "texto": "¿Como a qué?" },
+      { "hablante": "Mateo", "texto": "No sé. A la pelota." },
+      { "hablante": "Niña de la muñeca", "texto": "La pelota se va. La muñeca se queda." }
+    ]
+  },
+
+  "evento_carreta": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Una carreta de flores." },
+      { "hablante": "Lucas", "texto": "Espera. ¿Ves cómo están acomodadas?" },
+      { "hablante": "Mateo", "texto": "¿Cómo?" },
+      { "hablante": "Lucas", "texto": "La luz les da justo en el centro. Como si alguien las hubiera puesto ahí para que se vean bien." },
+      { "hablante": "Mateo", "texto": "¿Y eso qué tiene de raro?" },
+      { "hablante": "Lucas", "texto": "Que las flores no se acomodan solas. Y no hay nadie aquí." },
+      { "hablante": "Mateo", "texto": "Quizás el vendedor fue a buscar agua." },
+      { "hablante": "Lucas", "texto": "Quizás. Pero yo no dejaría mi mercancía sin nadie." },
+      { "hablante": "Mateo", "texto": "Mira. Hay un ramo aparte." },
+      { "hablante": "Lucas", "texto": "¿Un ramo?" },
+      { "hablante": "Mateo", "texto": "Sí. Alguien lo dejó a un lado, como si lo estuvieran preparando." },
+      { "hablante": "Lucas", "texto": "Le faltan dos flores." },
+      { "hablante": "Mateo", "texto": "¿Cómo lo sabes?" },
+      { "hablante": "Lucas", "texto": "Porque hay dos huecos en el centro. Y se nota que estaban ahí." },
+      { "hablante": "Lucas", "texto": "Alguien las quitó hace poco." },
+      { "hablante": "Mateo", "texto": "Habrá sido el vendedor. Para otro ramo." },
+      { "hablante": "Lucas", "texto": "Sí. Seguro." }
+    ]
+  },
+
+  "evento_altar": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Un altar. Pero no es de muertos." },
+      { "hablante": "Lucas", "texto": "¿No?" },
+      { "hablante": "Mateo", "texto": "Las fotos no tienen nombres. Son de gente que todavía está viva." },
+      { "hablante": "Lucas", "texto": "O que lo estaba cuando se la tomaron." },
+      { "hablante": "Mateo", "texto": "Mira. Hay fotos en blanco y negro, y fotos en color." },
+      { "hablante": "Lucas", "texto": "Las de color son más recientes." },
+      { "hablante": "Mateo", "texto": "Y hay un espacio vacío en el centro." },
+      { "hablante": "Lucas", "texto": "¿Para quién será?" },
+      { "hablante": "Mateo", "texto": "No lo sé. Pero la placa dice: «Los siguientes invitados de honor»." },
+      { "hablante": "Lucas", "texto": "Qué amables." },
+      { "hablante": "Mateo", "texto": "Sí. Muy amables." },
+      { "hablante": "Lucas", "texto": "¿Por qué lo dices así?" },
+      { "hablante": "Mateo", "texto": "No sé. Será el hambre." }
+    ]
+  },
+
+  "evento_estatua": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Una estatua." },
+      { "hablante": "Lucas", "texto": "De bronce, con placa y todo." },
+      { "hablante": "Mateo", "texto": "Dice: «Juan Malgara. Fundador de Malgara»." },
+      { "hablante": "Lucas", "texto": "Vaya, el nombre del pueblo es el apellido del fundador." },
+      { "hablante": "Mateo", "texto": "Sí. Pero mira cómo está vestido." },
+      { "hablante": "Lucas", "texto": "Traje, corbata... parece un banquero." },
+      { "hablante": "Mateo", "texto": "No encaja con el pueblo. Aquí todos visten de trabajo, de campo." },
+      { "hablante": "Lucas", "texto": "Quizás el pueblo era diferente cuando él lo fundó." }
+    ]
+  },
+
+  "pers_1_repetir": {
+    "lineas": [
+      { "hablante": "Músico", "texto": "La canción sigue sonando. Siempre sigue." }
+    ]
+  },
+  "pers_2_repetir": {
+    "lineas": [
+      { "hablante": "Mujer en el altar", "texto": "Vuelvan mañana. El banquete será inolvidable." }
+    ]
+  },
+  "pers_3_repetir": {
+    "lineas": [
+      { "hablante": "Niño con máscara", "texto": "Ya me tengo que ir. Mi mamá me busca." }
+    ]
+  },
+  "pers_4_repetir": {
+    "lineas": [
+      { "hablante": "Hombre amargado", "texto": "Sigue aquí. Como todos." }
+    ]
+  },
+  "pers_5_repetir": {
+    "lineas": [
+      { "hablante": "Hombre del barril", "texto": "Deje algo para los demás, ¿eh?" }
+    ]
+  },
+  "pers_6_repetir": {
+    "lineas": [
+      { "hablante": "Niña de la muñeca", "texto": "Mi muñeca dice que no te vayas todavía." }
+    ]
+  },
+  "evento_casa": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Una casa del pueblo." },
+    { "hablante": "Mateo", "texto": "Mejor no molestar a sus habitantes." }
+  ]
+},
+
+"evento_maceta_grande": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Una maceta enorme. Está bien cuidada." },
+    { "hablante": "Lucas", "texto": "Yo no consigo mantener vivo un cactus." }
+  ]
+},
+
+"evento_maceta_pequena": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Flores junto al camino." },
+    { "hablante": "Mateo", "texto": "Alguien se encarga de regarlas." }
+  ]
+},
+
+"evento_barril": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Otro de esos barriles rojos." },
+    { "hablante": "Lucas", "texto": "Los tienen por todo el pueblo." }
+  ]
+},
+
+"evento_banca": {
+  "lineas": [
+    { "hablante": "Mateo", "texto": "Una banca para descansar." },
+    { "hablante": "Mateo", "texto": "Todavía podemos caminar un poco más." }
+    ]
+}
+}
