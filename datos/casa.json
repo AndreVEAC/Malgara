@@ -1,0 +1,135 @@
+{
+  "evento_vecino": {
+    "lineas": [
+      { "hablante": "Vecino", "texto": "¡Los nuevos vecinos! ¡Qué gusto!" },
+      { "hablante": "Mateo", "texto": "Buenas tardes. Buscamos la casa de los invitados." },
+      { "hablante": "Lucas", "texto": "Nos dijeron que era por aquí." },
+      { "hablante": "Vecino", "texto": "Claro que sí, ¡cómo no!" },
+      { "hablante": "Vecino", "texto": "Es la casa roja, al final de la calle." },
+      { "hablante": "Vecino", "texto": "Tienen suerte. Aquí siempre tenemos invitados." },
+      { "hablante": "Vecino", "texto": "Es la casa más concurrida del pueblo." },
+      { "hablante": "Mateo", "texto": "¿Y nunca han tenido problemas?" },
+      { "hablante": "Vecino", "texto": "¡Para nada! Gente muy educada." },
+      { "hablante": "Vecino", "texto": "Siempre se van sin hacer ruido." }
+    ],
+    "opciones": [
+      {
+        "texto": "¿Se van? ¿No viven aquí?",
+        "efecto_lucas": 1,
+        "notificacion": "Lucas nota que haces las preguntas correctas.",
+        "siguiente_evento": "vecino_se_van"
+      },
+      {
+        "texto": "Qué tranquilidad.",
+        "siguiente_evento": "vecino_tranquilidad"
+      },
+      {
+        "texto": "Esperemos no hacer ruido nosotros.",
+        "efecto_lucas": -1,
+        "notificacion": "Lucas siente que fuiste un poco cínico.",
+        "siguiente_evento": "vecino_ruido"
+      }
+    ]
+  },
+  "vecino_se_van": {
+    "lineas": [
+      { "hablante": "Vecino", "texto": "Bueno, nadie vive aquí para siempre, ¿verdad?" },
+      { "hablante": "Vecino", "texto": "La vida es un tránsito. Unos llegan, otros se van." },
+      { "hablante": "Lucas", "texto": "Qué filosófico." }
+    ]
+  },
+  "vecino_tranquilidad": {
+    "lineas": [
+      { "hablante": "Vecino", "texto": "La mejor del mundo. Aquí no hay crímenes." },
+      { "hablante": "Vecino", "texto": "Solo paz. Y el banquete de mañana, claro." }
+    ]
+  },
+  "vecino_ruido": {
+    "lineas": [
+      { "hablante": "Vecino", "texto": "¡No se preocupen por eso! El ruido no molesta." },
+      { "hablante": "Vecino", "texto": "A veces hasta se oye un grito o dos." },
+      { "hablante": "Vecino", "texto": "Pero luego hay un silencio muy agradable." }
+    ]
+  },
+  "vecino_repetir": {
+    "lineas": [
+      { "hablante": "Vecino", "texto": "Todo listo para mañana. Será inolvidable." },
+      { "hablante": "Vecino", "texto": "Descansen bien, vecinos." }
+    ]
+  },
+
+  "evento_niña_aro": {
+    "lineas": [
+      { "hablante": "Niña del aro", "texto": "Uno, dos, tres... ¡Cuatro!" },
+      { "hablante": "Mateo", "texto": "¿A qué juegas?" },
+      { "hablante": "Niña del aro", "texto": "A contar. Mi mamá dice que tengo que contar hasta diez." },
+      { "hablante": "Niña del aro", "texto": "Antes de que lleguen los invitados." },
+      { "hablante": "Lucas", "texto": "¿Y cuántos invitados van a llegar?" },
+      { "hablante": "Niña del aro", "texto": "No lo sé. Pero esta vez no sobra nadie." },
+      { "hablante": "Mateo", "texto": "¿Sobra?" },
+      { "hablante": "Niña del aro", "texto": "El año pasado uno se escondió." },
+      { "hablante": "Niña del aro", "texto": "Pero este año ya revisaron los armarios." },
+      { "hablante": "Lucas", "texto": ".__." }
+
+    ]
+  },
+  "niña_repetir": {
+    "lineas": [
+      { "hablante": "Niña del aro", "texto": "Cinco, seis, siete..." },
+      { "hablante": "Niña del aro", "texto": "No me interrumpan, que pierdo la cuenta." }
+    ]
+  },
+
+  "evento_banca_rayada": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Esta banca tiene algo rayado." },
+      { "hablante": "Lucas", "texto": "No es un rayón normal. La madera está astillada." },
+      { "hablante": "Mateo", "texto": "Dice: «De noche...»." },
+      { "hablante": "Lucas", "texto": "«De noche no vigilan»." },
+      { "hablante": "Mateo", "texto": "Y abajo: «Corran cuando duerman»." },
+      { "hablante": "Lucas", "texto": "Mira las marcas. Son surcos." },
+      { "hablante": "Lucas", "texto": "Alguien hizo esto con las uñas." },
+      { "hablante": "Mateo", "texto": "Y hay sangre seca en la madera." },
+      { "hablante": "Lucas", "texto": "¿Tú crees que...?" },
+      { "hablante": "Mateo", "texto": "Quien escribió esto estaba aterrado." },
+      { "hablante": "Lucas", "texto": "O alguien lo interrumpió." }
+    ]
+  },
+  "banca_repetir": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "No puedo dejar de mirar esas marcas." },
+      { "hablante": "Lucas", "texto": "Ni yo. Pero no podemos quedarnos aquí." }
+    ]
+  },
+
+  "evento_tronco_zapatos": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Ese tronco está seco." },
+      { "hablante": "Lucas", "texto": "Y tiene un hueco enorme." },
+      { "hablante": "Mateo", "texto": "Hay algo adentro." },
+      { "hablante": "Lucas", "texto": "¿Qué es?" },
+      { "hablante": "Mateo", "texto": "Zapatos. Un montón de zapatos." },
+      { "hablante": "Lucas", "texto": "¿De quién son?" },
+      { "hablante": "Mateo", "texto": "No lo sé. Pero ninguno tiene par." },
+      { "hablante": "Mateo", "texto": "Será algún tipo de tradición." },
+      { "hablante": "Lucas", "texto": "Una tradición rara. Para gente rara." }
+    ]
+  },
+  "tronco_repetir": {
+    "lineas": [
+      { "hablante": "Lucas", "texto": "Son muy raros aquí." }
+    ]
+  },
+
+  "evento_casa_puerta": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "Aquí es. La casa roja." },
+      { "hablante": "Lucas", "texto": "La puerta está entreabierta." },
+      { "hablante": "Mateo", "texto": "Huele a pan recién hecho." },
+      { "hablante": "Lucas", "texto": "Y a flores frescas." },
+      { "hablante": "Mateo", "texto": "Parece que ya nos esperaban." },
+      { "hablante": "Lucas", "texto": "Eso es lo que me preocupa." },
+      { "hablante": "Mateo", "texto": "Vamos. Entremos antes de que se enfríe el pan." }
+    ]
+  }
+}

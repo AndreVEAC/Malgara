@@ -19,11 +19,47 @@
       }
     ]
   },
+  "evento_maceta_pequena": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Una pequeña maceta junto a la casa."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La tierra todavía está húmeda."
+      }
+    ]
+  },
   "evento_barril": {
     "lineas": [
       {
         "hablante": "Mateo",
         "texto": "Uno de esos barriles rojos."
+      }
+    ]
+  },
+  "evento_casa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Una casa de los habitantes del pueblo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mejor no molestar."
+      }
+    ]
+  },
+  "evento_banca": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Una banca para descansar."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Prefiero llegar a la casa."
       }
     ]
   }

@@ -284,6 +284,17 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                     if sistema_dialogo.obtener_evento_activo() is not None:
                         nuevo_estado_juego = "DIALOGO"
 
+                        if (
+                            script_nivel_actual
+                            and hasattr(
+                                script_nivel_actual,
+                                "al_iniciar_dialogo"
+                            )
+                        ):
+                            script_nivel_actual.al_iniciar_dialogo(
+                                nombre_evento
+                            )
+
         esta_corriendo = teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]
         retraso_actual = RETRASO_MATEO // 2 if esta_corriendo else RETRASO_MATEO
 

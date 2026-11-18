@@ -41,6 +41,13 @@ def iniciar():
 
         sistema_mapa.jugador_bloqueado = False
         estado_escena = "JUGABLE"
+        # Interacción con la abuela cuando vuelve a su casa.
+        if abuela["visible"]:
+            sistema_mapa.matriz_activa[abuela["y"]][abuela["x"]] = 80
+
+            sistema_mapa.interactuables_activos[80] = (
+                "evento_abuela_en_casa"
+            )
         return
 
     sistema_mapa.jugador_bloqueado = True

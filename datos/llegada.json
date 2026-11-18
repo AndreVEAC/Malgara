@@ -99,5 +99,33 @@
     { "hablante": "Mateo", "texto": "La casa de la abuela" },
     { "hablante": "Mateo", "texto": "Viene un olor a pastel de calabaza desde dentro." }
   ]
+  },
+  "evento_abuela_en_casa": {
+  "lineas": [
+    {
+      "hablante": "Abuela",
+      "texto": "¿Qué les pareció la bienvenida?"
+    },
+    {
+      "hablante": "Mateo",
+      "texto": "No esperaba que viniera tanta gente."
+    },
+    {
+      "hablante": "Abuela",
+      "texto": "Todos tenían muchas ganas de conocerte."
+    },
+    {
+      "hablante": "Lucas",
+      "texto": "Eso se notó."
+    },
+    {
+      "hablante": "Abuela",
+      "texto": "Ahora vayan a instalarse, muchachos."
+    },
+    {
+      "hablante": "Abuela",
+      "texto": "Mañana tendremos mucho que celebrar."
+    }
+  ]
   }
 }

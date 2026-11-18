@@ -303,8 +303,15 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
     if not en_modo_decision:
         linea_actual = lineas[indice_linea]
         hablante = linea_actual.get("hablante", "???")
-        color_nombre = COLOR_MATEO if hablante.upper() == "MATEO" else (COLOR_LUCAS if hablante.upper() == "LUCAS" else COLOR_TEXTO)
-
+        nombre = hablante.strip().upper()
+        if nombre == "MATEO":
+            color_nombre = COLOR_MATEO
+        elif nombre == "LUCAS":
+            color_nombre = COLOR_LUCAS
+        elif nombre in ("EDUARDO ÁLVAREZ", "EDUARDO ALVAREZ", "LÍDER", "LIDER"):
+            color_nombre = (220, 60, 60)
+        else:
+            color_nombre = COLOR_TEXTO
         surf_nombre = fuente_nombre.render(hablante, True, color_nombre)
         pantalla.blit(surf_nombre, (pos_x + 20, pos_y + 15))
 
