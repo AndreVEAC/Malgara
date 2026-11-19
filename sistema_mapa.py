@@ -5,6 +5,7 @@ from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TAMANO_CASILLA, VERDE_M
 import sistema_dialogo
 import sistema_npc
 import sistema_audio
+import sistema_escondites
 from collections import deque
 
 matriz_activa = []
@@ -95,6 +96,7 @@ def _ejecutar_carga_real(nombre_modulo):
     
     filas_mapa = len(matriz_activa)
     columnas_mapa = len(matriz_activa[0])
+    sistema_escondites.configurar(mapa_datos)
     
     if spawn_pendiente is not None:
         mateo_x, mateo_y = spawn_pendiente
@@ -251,14 +253,17 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     if sistema_dialogo.obtener_evento_activo() is not None:
         nuevo_estado_juego = "DIALOGO"
 
+    # Revisar Espacio incluso cuando el escondite bloquea al jugador.
+    teclas = pygame.key.get_pressed()
+    control_escondite = sistema_escondites.actualizar(teclas)
+
     # 1. CONTROL DE MATEO
     if (
-        not jugador_bloqueado
+        not control_escondite
+        and not jugador_bloqueado
         and not transicion_activa
         and sistema_dialogo.obtener_evento_activo() is None
     ):
-        teclas = pygame.key.get_pressed()
-        
         tiempo_desde_cierre = tiempo_actual - sistema_dialogo.obtener_tiempo_ultimo_cierre()
         if (teclas[pygame.K_SPACE]
                 and (tiempo_actual - tiempo_ultima_interaccion > 500)
@@ -420,10 +425,18 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     sistema_npc.actualizar_npcs(tiempo_actual)
 
     # 3. INTERPOLACIÓN LERP
-    mateo_obj_x = float(mateo_x * TAMANO_CASILLA)
-    mateo_obj_y = float(mateo_y * TAMANO_CASILLA)
-    mateo_px_x += (mateo_obj_x - mateo_px_x) * VELOCIDAD_SUAVIZADO
-    mateo_px_y += (mateo_obj_y - mateo_px_y) * VELOCIDAD_SUAVIZADO
+    # Mantener también su posición visual mientras está escondido.
+    if not sistema_escondites.escondido:
+        mateo_obj_x = float(mateo_x * TAMANO_CASILLA)
+        mateo_obj_y = float(mateo_y * TAMANO_CASILLA)
+
+        mateo_px_x += (
+            mateo_obj_x - mateo_px_x
+        ) * VELOCIDAD_SUAVIZADO
+
+        mateo_px_y += (
+            mateo_obj_y - mateo_px_y
+        ) * VELOCIDAD_SUAVIZADO
 
     for npc_id, npc in npcs_activos.items():
         if npc["visible"]:
@@ -592,12 +605,13 @@ def _dibujar_escenario(pantalla, animar=True):
     )
     img = sprites_mateo[direccion_mateo][frame]
 
-    elementos.append((
-        mateo_px_y + TAMANO_CASILLA,
-        img,
-        int(mateo_px_x) - camara_x,
-        int(mateo_px_y) - camara_y
-    ))
+    if not sistema_escondites.escondido:
+        elementos.append((
+            mateo_px_y + TAMANO_CASILLA,
+            img,
+            int(mateo_px_x) - camara_x,
+            int(mateo_px_y) - camara_y,
+        ))
 
     # Los elementos más abajo se dibujan al final.
     elementos.sort(key=lambda elemento: elemento[0])
@@ -608,8 +622,23 @@ def _dibujar_escenario(pantalla, animar=True):
         if img.get_rect(topleft=(x, y)).colliderect(ventana):
             pantalla.blit(img, (x, y))
             
+    # Efectos visuales del nivel, por encima del escenario.
+    dibujar_efectos = getattr(
+        script_nivel_actual,
+        "dibujar_efectos",
+        None,
+    )
+
+    if callable(dibujar_efectos):
+        dibujar_efectos(pantalla, camara_x, camara_y)
+        
+    sistema_escondites.dibujar_aviso(pantalla)
+            
 def casilla_bloqueada(x, y):
     if not (0 <= x < columnas_mapa and 0 <= y < filas_mapa):
+        return True
+
+    if (x, y) in sistema_escondites.barriles:
         return True
 
     if (x, y) in bloqueos_activos:
@@ -619,9 +648,6 @@ def casilla_bloqueada(x, y):
 
     if casilla == 1 or casilla in interactuables_activos:
         return True
-
-    objeto = imagenes_objetos.get(casilla)
-    return bool(objeto and objeto["colision"])
 
     objeto = imagenes_objetos.get(casilla)
     return bool(objeto and objeto["colision"])

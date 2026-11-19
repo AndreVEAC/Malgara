@@ -1,5 +1,6 @@
 import pygame
 import sistema_mapa
+import sistema_escondites
 from collections import deque
 import sistema_dialogo
 
@@ -7,6 +8,8 @@ import sistema_dialogo
 def actualizar_npcs(tiempo_actual):
     """Itera todos los NPCs y ejecuta su comportamiento si lo tienen."""
     for npc_id, npc in sistema_mapa.npcs_activos.items():
+        if not npc.get("visible", True):
+            continue
         comportamiento = npc.get("comportamiento")
         if comportamiento is None or comportamiento == "estatico":
             continue
@@ -61,7 +64,13 @@ def _actualizar_patrulla(npc, tiempo_actual):
     nx, ny = npc["x"] + dx, npc["y"] + dy
 
     # Colisión con Mateo (si empuja, lo mueve; si no, se para)
-    if (nx, ny) == (sistema_mapa.mateo_x, sistema_mapa.mateo_y):
+    if (
+        not sistema_escondites.escondido
+        and (nx, ny) == (
+            sistema_mapa.mateo_x,
+            sistema_mapa.mateo_y,
+        )
+    ):
         if empuja:
             _intentar_empujar_mateo(dx, dy)
         return

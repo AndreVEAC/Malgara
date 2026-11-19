@@ -15,6 +15,14 @@ PORTALES = {
             "recursos/sonidos/efectos/open_door.wav"
         ),
     },
+    98: {
+        "mapa": "casa_noche_1",
+        "spawn_x": 18,
+        "spawn_y": 17,
+        "sonido_entrada": (
+            "recursos/sonidos/efectos/open_door.wav"
+        ),
+    }
 }
 TRIGGERS_PISAR = {}
 DICCIONARIO_OBJETOS = {}  # Los muebles ya están dibujados en el fondo.
@@ -31,5 +39,5 @@ MATRIZ = [
     [1, 0, 0, 0, 0, 0, 1, 1, 1, 1],       # 4
     [1, 0, 0, 0, 0, 0, 0, 1, 1, 0],       # 5
     [0, 0, 1, 1, 0, 0, 0, 0, 0, 0],       # 6
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],       # 7
+    [1, 1, 1, 1, 1, 1, 1, 1, 98, 1],       # 7
 ]

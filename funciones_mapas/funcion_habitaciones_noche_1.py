@@ -78,18 +78,18 @@ def iniciar():
     PANTALLA_NEGRA = True
     mapa.jugador_bloqueado = True
 
-    mapa.mateo_x = 3
+    mapa.mateo_x = 1
     mapa.mateo_y = 3
-    mapa.mateo_px_x = float(3 * TAMANO_CASILLA)
+    mapa.mateo_px_x = float(1 * TAMANO_CASILLA)
     mapa.mateo_px_y = float(3 * TAMANO_CASILLA)
-    mapa.direccion_mateo = "izq"
+    mapa.direccion_mateo = "der"
 
     lucas.update({
-        "x": 1,
+        "x": 3,
         "y": 3,
-        "px_x": float(TAMANO_CASILLA),
+        "px_x": float(3 *TAMANO_CASILLA),
         "px_y": float(3 * TAMANO_CASILLA),
-        "direccion": "der",
+        "direccion": "izq",
         "visible": True,
     })
 
