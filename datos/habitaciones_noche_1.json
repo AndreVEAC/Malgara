@@ -1,0 +1,78 @@
+{
+  "evento_noche1_inicio": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué es ese ruido?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Es nuestra alarma."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "La puse para las tres de la mañana."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vaya... de verdad nos quedamos dormidos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Dormir es un decir."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mira por la ventana. Todo está a oscuras."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y no se oye nada. Ni un perro, ni un grillo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La nota decía que de noche no vigilan tanto."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Por lo tanto, intuyo que sí hay vigilancia."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Pues vamos a comprobarlo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Pero si algo sale mal..."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Tú corres, y yo me meto"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "en uno de esos barriles rojos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Y si no cabes?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Entonces te aviento la cámara."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Al menos la cámara se salva."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vamos a la estatua."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tenemos que ver qué hay detrás de esa placa."
+      }
+    ]
+  }
+}

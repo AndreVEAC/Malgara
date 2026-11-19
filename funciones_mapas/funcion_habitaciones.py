@@ -71,7 +71,7 @@ def actualizar():
 
     # Todavía no hemos creado este mapa.
     if importlib.util.find_spec(
-        "mapas.habitaciones_noche"
+        "mapas.habitaciones_noche_1"
     ) is None:
         sistema_dialogo.iniciar_dialogo(
             "evento_noche_pendiente"
@@ -84,8 +84,8 @@ def actualizar():
 
     sistema_guardado.solicitar(
         "automatico",
-        mapa_destino="habitaciones_noche"
+        mapa_destino="habitaciones_noche_1"
     )
 
     sistema_mapa.jugador_bloqueado = True
-    sistema_mapa.cargar_nivel("habitaciones_noche")
+    sistema_mapa.cargar_nivel("habitaciones_noche_1")
