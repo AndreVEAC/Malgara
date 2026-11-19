@@ -14,7 +14,7 @@ estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
 # Cargamos el intro al iniciar el juego
-sistema_mapa.cargar_nivel("hogar")
+sistema_mapa.cargar_nivel("pueblo_1")
 
 ejecutando = True
 ejecutando = True

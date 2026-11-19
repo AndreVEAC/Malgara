@@ -1,12 +1,8 @@
 {
   "evento_intro_1": {
     "lineas": [
-      { "hablante": "???", "texto": "¿Estamos en el sitio correcto?" },
-      { "hablante": "Mateo", "texto": "Sin duda, reconozco ese árbol de ahí." },
-      { "hablante": "???", "texto": "Bueno, hay cientos de árboles, podríamos estar en cualquier parte." },
-      { "hablante": "Mateo", "texto": "No, ese árbol en particular, estoy seguro" },
-      { "hablante": "Mateo", "texto": "Este camino nos llevará a Malgara." },
-      { "hablante": "Mateo", "texto": "¿También te diriges ahí?" },
+      { "hablante": "???", "texto": "Vaya, tú tambien vas a un pueblo en medio del desierto?." },
+      { "hablante": "Mateo", "texto": "¿También te diriges a Malgara?" },
       { "hablante": "???", "texto": "Depende, ¿quién lo pregunta?" },
       { "hablante": "Mateo", "texto": "Soy Mateo, no esperaba tener compañeros turistas aquí." },
       { "hablante": "???", "texto": "No soy un turista, vengo aquí en contra de mi voluntad." },
@@ -18,6 +14,11 @@
       { "hablante": "Mateo", "texto": "Espera, aún no me dices tu nombre." },
       { "hablante": "???", "texto": "Soy Lucas, fotógrafo y por mala suerte, uno malo y necesitado de dinero." },
       { "hablante": "Mateo", "texto": "Es un placer Lucas." },
+      { "hablante": "???", "texto": "Y...." },
+      { "hablante": "???", "texto": "¿Estamos en el sitio correcto?" },
+      { "hablante": "Mateo", "texto": "Sin duda, reconozco ese árbol de ahí." },
+      { "hablante": "???", "texto": "Bueno, hay cientos de árboles, podríamos estar en cualquier parte." },
+      { "hablante": "Mateo", "texto": "No, ese árbol en particular, estoy seguro" },
       { "hablante": "Lucas", "texto": "Ahora sí, ¿me dirás qué haces aquí, o lo seguirás evadiendo?" }
     ],
     "es_decision": true,
@@ -111,7 +112,7 @@
       { "hablante": "Lucas", "texto": " algo más que la forma de los árboles" },
       { "hablante": "Lucas", "texto": "Porque todavía tenemos que encontrar el pueblo." },
       { "hablante": "Mateo", "texto": "Bueno, no es tan difícil, solo tenemos que seguir este sendero..." },
-      { "hablante": "Mateo", "texto": "y llegamos en unas horas." },
+      { "hablante": "Mateo", "texto": "y llegamos en una par de horas." },
       { "hablante": "Lucas", "texto": "¿Horas? Bueno, entonces caminemos ya." },
       { "hablante": "Lucas", "texto": "No quiero que un coyote salga y nos coma." }
     ]

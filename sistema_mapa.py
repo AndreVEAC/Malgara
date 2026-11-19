@@ -324,7 +324,9 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                     es_muro = casilla_bloqueada(nx, ny)
                     
                     bloquea_npc = any(
-                        npc["visible"] and (nx, ny) == (npc["x"], npc["y"])
+                        npc["visible"]
+                        and npc.get("comportamiento") != "sigue_jugador"
+                        and (nx, ny) == (npc["x"], npc["y"])
                         for npc in npcs_activos.values()
                     )
                     
@@ -334,11 +336,35 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         
                         # Triggers dinámicos al pisar
                         if casilla_destino in triggers_pisar_activos:
-                            nombre_evento = triggers_pisar_activos[casilla_destino]
-                            sistema_dialogo.iniciar_dialogo(nombre_evento)
+                            nombre_evento = triggers_pisar_activos[
+                                casilla_destino
+                            ]
+
+                            sistema_dialogo.iniciar_dialogo(
+                                nombre_evento
+                            )
+
+                            # Avisar inmediatamente al director,
+                            # antes de dibujar el primer diálogo.
+                            if (
+                                sistema_dialogo.obtener_evento_activo()
+                                is not None
+                            ):
+                                if (
+                                    script_nivel_actual
+                                    and hasattr(
+                                        script_nivel_actual,
+                                        "al_iniciar_dialogo"
+                                    )
+                                ):
+                                    script_nivel_actual.al_iniciar_dialogo(
+                                        nombre_evento
+                                    )
+
                             for fila in range(filas_mapa):
                                 if matriz_activa[fila][nx] == casilla_destino:
                                     matriz_activa[fila][nx] = 0
+
                             nuevo_estado_juego = "DIALOGO"
 
                         # Portales bidireccionales al pisar
@@ -468,6 +494,11 @@ def calcular_camara():
     return camara_x, camara_y
 
 def _dibujar_escenario(pantalla, animar=True):
+    
+    if getattr(script_nivel_actual, "PANTALLA_NEGRA", False):
+        pantalla.fill((0, 0, 0))
+        return
+    
     if getattr(script_nivel_actual, "CENTRAR_FONDO", False):
         pantalla.fill((0, 0, 0))
 

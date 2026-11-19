@@ -2,10 +2,10 @@
   "evento_5": {
     "lineas": [
       { "hablante": "Mateo", "texto": "No te veo muy emocionado." },
-      { "hablante": "Lucas", "texto": "Bueno, llevo una hora caminando con una maleta de 30 kg." },
-      { "hablante": "Mateo", "texto": "Tú dijiste que estaba cerca." },
-      { "hablante": "Lucas", "texto": "Dije que parecía cerca. Hay una diferencia." },
-      { "hablante": "Lucas", "texto": "Andando" }
+      { "hablante": "Lucas", "texto": "Bueno, llevo un par de horas caminando con una mochila de 30 kg." },
+      { "hablante": "Lucas", "texto": "Según tus indicaciones, ya deberíamos estar llegando." },
+      { "hablante": "Mateo", "texto": "No debe faltar mucho." },
+      { "hablante": "Lucas", "texto": "Pues sigamos, espero tengas razón." }
     ],
     "es_decision": false
   },
@@ -14,7 +14,10 @@
       { "hablante": "Lucas", "texto": "Espera, espera. No te muevas." },
       { "hablante": "Mateo", "texto": "¿Qué?" },
       { "hablante": "Lucas", "texto": "La luz. Está perfecta." },
-      { "hablante": "Lucas", "texto": "Mira nada más. Parece de esas postales que venden en las gasolineras." }
+      { "hablante": "Lucas", "texto": "Es una foto de libro." },
+      { "hablante": "Mateo", "texto": "Es un desierto lleno de cáctus..." },
+      { "hablante": "Lucas", "texto": "Sí, y está perfectamente iluminado." },
+      { "hablante": "Mateo", "texto": "Creo que ves cosas que yo no veo." }
     ],
     "es_decision": false
   },

@@ -1,0 +1,192 @@
+{
+  "evento_viaje": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "El motor del camión hace un ruido sordo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Llevo casi seis horas en este asiento."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero ya casi llego a Malgara."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Siete meses desde que mamá se fue."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y aún escucho su voz diciendo:"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Tienes que verlo, Mateo»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Es el lugar más bonito del mundo»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Supongo que por eso elegí este tema para mi tesis."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Un reportaje sobre mi pueblo materno."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sobre las raíces que nunca conocí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ella siempre hablaba de las flores, del pan..."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "De la gente."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y de su receta de caldo de piedra."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Que nunca me enseñó."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Saco mi libreta. Debería repasar el reportaje."
+      }
+    ],
+    "opciones": [
+      {
+        "texto": "Repasar las notas del reportaje.",
+        "siguiente_evento": "viaje_notas"
+      },
+      {
+        "texto": "Mirar por la ventana.",
+        "siguiente_evento": "viaje_ventana"
+      },
+      {
+        "texto": "Escuchar la conversación de los pasajeros.",
+        "siguiente_evento": "viaje_pasajeros"
+      }
+    ]
+  },
+  "viaje_notas": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Las hojas de mi libreta están llenas de preguntas."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Cuándo se fundó el pueblo?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué tradiciones tienen?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«¿Por qué mi madre se fue y nunca volvió?»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Esa no la escribí. Pero está en mi cabeza."
+      }
+    ]
+  },
+  "viaje_ventana": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "El cristal está sucio, pero veo el paisaje."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Es tierra seca. Matorrales, rocas y algún cactus."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "El aire que entra por la ventana es caliente."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Huele a polvo. A un desierto olvidado."
+      }
+    ]
+  },
+  "viaje_pasajeros": {
+    "lineas": [
+      {
+        "hablante": "Pasajera",
+        "texto": "¿Vas a Malgara?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sí. ¿Usted también?"
+      },
+      {
+        "hablante": "Pasajera",
+        "texto": "No. Yo me bajo en el cruce."
+      },
+      {
+        "hablante": "Pasajera",
+        "texto": "Pero dicen que Malgara es un lugar... curioso."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Curioso?"
+      },
+      {
+        "hablante": "Pasajera",
+        "texto": "La gente no suele quedarse mucho tiempo allí."
+      }
+    ]
+  },
+  "viaje_final": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "El camión acaba de detenerse."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Parece que hemos llegado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Bajo del camión."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "El sol me da en los ojos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Veo el árbol nuez del que mamá hablaba."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Estoy en el lugar correcto."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Al lado del árbol, hay otro hombre"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "bajando del camión."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Con una cámara colgada al cuello."
+      }
+    ]
+  }
+}

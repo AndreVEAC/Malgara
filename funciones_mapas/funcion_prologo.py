@@ -106,3 +106,22 @@ def actualizar():
         elif lucas_x == 37:
             if sistema_mapa.matriz_activa[15][38] != 9:
                 sistema_mapa.eventos_completados.add("prologo_completado")
+                
+def al_iniciar_dialogo(nombre_evento):
+    lucas = sistema_mapa.npcs_activos.get("lucas")
+
+    if not lucas:
+        return
+
+    lucas["pausado"] = True
+
+    if nombre_evento == "evento_6":
+        if "foto" in lucas.get("sprites_especiales", {}):
+            lucas["sprite_override"] = "foto"
+        else:
+            print(
+                "[Prólogo] No se cargó el sprite: "
+                "recursos/sprites/personajes/lucas/foto.png"
+            )
+    else:
+        lucas["sprite_override"] = None
