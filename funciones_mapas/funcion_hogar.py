@@ -3,6 +3,7 @@ from collections import deque
 import pygame
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
+import sistema_guardado
 
 from configuracion import TAMANO_CASILLA
 from mapas import hogar
@@ -43,7 +44,10 @@ def iniciar():
         _habilitar_habitacion()
 
         # Regreso desde la puerta de habitaciones.
-        if (mapa.mateo_x, mapa.mateo_y) == (1, 2):
+        if (
+            not sistema_guardado.cargando
+            and (mapa.mateo_x, mapa.mateo_y) == (1, 2)
+        ):
             sonido_cerrar_puerta = _cargar_sonido(
                 "recursos/sonidos/efectos/close_door.wav"
             )
@@ -430,3 +434,17 @@ def _buscar_paso(
 def _habilitar_habitacion():
     x, y = hogar.PUERTA_HABITACION
     mapa.matriz_activa[y][x] = 97
+    
+def al_elegir_opcion(nombre_evento):
+    if nombre_evento != "hogar_libreta":
+        return
+
+    if estado_escena != "JUGABLE":
+        return
+
+    eleccion = dialogo.opciones_actuales[
+        dialogo.opcion_seleccionada
+    ]
+
+    if eleccion.get("accion") == "guardar_partida":
+        sistema_guardado.solicitar("manual")

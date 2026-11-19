@@ -40,6 +40,7 @@ spawn_pendiente = None
 eventos_completados = set()
 estado_npcs_guardado = {}
 bloqueos_activos = {}
+nombre_mapa_actual = None
 
 RUTA_CAJA_BLOQUEO = (
     "recursos/sprites/objetos/caja_bloqueo.png"
@@ -84,8 +85,10 @@ def _ejecutar_carga_real(nombre_modulo):
     global jugador_bloqueado, script_nivel_actual
     global npcs_activos, interactuables_activos, triggers_pisar_activos, portales_activos
     global spawn_pendiente
+    global nombre_mapa_actual
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
+    nombre_mapa_actual = nombre_modulo
     bloqueos_activos.clear()
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]

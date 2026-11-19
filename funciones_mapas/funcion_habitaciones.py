@@ -2,6 +2,7 @@ import importlib.util
 
 import pygame
 import sistema_mapa
+import sistema_guardado
 import sistema_dialogo
 
 
@@ -68,8 +69,7 @@ def actualizar():
 
     dormir_pendiente = False
 
-    # Protección temporal: todavía no hemos creado
-    # mapas/habitaciones_noche.py.
+    # Todavía no hemos creado este mapa.
     if importlib.util.find_spec(
         "mapas.habitaciones_noche"
     ) is None:
@@ -82,7 +82,10 @@ def actualizar():
         "primera_noche_iniciada"
     )
 
-    sistema_mapa.jugador_bloqueado = True
+    sistema_guardado.solicitar(
+        "automatico",
+        mapa_destino="habitaciones_noche"
+    )
 
-    # Aprovecha el fade out/fade in del motor.
+    sistema_mapa.jugador_bloqueado = True
     sistema_mapa.cargar_nivel("habitaciones_noche")

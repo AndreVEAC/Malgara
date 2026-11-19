@@ -17,6 +17,7 @@ INTERACTUABLES = {
     5: "hogar_estufa", 6: "hogar_fregadero", 7: "hogar_planta",
     8: "hogar_lampara", 9: "hogar_sofa", 10: "hogar_flores",
     11: "hogar_mesa", 12: "hogar_silla", 13: "hogar_salida",
+    15: "hogar_libreta",
 }
 PORTALES = {
     97: {
@@ -47,7 +48,7 @@ MATRIZ = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],       # 0
     [1, 97, 1, 1, 8, 4, 4, 5, 6, 7],       # 1
     [3, 0, 0, 0, 0, 0, 0, 0, 0, 0],       # 2
-    [0, 0, 9, 9, 0, 0, 0,11,11, 0],       # 3
+    [0, 0, 9, 9, 0, 0, 0,11,15, 0],       # 3
     [9, 0, 0, 0, 0, 0,12,11,11,12],       # 4
     [9, 0, 0, 0, 0, 0, 0,10,11, 0],       # 5
     [0, 0, 9, 9, 0, 0, 0, 0, 0, 0],       # 6

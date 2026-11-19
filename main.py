@@ -4,6 +4,7 @@ from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TITULO_JUEGO, FPS
 from estado import EstadoJuego
 import sistema_mapa
 import sistema_dialogo
+import sistema_guardado
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -14,13 +15,14 @@ estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
 # Cargamos el intro al iniciar el juego
-sistema_mapa.cargar_nivel("pueblo_1")
+#if not sistema_guardado.continuar(estado_jugador):
+sistema_mapa.cargar_nivel("viaje")
 
 ejecutando = True
 ejecutando = True
 while ejecutando:
     reloj.tick(FPS)
-    
+    sistema_guardado.actualizar(estado_jugador)
     # 1. GUARDAR LOS EVENTOS EN LA VARIABLE 'eventos'
     eventos = pygame.event.get()
     

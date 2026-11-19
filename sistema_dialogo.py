@@ -252,10 +252,11 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                     
                     eleccion = opciones_actuales[opcion_seleccionada]
                     
-                    estado_jugador.registrar_decision(
-                        nombre_evento_activo,
-                        eleccion.get("texto", "")
-                    )
+                    if eleccion.get("contar_decision", True):
+                        estado_jugador.registrar_decision(
+                            nombre_evento_activo,
+                            eleccion.get("texto", "")
+                        )
                     # Avisar al director antes de cambiar al diálogo de respuesta.
 
                     director = sistema_mapa.script_nivel_actual

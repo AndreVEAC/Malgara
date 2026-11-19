@@ -5,6 +5,7 @@ from collections import deque
 import pygame
 import sistema_mapa
 import sistema_dialogo
+import sistema_guardado
 from configuracion import TAMANO_CASILLA
 from mapas import pueblo_2_cinematica as mapa
 
@@ -132,7 +133,15 @@ def actualizar():
 
     elif estado_escena == "DIALOGO_BIENVENIDA":
         if evento_activo is None:
-            sistema_mapa.eventos_completados.add(MARCA_COMPLETADA)
+            sistema_mapa.eventos_completados.add(
+                MARCA_COMPLETADA
+            )
+
+            sistema_guardado.solicitar(
+                "automatico",
+                mapa_destino="pueblo_2"
+            )
+
             _cambiar_a_exploracion()
 
 

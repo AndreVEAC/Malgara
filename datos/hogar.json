@@ -314,5 +314,24 @@
         "texto": "Mejor descanso antes de salir otra vez."
       }
     ]
+  },
+  "hogar_libreta": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Debería anotar lo que pasó hoy."
+      }
+    ],
+    "opciones": [
+      {
+        "texto": "Guardar partida",
+        "accion": "guardar_partida",
+        "contar_decision": false
+      },
+      {
+        "texto": "Seguir explorando",
+        "contar_decision": false
+      }
+    ]
   }
 }
