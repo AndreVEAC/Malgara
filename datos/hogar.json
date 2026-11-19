@@ -1,0 +1,318 @@
+{
+  "hogar_charla_sofa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Bueno, ya estamos dentro."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "La casa está impecable. Huele a pan."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sí. Al menos la hospitalidad es real."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo, ¿tú no sientes que hay algo raro?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿A qué te refieres?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "A la gente. Todos sonríen demasiado."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y no sé... lo del tronco con los zapatos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "O la banca rayada. Me dio muy mala espina."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ya... pero quizás solo son gente rara."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Al fin y al cabo, tu familia también es rara, ¿eh?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Oye, mi familia es excéntrica, no rara."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Como sea. Vamos a comer, tengo hambre."
+      }
+    ]
+  },
+  "hogar_charla_mesa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "El pan está delicioso."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sí. Aunque después de todo lo que vimos, sabe raro."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Es pan, Lucas. Pan de pueblo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Ya. Pero no puedo dejar de pensar en la banca."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "«De noche no vigilan»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Lucas, era una banca vieja."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Con sangre seca, Mateo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Comeremos, descansaremos y mañana veremos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Espera..."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Qué pasa?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Hay algo pegado debajo de la mesa."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Es una nota. La letra está escrita con máquina"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Qué dice?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Si están leyendo esto, sobrevivieron al primer día»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿El primer día?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«El banquete no es una fiesta. Es una entrega»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Esto es muy raro."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«No intenten huir. Hay coyotes en los caminos y la entrada"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "está vigilada»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Entonces estamos atrapados?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Si quieren saber la verdad, háganlo de noche»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Los barriles rojos son seguros. Úsenlos para esconderse»."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "«Vayan a la estatua del fundador. Miren detrás de la"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "placa»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Y la firma?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Solo dice: «Alguien que aún puede elegir»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo... esto tiene que ser una broma."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Una broma de quién? ¿De todo el pueblo?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "No sé. Pero al parecer alguien"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "tiene buen sentido del humor en este pueblo"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y estoy muerto de cansancio. Vamos a dormir."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sí... yo también estoy agotado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero Lucas... ¿y si no es una broma?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Si no lo es, prefiero perder sueño a salir en el menú."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Entonces iremos a la estatua. Esta noche."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero si nos ven, usamos los barriles."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Como el chavo?, el de aquel programa..."
+      },      
+      {
+        "hablante": "Mateo",
+        "texto": "Tu tampoco tienes buen sentido del humor, Lucas."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Hasta mañana, bueno, hasta anoche."
+      }
+    ]
+  },
+  "hogar_habitacion": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Lucas se fue a descansar."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Yo también debería dormir un poco."
+      }
+    ]
+  },
+  "hogar_bano": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No necesito ir al baño ahora."
+      }
+    ]
+  },
+  "hogar_armarios": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Dejaron todo ordenado para nosotros."
+      }
+    ]
+  },
+  "hogar_estufa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Está apagada. Todavía huele a comida."
+      }
+    ]
+  },
+  "hogar_fregadero": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No dejaron ni un plato sucio."
+      }
+    ]
+  },
+  "hogar_planta": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Hasta las plantas parecen bien cuidadas."
+      }
+    ]
+  },
+  "hogar_lampara": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La luz hace que esto parezca un hogar."
+      }
+    ]
+  },
+  "hogar_sofa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Parece cómodo. Pero prefiero una cama."
+      }
+    ]
+  },
+  "hogar_flores": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "2 bonitas flores"
+      }
+    ]
+  },
+  "hogar_mesa": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Aquí estaba la nota, debajo de la mesa."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Esta noche iremos a la estatua."
+      }
+    ]
+  },
+  "hogar_silla": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Ya he estado sentado suficiente."
+      }
+    ]
+  },
+  "hogar_salida": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Mejor descanso antes de salir otra vez."
+      }
+    ]
+  }
+}

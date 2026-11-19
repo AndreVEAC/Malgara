@@ -6,6 +6,7 @@ pista_actual = None
 PISTAS = {
     "viento_desierto": "recursos/musica/ambiente_desierto.wav",
     "pueblo": "recursos/musica/Lanterns_at_Dusk.wav",
+    "hogar": "recursos/musica/Refuge.wav",
 }
 
 

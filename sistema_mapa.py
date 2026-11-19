@@ -354,6 +354,27 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                             if desbloqueado:
                                 jugador_bloqueado = True
 
+                                ruta_sonido = datos_portal.get(
+                                    "sonido_entrada"
+                                )
+
+                                if ruta_sonido:
+                                    try:
+                                        sonido = pygame.mixer.Sound(
+                                            ruta_sonido
+                                        )
+                                        sonido.play()
+
+                                    except (
+                                        pygame.error,
+                                        FileNotFoundError
+                                    ) as error:
+                                        print(
+                                            "[Portal] No se pudo "
+                                            "reproducir el sonido: "
+                                            f"{error}"
+                                        )
+
                                 cargar_nivel(
                                     datos_portal["mapa"],
                                     datos_portal.get("spawn_x"),
@@ -409,15 +430,47 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
 
 
 def calcular_camara():
-    camara_x = int(mateo_px_x) - (ANCHO_PANTALLA // 2)
-    camara_y = int(mateo_px_y) - (ALTO_PANTALLA // 2)
-    limite_x = (columnas_mapa * TAMANO_CASILLA) - ANCHO_PANTALLA
-    limite_y = (filas_mapa * TAMANO_CASILLA) - ALTO_PANTALLA
-    camara_x = max(0, min(camara_x, max(0, limite_x)))
-    camara_y = max(0, min(camara_y, max(0, limite_y)))
+    centrar = getattr(
+        script_nivel_actual,
+        "CENTRAR_FONDO",
+        False
+    )
+
+    ancho_mapa = columnas_mapa * TAMANO_CASILLA
+    alto_mapa = filas_mapa * TAMANO_CASILLA
+
+    if centrar and fondo_actual is not None:
+        # Usar los 400×300 reales, no los 400×320 de la matriz.
+        ancho_mapa, alto_mapa = fondo_actual.get_size()
+
+    if centrar and ancho_mapa < ANCHO_PANTALLA:
+        camara_x = -((ANCHO_PANTALLA - ancho_mapa) // 2)
+    else:
+        camara_x = max(
+            0,
+            min(
+                int(mateo_px_x) - ANCHO_PANTALLA // 2,
+                max(0, ancho_mapa - ANCHO_PANTALLA)
+            )
+        )
+
+    if centrar and alto_mapa < ALTO_PANTALLA:
+        camara_y = -((ALTO_PANTALLA - alto_mapa) // 2)
+    else:
+        camara_y = max(
+            0,
+            min(
+                int(mateo_px_y) - ALTO_PANTALLA // 2,
+                max(0, alto_mapa - ALTO_PANTALLA)
+            )
+        )
+
     return camara_x, camara_y
 
 def _dibujar_escenario(pantalla, animar=True):
+    if getattr(script_nivel_actual, "CENTRAR_FONDO", False):
+        pantalla.fill((0, 0, 0))
+
     camara_x, camara_y = calcular_camara()
     pantalla.blit(fondo_actual, (-camara_x, -camara_y))
 

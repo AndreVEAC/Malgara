@@ -1,0 +1,51 @@
+{
+  "evento_cama_mateo": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Debería descansar antes de salir esta noche."
+      }
+    ],
+    "opciones": [
+      {
+        "texto": "Dormir y pasar a la noche",
+        "accion": "dormir"
+      },
+      {
+        "texto": "No dormir aún"
+      }
+    ]
+  },
+  "evento_cama_lucas": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Ya está dormido."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Qué facilidad para dejar de preocuparse."
+      }
+    ]
+  },
+  "evento_mesita": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Una lámpara y un cajón vacío."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Al menos dejaron todo limpio."
+      }
+    ]
+  },
+  "evento_noche_pendiente": {
+    "lineas": [
+      {
+        "hablante": "",
+        "texto": "La escena nocturna aún está en desarrollo."
+      }
+    ]
+  }
+}
