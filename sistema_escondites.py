@@ -184,22 +184,59 @@ def _salir(mapa):
 
 
 def dibujar_aviso(pantalla):
-    
     import sistema_mapa as mapa
 
-    # El aviso aparecerá al usar un barril jugando normalmente.
-    if getattr(
-        mapa.script_nivel_actual,
-        "CONTROL_CINEMATICO",
-        False,
+    # No mostrar indicaciones durante la cinemática,
+    # los diálogos ni los cambios de mapa.
+    if (
+        getattr(
+            mapa.script_nivel_actual,
+            "CONTROL_CINEMATICO",
+            False,
+        )
+        or mapa.transicion_activa
+        or sistema_dialogo.obtener_evento_activo() is not None
     ):
         return
-    
-    if not escondido or _imagen_tecla is None or _texto_aviso is None:
+
+    if _imagen_tecla is None or _texto_aviso is None:
         return
+
+    if not escondido:
+        if mapa.jugador_bloqueado:
+            return
+
+        desplazamientos = {
+            "arriba": (0, -1),
+            "abajo": (0, 1),
+            "izq": (-1, 0),
+            "der": (1, 0),
+        }
+
+        desplazamiento = desplazamientos.get(
+            mapa.direccion_mateo
+        )
+
+        if desplazamiento is None:
+            return
+
+        dx, dy = desplazamiento
+        frente = (
+            mapa.mateo_x + dx,
+            mapa.mateo_y + dy,
+        )
+
+        # Mostrar la tecla solo frente a un barril utilizable.
+        if (
+            frente not in barriles
+            or frente in mapa.bloqueos_activos
+        ):
+            return
 
     separacion = 12
 
+    # Reservar siempre el espacio del texto para que la tecla
+    # mantenga exactamente su posición al entrar y salir.
     ancho = (
         _imagen_tecla.get_width()
         + separacion
@@ -214,7 +251,7 @@ def dibujar_aviso(pantalla):
     x = (pantalla.get_width() - ancho) // 2
     y = pantalla.get_height() - alto - 24
 
-    # Tecla, sin panel de fondo.
+    # Frente al barril y dentro de él: mostrar la misma tecla.
     pantalla.blit(
         _imagen_tecla,
         (
@@ -223,11 +260,12 @@ def dibujar_aviso(pantalla):
         ),
     )
 
-    # Texto con la fuente de los diálogos.
-    pantalla.blit(
-        _texto_aviso,
-        (
-            x + _imagen_tecla.get_width() + separacion,
-            y + (alto - _texto_aviso.get_height()) // 2,
-        ),
-    )
+    # Solo estando dentro aparece "Mantén pulsado".
+    if escondido:
+        pantalla.blit(
+            _texto_aviso,
+            (
+                x + _imagen_tecla.get_width() + separacion,
+                y + (alto - _texto_aviso.get_height()) // 2,
+            ),
+        )

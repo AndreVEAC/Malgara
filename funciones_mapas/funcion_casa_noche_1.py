@@ -5,6 +5,7 @@ import pygame
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 import sistema_guardado
+import sistema_audio as audio
 import sistema_escondites as escondites
 import sistema_vigilancia as vigilancia
 
@@ -43,6 +44,7 @@ def iniciar():
     espera_hasta = 0
     CAMARA_CINEMATICA = None
     escondites.escondido = False
+    audio.establecer_persecucion(False)
 
     CONTROL_CINEMATICO = (
         MARCA_FINAL not in mapa.eventos_completados
@@ -390,6 +392,16 @@ def actualizar():
     elif estado_escena == "ANTES_GIRO":
         if ahora >= espera_hasta:
             _mirar("loco", "abajo")
+            
+            try:
+                golpe = pygame.mixer.Sound(
+                    "recursos/sonidos/efectos/susto.wav"
+                )
+                golpe.set_volume(0.7)
+                golpe.play()
+
+            except (pygame.error, FileNotFoundError) as error:
+                print(f"[AUDIO] No se pudo reproducir el susto: {error}")
             espera_hasta = ahora + 2000
             estado_escena = "MIRADA"
 
@@ -404,6 +416,10 @@ def actualizar():
             _hablar("evento_noche1_corre", "HUIR")
 
     elif estado_escena == "HUIR":
+        # Comienza al correr y continúa mientras están escondidos.
+        # La función evita reiniciar la canción en cada fotograma.
+        audio.establecer_persecucion(True)
+
         llegaron = _pareja(
             (2, 16),
             (1, 17),
@@ -431,6 +447,8 @@ def actualizar():
 
     elif estado_escena == "ESPERA_BARRIL":
         if ahora >= espera_hasta:
+            # Terminar la música de peligro al completar los 5 segundos.
+            audio.establecer_persecucion(False)
             estado_escena = "LOCO_REGRESA"
 
     elif estado_escena == "LOCO_REGRESA":

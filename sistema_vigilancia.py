@@ -296,7 +296,6 @@ def actualizar(ahora):
         False,
     ):
         persecucion_activa = False
-        audio.establecer_persecucion(False)
         return
 
     guardias = _vigilantes(mapa)
