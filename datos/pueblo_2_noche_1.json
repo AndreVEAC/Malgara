@@ -1,4 +1,25 @@
 {
+
+"evento_pueblo2_noche_entrada": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¿Ahora por dónde nos vamos?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Hay que buscar cómo regresar a casa."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Si a eso le llamamos casa..."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vamos."
+      }
+    ]
+  },
   "evento_estatua_noche": {
     "lineas": [
       {

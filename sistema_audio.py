@@ -14,6 +14,7 @@ PISTAS = {
     "hogar": "recursos/musica/Refuge.wav",
     "noche_calmada": "recursos/musica/noche_calmada.wav",
     "persecucion": "recursos/musica/corre.wav",
+    "tension": "recursos/musica/tension.wav"
 }
 
 
