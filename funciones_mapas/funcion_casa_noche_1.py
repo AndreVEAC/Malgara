@@ -106,15 +106,23 @@ def actualizar():
         estado_escena = "JUGABLE"
 
 
+def obtener_zonas_iluminadas():
+    """Rectángulos en coordenadas del mapa, sin descontar la cámara."""
+    if imagen_luz is None:
+        return []
+
+    return [
+        imagen_luz.get_rect(center=(round(x), round(y)))
+        for x, y in posiciones_luces
+    ]
+
+
 def dibujar_efectos(pantalla, camara_x, camara_y):
     if imagen_luz is None:
         return
 
-    for centro_x, centro_y in posiciones_luces:
-        rect = imagen_luz.get_rect(center=(
-            round(centro_x - camara_x),
-            round(centro_y - camara_y),
-        ))
+    for zona in obtener_zonas_iluminadas():
+        rect = zona.move(-camara_x, -camara_y)
 
         if pantalla.get_rect().colliderect(rect):
             pantalla.blit(imagen_luz, rect)

@@ -18,6 +18,20 @@ NPCS = {
             "velocidad_ms": 300,
         },
     },
+    "loco": {
+        "x": 5,
+        "y": 5,
+        "direccion": "izq",
+        "visible": True,
+        "carpeta_sprite": "loco",
+        "comportamiento": "vigilante",
+        "vigilancia": {
+            "luz": "recursos/sprites/efectos/luz_3.png",
+
+            # Vacío: vigila quieto desde su posición inicial.
+            "ruta": [],
+        },
+    },
 }
 
 INTERACTUABLES = {}

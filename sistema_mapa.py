@@ -6,6 +6,7 @@ import sistema_dialogo
 import sistema_npc
 import sistema_audio
 import sistema_escondites
+import sistema_vigilancia
 from collections import deque
 
 matriz_activa = []
@@ -131,7 +132,8 @@ def _ejecutar_carga_real(nombre_modulo):
                 "sprite_override": None,
                 "comportamiento": datos.get("comportamiento", "estatico"),
                 "patrulla": dict(datos.get("patrulla", {})),
-                "seguimiento": dict(datos.get("seguimiento", {})),          
+                "seguimiento": dict(datos.get("seguimiento", {})),  
+                "vigilancia": dict(datos.get("vigilancia", {})),        
             }
             
     # --- CARGAR INTERACTUABLES, TRIGGERS Y PORTALES ---
@@ -205,6 +207,7 @@ def _ejecutar_carga_real(nombre_modulo):
             volumen=getattr(mapa_datos, "VOLUMEN_AMBIENTE", 0.4),
             fade_ms=1000
         )
+    sistema_vigilancia.configurar()
 
 def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):
     for npc_id, npc in npcs_activos.items():
@@ -439,7 +442,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         ) * VELOCIDAD_SUAVIZADO
 
     for npc_id, npc in npcs_activos.items():
-        if npc["visible"]:
+        if npc["visible"] and not npc.get("congelado", False):
             obj_x = float(npc["x"] * TAMANO_CASILLA)
             obj_y = float(npc["y"] * TAMANO_CASILLA)
             npc["px_x"] += (obj_x - npc["px_x"]) * VELOCIDAD_SUAVIZADO
@@ -510,11 +513,10 @@ def calcular_camara():
     return camara_x, camara_y
 
 def _dibujar_escenario(pantalla, animar=True):
-    
     if getattr(script_nivel_actual, "PANTALLA_NEGRA", False):
         pantalla.fill((0, 0, 0))
         return
-    
+
     if getattr(script_nivel_actual, "CENTRAR_FONDO", False):
         pantalla.fill((0, 0, 0))
 
@@ -525,44 +527,47 @@ def _dibujar_escenario(pantalla, animar=True):
     tiempo = pygame.time.get_ticks()
     ventana = pantalla.get_rect()
 
-    # Objetos del mapa.
+    # 1. Objetos del mapa.
     for fila, casillas in enumerate(matriz_activa):
         for col, numero in enumerate(casillas):
             objeto = imagenes_objetos.get(numero)
+
             if objeto is None:
                 continue
 
             img = objeto["img"]
 
             if objeto.get("profundidad", False):
-                # La casilla marcada representa la base.
-                # La imagen crece hacia arriba y queda centrada.
                 base_y = (fila + 1) * TAMANO_CASILLA
                 centro_x = (col + 0.5) * TAMANO_CASILLA
 
-                x = int(centro_x - img.get_width() / 2) - camara_x
-                y = int(base_y - img.get_height()) - camara_y
+                x = int(
+                    centro_x - img.get_width() / 2
+                ) - camara_x
+
+                y = int(
+                    base_y - img.get_height()
+                ) - camara_y
 
                 elementos.append((base_y, img, x, y))
 
             else:
-                # Objetos antiguos: conservar su posición y capa.
                 x = col * TAMANO_CASILLA - camara_x
                 y = fila * TAMANO_CASILLA - camara_y
 
                 if img.get_rect(topleft=(x, y)).colliderect(ventana):
                     pantalla.blit(img, (x, y))
-                    
-    # Cajas de bloqueo.
+
+    # 2. Cajas de bloqueo.
     for (col, fila), bloqueo in bloqueos_activos.items():
         elementos.append((
             (fila + 1) * TAMANO_CASILLA,
             bloqueo["img"],
             col * TAMANO_CASILLA - camara_x,
             fila * TAMANO_CASILLA - camara_y,
-    ))
+        ))
 
-    # NPC visibles.
+    # 3. NPC visibles.
     for npc in npcs_activos.values():
         if not npc["visible"]:
             continue
@@ -572,6 +577,7 @@ def _dibujar_escenario(pantalla, animar=True):
 
         if override and override in especiales:
             img = especiales[override]
+
         else:
             caminando = (
                 abs(npc["px_x"] - npc["x"] * TAMANO_CASILLA) > 0.5
@@ -580,32 +586,38 @@ def _dibujar_escenario(pantalla, animar=True):
 
             frame = (
                 (tiempo // 200) % 2
-                if animar and caminando
+                if (
+                    animar
+                    and caminando
+                    and not npc.get("congelado", False)
+                )
                 else 0
             )
+
             img = npc["sprites"][npc["direccion"]][frame]
 
         elementos.append((
             npc["px_y"] + TAMANO_CASILLA,
             img,
             int(npc["px_x"]) - camara_x,
-            int(npc["px_y"]) - camara_y
+            int(npc["px_y"]) - camara_y,
         ))
 
-    # Mateo.
-    caminando = (
-        abs(mateo_px_x - mateo_x * TAMANO_CASILLA) > 0.5
-        or abs(mateo_px_y - mateo_y * TAMANO_CASILLA) > 0.5
-    )
-
-    frame = (
-        (tiempo // 150) % 2
-        if animar and caminando
-        else 0
-    )
-    img = sprites_mateo[direccion_mateo][frame]
-
+    # 4. Mateo: no dibujarlo mientras esté escondido.
     if not sistema_escondites.escondido:
+        caminando = (
+            abs(mateo_px_x - mateo_x * TAMANO_CASILLA) > 0.5
+            or abs(mateo_px_y - mateo_y * TAMANO_CASILLA) > 0.5
+        )
+
+        frame = (
+            (tiempo // 150) % 2
+            if animar and caminando
+            else 0
+        )
+
+        img = sprites_mateo[direccion_mateo][frame]
+
         elementos.append((
             mateo_px_y + TAMANO_CASILLA,
             img,
@@ -613,25 +625,31 @@ def _dibujar_escenario(pantalla, animar=True):
             int(mateo_px_y) - camara_y,
         ))
 
-    # Los elementos más abajo se dibujan al final.
+    # 5. Dibujar personajes y objetos ordenados por profundidad.
     elementos.sort(key=lambda elemento: elemento[0])
 
     for _, img, x, y in elementos:
-        # Comprobar el rectángulo completo permite mostrar postes
-        # cuya base queda fuera de la pantalla.
         if img.get_rect(topleft=(x, y)).colliderect(ventana):
             pantalla.blit(img, (x, y))
-            
-    # Efectos visuales del nivel, por encima del escenario.
-    dibujar_efectos = getattr(
+
+    # 6. Luces de los postes y otros efectos del mapa.
+    funcion_efectos = getattr(
         script_nivel_actual,
         "dibujar_efectos",
         None,
     )
 
-    if callable(dibujar_efectos):
-        dibujar_efectos(pantalla, camara_x, camara_y)
-        
+    if callable(funcion_efectos):
+        funcion_efectos(pantalla, camara_x, camara_y)
+
+    # 7. Linternas de los vigilantes.
+    sistema_vigilancia.dibujar_linternas(
+        pantalla,
+        camara_x,
+        camara_y,
+    )
+
+    # 8. Aviso del barril por encima de las luces.
     sistema_escondites.dibujar_aviso(pantalla)
             
 def casilla_bloqueada(x, y):

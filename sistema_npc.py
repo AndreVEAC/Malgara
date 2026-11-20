@@ -1,23 +1,30 @@
 import pygame
 import sistema_mapa
 import sistema_escondites
+import sistema_vigilancia
 from collections import deque
 import sistema_dialogo
 
-# Registro de comportamientos
 def actualizar_npcs(tiempo_actual):
-    """Itera todos los NPCs y ejecuta su comportamiento si lo tienen."""
+    """Actualizar vigilancia antes que los seguidores."""
+
+    sistema_vigilancia.actualizar(tiempo_actual)
+
     for npc_id, npc in sistema_mapa.npcs_activos.items():
         if not npc.get("visible", True):
             continue
+
         comportamiento = npc.get("comportamiento")
-        if comportamiento is None or comportamiento == "estatico":
+
+        if comportamiento in (None, "estatico", "vigilante"):
+            # Los vigilantes ya se actualizaron arriba.
             continue
+
         elif comportamiento == "patrulla":
             _actualizar_patrulla(npc, tiempo_actual)
+
         elif comportamiento == "sigue_jugador":
             _actualizar_sigue_jugador(npc, tiempo_actual)
-        # Añadir más aquí en el futuro
 
 
 def _actualizar_patrulla(npc, tiempo_actual):
@@ -133,7 +140,12 @@ def _actualizar_sigue_jugador(npc, tiempo_actual):
         return
 
     config = npc.get("seguimiento", {})
-    velocidad_ms = config.get("velocidad_ms", 200)
+
+    velocidad_ms = (
+        max(1, sistema_mapa.RETRASO_MATEO // 2)
+        if sistema_vigilancia.persecucion_activa
+        else config.get("velocidad_ms", 200)
+    )
 
     ultimo_paso = npc.get("_tiempo_ultimo_paso", 0)
     if tiempo_actual - ultimo_paso < velocidad_ms:
