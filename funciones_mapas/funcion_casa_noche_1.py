@@ -106,6 +106,7 @@ def iniciar():
             _colocar("lucas", (17, 17), "izq")
 
             estado_escena = "ENTRADA"
+            
 
 
 def _posicion(nombre):
@@ -331,6 +332,7 @@ def _camara(normal=False):
 def actualizar():
     global estado_escena, espera_hasta
     global CONTROL_CINEMATICO, CAMARA_CINEMATICA
+    
 
     if mapa.transicion_activa or estado_escena == "JUGABLE":
         return

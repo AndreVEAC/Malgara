@@ -1,0 +1,26 @@
+{
+  "evento_regreso_cerrado_noche1": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Hay tres vigilando el camino a la casa."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Qué considerados. Nos están esperando."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tenemos que tomar otro camino."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "El de arriba está libre. Ya no están los dos de antes."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vamos por ahí. Con cuidado."
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "evento_pueblo1_noche_inicio": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Son muchos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Debemos tener cuidado."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Dónde estaba la mendiga estatua?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "En el pequeño parque, a la derecha, al final."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Hay que pasar al otro lado."
+      }
+    ]
+  }
+}

@@ -431,8 +431,97 @@ def actualizar(ahora):
     audio.establecer_persecucion(persecucion_activa)
 
 
+def _ocultar_luz_en_copas(capa_luces, mapa, camara_x, camara_y):
+    # Reutilizar la máscara para los árboles que comparten imagen
+    # durante este dibujado.
+    mascaras = {}
+    ventana = capa_luces.get_rect()
+
+    for fila, casillas in enumerate(mapa.matriz_activa):
+        for col, numero in enumerate(casillas):
+            # El objeto 21 es el árbol grande.
+            if numero != 21:
+                continue
+
+            objeto = mapa.imagenes_objetos.get(numero)
+
+            if objeto is None:
+                continue
+
+            imagen = objeto["img"]
+
+            # Misma colocación que utiliza el render del escenario.
+            if objeto.get("profundidad", False):
+                base_y = (fila + 1) * T
+                centro_x = (col + 0.5) * T
+
+                x = int(centro_x - imagen.get_width() / 2)
+                y = int(base_y - imagen.get_height())
+            else:
+                x = col * T
+                y = fila * T
+
+            x = round(x - camara_x)
+            y = round(y - camara_y)
+
+            # Solo la franja superior de una casilla de alto.
+            alto_copa = min(T, imagen.get_height())
+
+            rect_copa = pygame.Rect(
+                x,
+                y,
+                imagen.get_width(),
+                alto_copa,
+            )
+
+            if not rect_copa.colliderect(ventana):
+                continue
+
+            clave = id(imagen)
+
+            if clave not in mascaras:
+                copa = imagen.subsurface(
+                    (0, 0, imagen.get_width(), alto_copa)
+                ).copy()
+
+                # Conservar únicamente la transparencia del árbol.
+                copa.fill(
+                    (0, 0, 0, 255),
+                    special_flags=pygame.BLEND_RGBA_MULT,
+                )
+
+                # Invertir su transparencia:
+                # árbol opaco -> borrar luz;
+                # árbol transparente -> conservar luz.
+                mascara = pygame.Surface(
+                    copa.get_size(),
+                    pygame.SRCALPHA,
+                )
+                mascara.fill((255, 255, 255, 255))
+                mascara.blit(
+                    copa,
+                    (0, 0),
+                    special_flags=pygame.BLEND_RGBA_SUB,
+                )
+
+                mascaras[clave] = mascara
+
+            capa_luces.blit(
+                mascaras[clave],
+                (x, y),
+                special_flags=pygame.BLEND_RGBA_MULT,
+            )
+
+
 def dibujar_linternas(pantalla, camara_x, camara_y):
     import sistema_mapa as mapa
+
+    # Dibujar las linternas separadas del escenario para poder
+    # recortarlas sin borrar personajes ni otros elementos.
+    capa_luces = pygame.Surface(
+        pantalla.get_size(),
+        pygame.SRCALPHA,
+    )
 
     for npc in mapa.npcs_activos.values():
         if (
@@ -450,7 +539,6 @@ def dibujar_linternas(pantalla, camara_x, camara_y):
         direccion = npc["direccion"]
         imagen = imagenes[direccion]
 
-        # Posición aproximada de la mano dentro del sprite de 30×36.
         ajustes = config.get("anclajes_luz", {
             "arriba": (26, 18),
             "abajo": (7, 25),
@@ -475,4 +563,14 @@ def dibujar_linternas(pantalla, camara_x, camara_y):
         }[direccion]
 
         setattr(rect, ancla, punto)
-        pantalla.blit(imagen, rect)
+        capa_luces.blit(imagen, rect)
+
+    # Recortar únicamente donde está la copa superior.
+    _ocultar_luz_en_copas(
+        capa_luces,
+        mapa,
+        camara_x,
+        camara_y,
+    )
+
+    pantalla.blit(capa_luces, (0, 0))

@@ -1,0 +1,102 @@
+{
+  "evento_estatua_noche": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Aquí está. La estatua de Juan Malgara."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "De noche se ve mucho más... siniestra."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La nota decía que miráramos detrás de la placa."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Puedes moverla?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Está atornillada. Pero la parte de abajo está suelta."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "A ver... déjame ayudarte."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Espera... la placa es falsa."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Falsa?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Hay una piedra detrás. Con un grabado."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Qué es?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Es el plano del pueblo. Pero es diferente."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Diferente en qué?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Hay caminos que no existen. Y un túnel bajo la iglesia."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Un túnel?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Dice: «La salida está donde no miran»."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo, mañana es el banquete."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Lo sé. Y la iglesia está al otro lado del pueblo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "No podemos ir ahora. Es muy peligroso."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tienes razón. Volvamos a la casa."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mañana, antes de que empiece todo, iremos a la iglesia."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Si es que llegamos a mañana."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y si llegamos, espero que esa iglesia no tenga un campanario gigante."
+      }
+    ]
+  },
+  "evento_estatua_noche_repetir": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Un túnel bajo la iglesia... No debemos olvidarlo."
+      }
+    ]
+  }
+}
