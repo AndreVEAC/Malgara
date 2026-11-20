@@ -27,9 +27,11 @@ NPCS = {
         "comportamiento": "vigilante",
         "vigilancia": {
             "luz": "recursos/sprites/efectos/luz_3.png",
-
-            # Vacío: vigila quieto desde su posición inicial.
             "ruta": [],
+            "miradas": [
+                ("izq", 4000),
+                ("der", 3500),
+            ],
         },
     },
 }

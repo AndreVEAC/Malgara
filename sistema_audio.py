@@ -1,13 +1,19 @@
 import pygame
 
+
 pista_actual = None
 
-# Nombres que usarán los mapas y sus archivos correspondientes.
+_ambiente = None
+_volumen_ambiente = 0.4
+_persecucion = False
+
+
 PISTAS = {
     "viento_desierto": "recursos/musica/ambiente_desierto.wav",
     "pueblo": "recursos/musica/Lanterns_at_Dusk.wav",
     "hogar": "recursos/musica/Refuge.wav",
     "noche_calmada": "recursos/musica/noche_calmada.wav",
+    "persecucion": "recursos/musica/corre.wav",
 }
 
 
@@ -16,49 +22,94 @@ def inicializar():
         pygame.mixer.init()
 
 
-def reproducir_ambiente(nombre_pista, volumen=0.4, fade_ms=1000):
+def _reproducir(nombre, volumen, fade_ms):
     global pista_actual
 
     inicializar()
-
-    if nombre_pista is None:
-        detener_musica(fade_ms)
-        return
-
     volumen = max(0.0, min(1.0, volumen))
 
-    # Misma pista: continuar exactamente donde iba.
+    # Si ya suena esta pista, no reiniciarla.
     if (
-        pista_actual == nombre_pista
+        pista_actual == nombre
         and pygame.mixer.music.get_busy()
     ):
         pygame.mixer.music.set_volume(volumen)
         return
 
-    ruta = PISTAS.get(nombre_pista)
-
-    if ruta is None:
-        print(f"[AUDIO] Pista no registrada: {nombre_pista}")
-        return
-
     try:
-        pygame.mixer.music.load(ruta)
+        pygame.mixer.music.load(PISTAS[nombre])
         pygame.mixer.music.set_volume(volumen)
-
-        # Repetir indefinidamente, con entrada gradual.
         pygame.mixer.music.play(-1, fade_ms=fade_ms)
 
-        pista_actual = nombre_pista
+        pista_actual = nombre
 
     except (pygame.error, FileNotFoundError) as error:
         pista_actual = None
-        print(f"[AUDIO] No se pudo reproducir '{ruta}': {error}")
+        print(
+            f"[AUDIO] No se pudo reproducir "
+            f"'{PISTAS[nombre]}': {error}"
+        )
 
 
-def detener_musica(fade_ms=1000):
+def reproducir_ambiente(
+    nombre_pista,
+    volumen=0.4,
+    fade_ms=1000,
+):
+    global _ambiente, _volumen_ambiente
+
+    if nombre_pista is not None and nombre_pista not in PISTAS:
+        print(f"[AUDIO] Pista no registrada: {nombre_pista}")
+        return
+
+    # Recordar el ambiente que corresponde al mapa.
+    _ambiente = nombre_pista
+    _volumen_ambiente = volumen
+
+    # Durante la persecución, guardar el ambiente sin interrumpir corre.
+    if _persecucion:
+        return
+
+    if nombre_pista is None:
+        _silenciar(fade_ms)
+    else:
+        _reproducir(nombre_pista, volumen, fade_ms)
+
+
+def establecer_persecucion(activa):
+    global _persecucion
+
+    activa = bool(activa)
+
+    # Evita reiniciar la música en cada actualización.
+    if activa == _persecucion:
+        return
+
+    _persecucion = activa
+
+    if activa:
+        _reproducir("persecucion", 0.6, 250)
+
+    elif _ambiente is not None:
+        # Recuperar el ambiente desde el inicio.
+        _reproducir(_ambiente, _volumen_ambiente, 1000)
+
+    else:
+        _silenciar(500)
+
+
+def _silenciar(fade_ms):
     global pista_actual
 
     if pygame.mixer.get_init():
         pygame.mixer.music.fadeout(fade_ms)
 
     pista_actual = None
+
+
+def detener_musica(fade_ms=1000):
+    global _ambiente, _persecucion
+
+    _ambiente = None
+    _persecucion = False
+    _silenciar(fade_ms)

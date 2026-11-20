@@ -475,6 +475,28 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
 
 
 def calcular_camara():
+    
+    encuadre = getattr(
+        script_nivel_actual,
+        "CAMARA_CINEMATICA",
+        None,
+    )
+
+    if encuadre is not None:
+        limite_x = max(
+            0,
+            columnas_mapa * TAMANO_CASILLA - ANCHO_PANTALLA,
+        )
+        limite_y = max(
+            0,
+            filas_mapa * TAMANO_CASILLA - ALTO_PANTALLA,
+        )
+
+        return (
+            int(max(0, min(encuadre[0], limite_x))),
+            int(max(0, min(encuadre[1], limite_y))),
+        )
+        
     centrar = getattr(
         script_nivel_actual,
         "CENTRAR_FONDO",

@@ -73,6 +73,14 @@ def actualizar(teclas):
     espacio = bool(teclas[pygame.K_SPACE])
     acaba_de_pulsar = espacio and not _espacio_anterior
     _espacio_anterior = espacio
+    
+    # El director decide cuándo entran y salen durante la escena.
+    if getattr(
+        mapa.script_nivel_actual,
+        "CONTROL_CINEMATICO",
+        False,
+    ):
+        return False
 
     if escondido:
         if not espacio:
@@ -176,6 +184,17 @@ def _salir(mapa):
 
 
 def dibujar_aviso(pantalla):
+    
+    import sistema_mapa as mapa
+
+    # El aviso aparecerá al usar un barril jugando normalmente.
+    if getattr(
+        mapa.script_nivel_actual,
+        "CONTROL_CINEMATICO",
+        False,
+    ):
+        return
+    
     if not escondido or _imagen_tecla is None or _texto_aviso is None:
         return
 

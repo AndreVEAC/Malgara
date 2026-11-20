@@ -1,130 +1,66 @@
 {
   "evento_noche1_salida": {
     "lineas": [
-      {
-        "hablante": "Lucas",
-        "texto": "Mateo, camina más rápido. Pareces una tortuga."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Es que no veo nada. Está muy oscuro."
-      }
+      { "hablante": "Lucas", "texto": "Mateo, camina más rápido. Pareces una tortuga." },
+      { "hablante": "Mateo", "texto": "Es que no veo nada. Está muy oscuro." }
     ]
   },
   "evento_noche1_avistar": {
     "lineas": [
-      {
-        "hablante": "Lucas",
-        "texto": "Espera... no te muevas."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "¿Qué pasa?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Mira a lo lejos. Hay alguien con una linterna."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "¿Crees que sea un vigilante?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "No lo sé. Quizás sea un vecino trasnochador."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "¿Qué hacemos? ¿Le hablamos?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Vamos a acercarnos. Pero con cuidado."
-      }
+      { "hablante": "Lucas", "texto": "Espera... no te muevas." },
+      { "hablante": "Mateo", "texto": "¿Qué pasa?" },
+      { "hablante": "Lucas", "texto": "Mira a lo lejos. Hay alguien con una linterna." },
+      { "hablante": "Mateo", "texto": "¿Crees que sea un vigilante?" },
+      { "hablante": "Lucas", "texto": "No lo sé. Quizás sea un vecino trasnochador." },
+      { "hablante": "Mateo", "texto": "¿Qué hacemos? ¿Le hablamos?" },
+      { "hablante": "Lucas", "texto": "Vamos a acercarnos. Pero con cuidado." }
     ]
   },
   "evento_noche1_acercarse": {
     "lineas": [
-      {
-        "hablante": "Mateo",
-        "texto": "Lucas... espera."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Ese tipo no tiene cara de amigable."
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Tienes razón."
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Parece sacado de una película de terror."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Mejor no lo molestemos."
-      }
+      { "hablante": "Mateo", "texto": "Lucas... espera." },
+      { "hablante": "Mateo", "texto": "Ese tipo no tiene cara de amigable." },
+      { "hablante": "Lucas", "texto": "Tienes razón." },
+      { "hablante": "Lucas", "texto": "Parece sacado de una película de terror." },
+      { "hablante": "Mateo", "texto": "Mejor no lo molestemos." }
+    ]
+  },
+  "evento_noche1_corre": {
+    "lineas": [
+      { "hablante": "Mateo", "texto": "..." },
+      { "hablante": "Lucas", "texto": "Mateo..." },
+      { "hablante": "Lucas", "texto": "¡Corre!" }
     ]
   },
   "evento_noche1_escondidos": {
     "lineas": [
-      {
-        "hablante": "Mateo",
-        "texto": "(En voz baja) ¿Ya se fue?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "(En voz baja) Creo... creo que sí."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Salgamos. Rápido."
-      }
+      { "hablante": "Mateo", "texto": "(En voz baja) ¿Ya se fue?" },
+      { "hablante": "Lucas", "texto": "(En voz baja) Creo... creo que sí." },
+      { "hablante": "Mateo", "texto": "Salgamos. Rápido." }
     ]
   },
   "evento_noche1_despues_barril": {
     "lineas": [
-      {
-        "hablante": "Lucas",
-        "texto": "¡Uf! Ese tipo nos siguió a una velocidad..."
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Daba mucho miedo. No parecía ni humano."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Lo sé. Por poco y nos atrapa."
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "Pero... oye..."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "¿Qué?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "¿Cómo es que cabemos los dos en este barril?"
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "O los barriles son gigantes..."
-      },
-      {
-        "hablante": "Lucas",
-        "texto": "...o somos muy pequeños."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Cállate y sigamos a la estatua."
-      },
-      {
-        "hablante": "Mateo",
-        "texto": "Hay que evitarlo."
-      }
+      { "hablante": "Lucas", "texto": "¡Uf! Ese tipo no dejaba de seguirnos." },
+      { "hablante": "Lucas", "texto": "Daba mucho miedo. No parecía ni humano." },
+      { "hablante": "Mateo", "texto": "Lo sé. Por poco y nos atrapa." },
+      { "hablante": "Lucas", "texto": "Pero... oye..." },
+      { "hablante": "Mateo", "texto": "¿Qué?" },
+      { "hablante": "Lucas", "texto": "¿Cómo es que cabemos los dos en ese barril?" },
+      { "hablante": "Lucas", "texto": "O los barriles son gigantes..." },
+      { "hablante": "Lucas", "texto": "...o somos muy pequeños." },
+      { "hablante": "Mateo", "texto": "Cállate, que todavía está cerca." },
+      { "hablante": "Lucas", "texto": "¿Y cómo nos vió?" },
+      { "hablante": "Mateo", "texto": "Nos quedamos debajo de la luz del poste." },
+      { "hablante": "Lucas", "texto": "Excelente. Nos pusimos en exhibición." },
+      { "hablante": "Mateo", "texto": "Hay que evitar las zonas iluminadas." },
+      { "hablante": "Mateo", "texto": "Y practicar cómo entrar en los barriles." },
+      { "hablante": "Lucas", "texto": "Preferiría practicar sin público." },
+      { "hablante": "Mateo", "texto": "Lo digo en serio. Hay que hacerlo rápido." },
+      { "hablante": "Mateo", "texto": "Si vuelve, no tendremos tiempo de pensarlo." },
+      { "hablante": "Lucas", "texto": "Está bien. Pero el próximo lo elijo yo." },
+      { "hablante": "Mateo", "texto": "Después seguimos hacia la estatua." },
+      { "hablante": "Mateo", "texto": "Y esta vez, hay que evitarlo." }
     ]
   }
 }

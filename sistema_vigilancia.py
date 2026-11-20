@@ -1,6 +1,7 @@
 from collections import deque
 
 import pygame
+import sistema_audio as audio
 import sistema_escondites as escondites
 import sistema_dialogo as dialogo
 
@@ -17,7 +18,7 @@ def configurar():
 
     global persecucion_activa
     persecucion_activa = False
-
+    audio.establecer_persecucion(False)
     for npc in mapa.npcs_activos.values():
         if npc.get("comportamiento") != "vigilante":
             continue
@@ -242,16 +243,65 @@ def _ha_llegado(npc, destino):
         and abs(npc["px_y"] - destino[1] * T) < 1
     )
 
+def _actualizar_mirada(npc, ahora):
+    datos = npc["_vigilancia"]
+    config = npc.get("vigilancia", {})
+    miradas = config.get("miradas", [])
+
+    # Los giros periódicos solo funcionan estando quieto.
+    if (
+        datos["estado"] != "NORMAL"
+        or config.get("ruta")
+        or not miradas
+    ):
+        datos.pop("mirada_hasta", None)
+        return
+
+    if "mirada_hasta" not in datos:
+        datos["indice_mirada"] = 0
+
+    elif ahora >= datos["mirada_hasta"]:
+        datos["indice_mirada"] = (
+            datos["indice_mirada"] + 1
+        ) % len(miradas)
+
+    else:
+        return
+
+    direccion, duracion = miradas[datos["indice_mirada"]]
+
+    npc["direccion"] = direccion
+    datos["mirada_hasta"] = ahora + max(1, duracion)
+
+
+def _mirar_a_mateo(mapa, npc):
+    dx = mapa.mateo_x - npc["x"]
+    dy = mapa.mateo_y - npc["y"]
+
+    if abs(dx) >= abs(dy) and dx:
+        npc["direccion"] = "der" if dx > 0 else "izq"
+
+    elif dy:
+        npc["direccion"] = "abajo" if dy > 0 else "arriba"
 
 def actualizar(ahora):
     import sistema_mapa as mapa
 
     global persecucion_activa
 
+    # Durante la cinemática, el director controla al loco.
+    if getattr(
+        mapa.script_nivel_actual,
+        "CONTROL_CINEMATICO",
+        False,
+    ):
+        persecucion_activa = False
+        audio.establecer_persecucion(False)
+        return
+
     guardias = _vigilantes(mapa)
 
-    # Durante una cinemática o transición, no perseguir.
-    # Esconderse también bloquea al jugador, pero NO pausa al loco.
+    # Esconderse bloquea al jugador, pero NO pausa a los vigilantes.
     if (
         mapa.transicion_activa
         or dialogo.obtener_evento_activo() is not None
@@ -270,26 +320,34 @@ def actualizar(ahora):
         datos = npc["_vigilancia"]
         npc["congelado"] = False
 
-        # Resolver primero si ya transcurrieron los cinco segundos.
+        # Girar periódicamente si está quieto y sin perseguir.
+        _actualizar_mirada(npc, ahora)
+
+        # Resolver primero la espera junto al barril.
         if datos["estado"] == "ESPERANDO":
             if ahora >= datos["hasta"]:
                 datos["estado"] = "REGRESANDO"
                 datos["ultimo_paso"] = ahora
 
             elif not escondites.escondido:
-                # Saliste demasiado pronto: recuerda dónde estás.
+                # Saliste antes de tiempo: sigue recordando dónde estás.
                 datos["estado"] = "PERSIGUIENDO"
 
             else:
-                # Mantener posición visual y orientación exactas.
+                # Conservar posición visual y orientación.
                 npc["congelado"] = True
                 continue
 
-        # La visión también funciona mientras regresa o patrulla.
+        # Detectar también mientras regresa o patrulla.
+        # La luz alerta a todos, independientemente de su orientación.
         if (
             not escondites.escondido
             and (luz or _ve_jugador(mapa, npc))
         ):
+            if luz and datos["estado"] != "PERSIGUIENDO":
+                # Simular que justo voltea y descubre a Mateo.
+                _mirar_a_mateo(mapa, npc)
+
             datos["estado"] = "PERSIGUIENDO"
 
         if datos["estado"] == "PERSIGUIENDO":
@@ -299,7 +357,7 @@ def actualizar(ahora):
                 npc["congelado"] = True
                 continue
 
-            # Captura por cercanía visual con Mateo, nunca con Lucas.
+            # Solo Mateo puede ser capturado.
             distancia2 = (
                 (npc["px_x"] - mapa.mateo_px_x) ** 2
                 + (npc["px_y"] - mapa.mateo_px_y) ** 2
@@ -308,10 +366,11 @@ def actualizar(ahora):
             if distancia2 <= (T * 0.3) ** 2:
                 mapa.jugador_bloqueado = True
 
-                # Modo de prueba: reiniciar el mapa con su fundido.
+                # Modo de prueba: reiniciar el mapa con fundido.
                 mapa.cargar_nivel(mapa.nombre_mapa_actual)
 
                 persecucion_activa = False
+                audio.establecer_persecucion(False)
 
                 for otro in guardias:
                     otro["congelado"] = True
@@ -342,7 +401,6 @@ def actualizar(ahora):
                 )
 
         else:
-            # Una ruta vacía significa quedarse vigilando en su sitio.
             ruta = npc.get("vigilancia", {}).get("ruta", [])
 
             if ruta:
@@ -362,12 +420,16 @@ def actualizar(ahora):
                         mapa.RETRASO_MATEO,
                     )
 
-    # Lucas continúa listo para correr si sales antes de tiempo.
+    # Mantener la persecución mientras quede alguien persiguiendo
+    # o esperando junto al barril.
+    # Lucas también usa esta variable para correr.
     persecucion_activa = any(
         npc["_vigilancia"]["estado"]
         in ("PERSIGUIENDO", "ESPERANDO")
         for npc in guardias
     )
+
+    audio.establecer_persecucion(persecucion_activa)
 
 
 def dibujar_linternas(pantalla, camara_x, camara_y):
