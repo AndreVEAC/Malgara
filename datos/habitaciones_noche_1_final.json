@@ -1,0 +1,42 @@
+{
+  "evento_habitaciones_duda_morales": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Oye, Mateo... ¿tú qué crees de Morales?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No lo sé. Apareció justo a tiempo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sabe mucho. Pero ni nos dio tiempo de hablar con él,"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "ni nos contó casi nada."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y no le dije nada de la nota."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Yo tampoco. No sé si confiar en él todavía."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Si mañana en la iglesia se pone raro, nos vamos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "De acuerdo. Vamos a intentar dormir."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sí. Mañana será el peor día de nuestras vidas, seguro."
+      }
+    ]
+  }
+}

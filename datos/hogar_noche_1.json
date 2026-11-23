@@ -1,0 +1,194 @@
+{
+  "evento_casa_regreso_morales": {
+    "lineas": [
+      {
+        "hablante": "Morales",
+        "texto": "Bien. Estamos a salvo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Uf. Nunca había estado tan feliz de ver una puerta."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hablen bajo. Las paredes de este pueblo tienen oídos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué es lo que pasa aquí, Morales?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Estos pueblos, siempre están lleno de ancianos."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Pero aquí no habrá más de diez."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Ahora que lo dice... es cierto."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hace un mes llegó una pareja. Desaparecieron a los dos días."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No me dio tiempo ni de hablar con ellos."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Por eso sé que Álvarez les mintió."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Álvarez nos mintió?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Les dijo que llevaban más de dos años sin visitas."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Pero él sabía que esa pareja venía. Y sabía cuándo llegarían ustedes."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Entonces... nos estaban esperando."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Exacto. No vinieron a recibir turistas. Vinieron a recibir..."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No sé, algo más."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Nosotros encontramos algo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿De qué se trata?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Un mapa secreto detrás de la estatua del fundador."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Muestra un túnel bajo la iglesia."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿La iglesia? He intentado entrar ahí. Está muy vigilada."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿Y cómo es que encontraron el mapa?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Esa estatua lleva años ahí. Nadie lo había visto."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Bueno... estábamos escondiéndonos de un guardia."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sí. Me metí detrás para tomar una foto sin flash."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y me apoyé en la placa. Estaba floja."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Al moverla, vimos la piedra de atrás."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Qué suerte la de ustedes."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sí. Ojalá tuviéramos la misma suerte para salir."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿Y cómo lograron esquivar a los guardias esta noche?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Nos escondimos en los barriles rojos."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Los barriles..."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Claro. A mí me tomó una semana descubrirlo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Se les da muy bien ocultar las cosas en este pueblo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Escuchen. Mañana nos vemos al lado de la iglesia."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Está lleno de arbustos, ahí no nos verán"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué hay del banquete?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Actúen normal. Disimulen."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Si alguien pregunta, no vieron nada y no hablaron con nadie."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Fingir ser turistas felices. Pan comido."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Vayan a dormir. Y tengan cuidado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Lo tendremos."
+      }
+    ]
+  },
+  "evento_hogar_despues_morales": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Bueno... eso fue intenso."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vámonos a la habitación. Necesito dormir."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sí. Mañana hay que tener energías para fingir ser amables."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y para no parecer que sabemos algo. Vamos."
+      }
+    ]
+  }
+}

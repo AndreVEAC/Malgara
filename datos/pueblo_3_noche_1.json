@@ -1,34 +1,138 @@
-"evento_noche1_morales": {
-  "lineas": [
-    { "hablante": "Mateo", "texto": "Bajamos por el camino. Todo está muy oscuro." },
-    { "hablante": "Lucas", "texto": "Estoy agotado. Y los nervios me tienen con el estómago hecho un nudo." },
-    { "hablante": "Mateo", "texto": "Tenemos que buscar una ruta alternativa para volver." },
-    { "hablante": "Mateo", "texto": "Vamos a la izquierda, entre esas casas." },
-    { "hablante": "Lucas", "texto": "Espero que este camino nos lleve de vuelta a la casa roja." },
-    
-    { "hablante": "Mateo", "texto": "Espera. Hay cajas apiladas al final." },
-    { "hablante": "Lucas", "texto": "Genial. Un callejón sin salida." },
-    { "hablante": "Mateo", "texto": "No podemos regresar por donde vinimos. El vigilante sigue ahí." },
-    
-    { "hablante": "Lucas", "texto": "Mateo... mira. Hay una luz." },
-    { "hablante": "Mateo", "texto": "Viene del borde del mapa, por donde entramos." },
-    { "hablante": "Lucas", "texto": "Estamos perdidos, ¿verdad?" },
-    { "hablante": "Lucas", "texto": "Si es el comité de bienvenida, espero que al menos sea el desayuno." },
-    
-    { "hablante": "Mateo", "texto": "La luz se está acercando. Es una lámpara." },
-    { "hablante": "Lucas", "texto": "Y se mueve rápido. Prepárate para correr." },
-    
-    { "hablante": "Mateo", "texto": "La figura se detiene frente a nosotros." },
-    { "hablante": "Morales", "texto": "No griten. No corran. No soy uno de ellos." },
-    { "hablante": "Mateo", "texto": "¿Quién es usted?" },
-    { "hablante": "Morales", "texto": "Morales. Investigador privado." },
-    { "hablante": "Morales", "texto": "Los he estado vigilando desde que llegaron al pueblo." },
-    { "hablante": "Lucas", "texto": "Investigador?!" },
-    { "hablante": "Morales", "texto": "No hay tiempo. Tenemos que irnos ya." },
-    { "hablante": "Mateo", "texto": "No sabemos cómo volver. Están por todos lados." },
-    { "hablante": "Morales", "texto": "Yo conozco el camino a la casa de invitados." },
-    { "hablante": "Morales", "texto": "Síganme. Y no hagan ruido." },
-    { "hablante": "Lucas", "texto": "Mateo... ¿confiamos en el tipo con la linterna?" },
-    { "hablante": "Mateo", "texto": "No tenemos muchas opciones. Vamos." }
-  ]
+{
+  "evento_morales_entrada": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Bajamos por el camino. Todo está muy oscuro."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Estoy agotado. Y los nervios me tienen con el estómago hecho un nudo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tenemos que buscar una ruta alternativa para volver."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Vamos a la izquierda, entre esas casas."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Espero que este camino nos lleve de vuelta a la casa roja."
+      }
+    ]
+  },
+  "evento_morales_cajas": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Espera. Hay cajas apiladas al final."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Genial. Un callejón sin salida."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No podemos regresar por donde vinimos. El vigilante sigue ahí."
+      }
+    ]
+  },
+  "evento_morales_luz": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo... mira. Hay una luz."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Viene de donde entramos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Estamos perdidos, ¿verdad?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Si es el comité de bienvenida, nosotros somos el desayuno."
+      }
+    ]
+  },
+  "evento_morales_acercandose": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La luz se está acercando. Es una lámpara."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Viene hacia nosotros. Prepárate para correr."
+      }
+    ]
+  },
+  "evento_noche1_morales": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Espera... se ha detenido."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No griten. No corran. No soy uno de ellos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Quién es usted?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Morales. Investigador privado."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Los he estado vigilando desde que llegaron al pueblo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Investigador?!"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No hay tiempo. Tenemos que irnos ya."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No sabemos cómo volver. Están por todos lados."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Yo conozco el camino a la casa de invitados."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Síganme. Y no hagan ruido."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo... ¿confiamos en el tipo con la linterna?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No tenemos muchas opciones. Vamos."
+      }
+    ]
+  },
+  "evento_morales_regreso": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Hay otro. Viene hacia acá."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Dentro. Rápido y sin hacer ruido."
+      }
+    ]
+  }
 }

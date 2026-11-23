@@ -1,3 +1,5 @@
+from funciones_mapas import regreso_morales_noche_1 as regreso_morales
+from funciones_mapas.escena_morales import MARCA_TENSION
 from collections import deque
 import importlib.util
 import pygame
@@ -68,6 +70,12 @@ def iniciar():
 
     if importlib.util.find_spec("mapas.pueblo_1_noche_1") is None:
         mapa.matriz_activa[0][3] = 1
+
+    if regreso_morales.iniciar():
+        CONTROL_CINEMATICO = True
+        CAMARA_CINEMATICA = (0, 400)
+        estado_escena = "REGRESO_MORALES"
+        return
 
     lucas = mapa.npcs_activos["lucas"]
     lucas["visible"] = True
@@ -334,6 +342,9 @@ def actualizar():
     global CONTROL_CINEMATICO, CAMARA_CINEMATICA
     
 
+    if regreso_morales.actualizar():
+        return
+
     if mapa.transicion_activa or estado_escena == "JUGABLE":
         return
 
@@ -514,6 +525,7 @@ def obtener_zonas_iluminadas():
 
 
 def dibujar_efectos(pantalla, camara_x, camara_y):
+    regreso_morales.dibujar_efectos(pantalla, camara_x, camara_y)
     if imagen_luz is None:
         return
 
@@ -522,3 +534,6 @@ def dibujar_efectos(pantalla, camara_x, camara_y):
 
         if pantalla.get_rect().colliderect(rect):
             pantalla.blit(imagen_luz, rect)
+
+def obtener_ambiente():
+    return "tension" if MARCA_TENSION in mapa.eventos_completados else "noche_calmada"

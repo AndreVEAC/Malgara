@@ -1,35 +1,38 @@
-import pygame
+import sistema_escondites as escondites
+import sistema_audio as audio
 import sistema_mapa as mapa
 import sistema_guardado
+from funciones_mapas import final_noche_1 as final_noche
+from funciones_mapas.escena_morales import MARCA_TENSION, sonido
 
 CENTRAR_FONDO = True
-
+CONTROL_CINEMATICO = False
 sonido_cerrar = None
 
 
 def iniciar():
-    global sonido_cerrar
-
+    global CONTROL_CINEMATICO, sonido_cerrar
     mapa.jugador_bloqueado = False
+    escondites.escondido = False
+    CONTROL_CINEMATICO = final_noche.iniciar_hogar()
 
-    # Orientación según la puerta por la que entramos.
-    if (mapa.mateo_x, mapa.mateo_y) == (1, 2):
-        mapa.direccion_mateo = "abajo"
-    else:
-        mapa.direccion_mateo = "arriba"
-
-    # Cargar una partida no cuenta como cruzar una puerta.
-    if sistema_guardado.cargando:
-        return
-
-    try:
-        sonido_cerrar = pygame.mixer.Sound(
-            "recursos/sonidos/efectos/close_door.wav"
+    if not CONTROL_CINEMATICO:
+        mapa.direccion_mateo = (
+            'abajo' if (mapa.mateo_x,mapa.mateo_y)==(1,2) else 'arriba'
         )
-        sonido_cerrar.play()
-    except (pygame.error, FileNotFoundError) as error:
-        print(f"[AUDIO] No se pudo reproducir close_door: {error}")
+
+    if not sistema_guardado.cargando:
+        sonido_cerrar = sonido('close_door')
 
 
 def actualizar():
-    pass
+    global CONTROL_CINEMATICO
+    if CONTROL_CINEMATICO:
+        final_noche.actualizar()
+        CONTROL_CINEMATICO = final_noche.en_curso
+
+
+def obtener_ambiente():
+    if MARCA_TENSION in mapa.eventos_completados:
+        return 'tension'
+    return audio.pista_actual

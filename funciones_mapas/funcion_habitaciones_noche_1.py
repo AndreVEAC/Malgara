@@ -1,3 +1,7 @@
+from funciones_mapas import final_noche_1 as final_noche
+
+CONTROL_CINEMATICO = False
+
 import importlib.util
 import pygame
 
@@ -33,6 +37,15 @@ def iniciar():
     global sonido_alarma, sonido_abrir, sonido_cerrar
     global canal_alarma, canal_puerta
     global ultimo_paso, salida_disponible
+    global CONTROL_CINEMATICO
+
+    CONTROL_CINEMATICO = False
+    if final_noche.iniciar_habitaciones():
+        PANTALLA_NEGRA = False
+        CONTROL_CINEMATICO = final_noche.en_curso
+        estado_escena = "FINAL_NOCHE" if CONTROL_CINEMATICO else "JUGABLE"
+        _habilitar_salida()
+        return
 
     dialogo.cargar_json(
         "datos/habitaciones_noche_1.json"
@@ -105,7 +118,14 @@ def iniciar():
 
 def actualizar():
     global PANTALLA_NEGRA, estado_escena
-    global canal_puerta
+    global canal_puerta, CONTROL_CINEMATICO
+
+    if estado_escena == "FINAL_NOCHE":
+        final_noche.actualizar()
+        CONTROL_CINEMATICO = final_noche.en_curso
+        if not CONTROL_CINEMATICO:
+            estado_escena = "JUGABLE"
+        return
 
     if estado_escena == "JUGABLE":
         # Permite habilitarla cuando añadamos hogar_noche_1.

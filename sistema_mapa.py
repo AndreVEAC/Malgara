@@ -201,9 +201,14 @@ def _ejecutar_carga_real(nombre_modulo):
     colocar_seguidores_cerca()
         # Si el mapa declara un ambiente, aplicarlo.
     # Si no lo declara, conservar el que ya está sonando.
-    if hasattr(mapa_datos, "AMBIENTE"):
+    resolver_ambiente = getattr(script_nivel_actual, "obtener_ambiente", None)
+    if callable(resolver_ambiente) or hasattr(mapa_datos, "AMBIENTE"):
+        ambiente = (
+            resolver_ambiente() if callable(resolver_ambiente)
+            else mapa_datos.AMBIENTE
+        )
         sistema_audio.reproducir_ambiente(
-            mapa_datos.AMBIENTE,
+            ambiente,
             volumen=getattr(mapa_datos, "VOLUMEN_AMBIENTE", 0.4),
             fade_ms=1000
         )

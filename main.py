@@ -17,7 +17,7 @@ modo_juego = "EXPLORACION"
 # Cargamos el intro al iniciar el juego
 #
 #if not sistema_guardado.continuar(estado_jugador):
-sistema_mapa.cargar_nivel("pueblo_1_noche_1")
+sistema_mapa.cargar_nivel("viaje")
 
 ejecutando = True
 while ejecutando:
