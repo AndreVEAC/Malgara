@@ -365,7 +365,7 @@ def actualizar(ahora):
             if distancia2 <= (T * 0.3) ** 2:
                 mapa.jugador_bloqueado = True
 
-                # Modo de prueba: reiniciar el mapa con fundido.
+                # Restaurar el mapa en su punto de entrada con un fundido.
                 mapa.cargar_nivel(mapa.nombre_mapa_actual)
 
                 persecucion_activa = False
@@ -572,5 +572,9 @@ def dibujar_linternas(pantalla, camara_x, camara_y):
         camara_x,
         camara_y,
     )
+
+    recortar = getattr(mapa.script_nivel_actual, "recortar_linternas", None)
+    if callable(recortar):
+        recortar(capa_luces, camara_x, camara_y)
 
     pantalla.blit(capa_luces, (0, 0))

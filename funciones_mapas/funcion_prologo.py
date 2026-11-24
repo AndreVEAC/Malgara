@@ -1,6 +1,7 @@
 import sistema_mapa
 import sistema_dialogo
 from configuracion import TAMANO_CASILLA
+from estado import BUSQUEDA_DIA_2
 
 esperas_desbloqueadas = set()
 
@@ -20,8 +21,12 @@ def iniciar():
     sistema_mapa.eventos_completados.add("intro_completada")
 
     lucas = sistema_mapa.npcs_activos.get("lucas")
+    visita_dia_2 = BUSQUEDA_DIA_2 in sistema_mapa.eventos_completados
+    if visita_dia_2:
+        sistema_mapa.portales_activos[98] = {"mapa": "intro_dia_2", "spawn_x": 18, "spawn_y": 7}
+        sistema_mapa.portales_activos[99] = {"mapa": "llegada_dia_2", "spawn_x": 1, "spawn_y": 7}
 
-    if "prologo_completado" in sistema_mapa.eventos_completados:
+    if visita_dia_2 or "prologo_completado" in sistema_mapa.eventos_completados:
         # Al regresar después de completarlo, Lucas ya no está.
         esperas_desbloqueadas = {9, 23, 37}
 
@@ -68,7 +73,10 @@ def iniciar():
 
 
 def actualizar():
-    if "prologo_completado" in sistema_mapa.eventos_completados:
+    if (
+        BUSQUEDA_DIA_2 in sistema_mapa.eventos_completados
+        or "prologo_completado" in sistema_mapa.eventos_completados
+    ):
         return
 
     lucas = sistema_mapa.npcs_activos.get("lucas")

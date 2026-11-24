@@ -1,0 +1,23 @@
+{
+  "hogar_flores_marchitas": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "estas flores murieron"}
+    ]
+  },
+  "hogar_libreta": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Debería anotar lo que pasó anoche."}
+    ],
+    "opciones": [
+      {
+        "texto": "Guardar partida",
+        "accion": "guardar_partida",
+        "contar_decision": false
+      },
+      {
+        "texto": "Seguir explorando",
+        "contar_decision": false
+      }
+    ]
+  }
+}

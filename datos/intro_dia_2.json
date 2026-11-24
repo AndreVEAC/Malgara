@@ -1,0 +1,21 @@
+{
+  "evento_radio": {
+    "opciones": [
+      {
+        "texto": "Encender",
+        "accion": "encender_radio",
+        "siguiente_evento": "evento_radio_encendida",
+        "contar_decision": false
+      },
+      {
+        "texto": "No hacer nada",
+        "contar_decision": false
+      }
+    ]
+  },
+  "evento_radio_encendida": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Esto lo había escuchado antes..."}
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "evento_lucas_casa": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "¡Por fin! Ya empezaba a pensar que te habías vuelto a dormir."},
+      {"hablante": "Mateo", "texto": "Apenas pude pegar ojo, Lucas."},
+      {"hablante": "Lucas", "texto": "Yo tampoco. Sigo sintiendo que todo fue una pesadilla."},
+      {"hablante": "Lucas", "texto": "La estatua, el tipo de la linterna... los barriles."},
+      {"hablante": "Mateo", "texto": "No fue una pesadilla. Y hoy es el banquete."},
+      {"hablante": "Lucas", "texto": "Lo sé. Por eso tenemos que encontrar a Morales en la iglesia."},
+      {"hablante": "Lucas", "texto": "Vamos, hay que salir de aquí."}
+    ]
+  }
+}

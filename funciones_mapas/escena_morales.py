@@ -1,4 +1,6 @@
-"""Herramientas de movimiento para las dos escenas; no ejecutan vigilancia."""
+"""Herramientas de movimiento y secuencias para las cinemáticas."""
+from collections import deque
+
 import pygame
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
@@ -49,17 +51,22 @@ def sonido(nombre):
 
 class Recorrido:
     """Waypoints explícitos: la cinemática no activa portales ni pathfinding."""
-    def __init__(self, nombre, puntos, intervalo=250, retraso=0):
+    def __init__(self, nombre, puntos, intervalo=250, retraso=0, al_llegar=None):
         self.nombre, self.puntos = nombre, list(puntos)
         self.intervalo, self.retraso = intervalo, retraso
         self.siguiente = None
+        self.al_llegar = al_llegar
 
     def actualizar(self, ahora):
         if self.siguiente is None: self.siguiente = ahora + self.retraso
         x, y, px, py = posicion(self.nombre)
         while self.puntos and (x, y) == tuple(self.puntos[0]): self.puntos.pop(0)
         if not self.puntos:
-            return abs(px-x*T) < .75 and abs(py-y*T) < .75
+            llego = abs(px-x*T) < .75 and abs(py-y*T) < .75
+            if llego and self.al_llegar is not None:
+                self.al_llegar()
+                self.al_llegar = None
+            return llego
         if ahora < self.siguiente: return False
         tx, ty = self.puntos[0]
         dx = (tx>x)-(tx<x)
@@ -70,6 +77,29 @@ class Recorrido:
             mapa.npcs_activos[self.nombre].update(x=x+dx, y=y+dy, congelado=False)
         self.siguiente = ahora+self.intervalo
         return False
+
+
+def ruta_a(origen, destino):
+    """Buscar una ruta por casillas. El último paso puede ser una puerta."""
+    pendientes = deque([origen])
+    padres = {origen: None}
+    while pendientes:
+        x, y = actual = pendientes.popleft()
+        if actual == destino:
+            ruta = []
+            while actual != origen:
+                ruta.append(actual)
+                actual = padres[actual]
+            return ruta[::-1]
+        for vecino in ((x+1, y), (x-1, y), (x, y+1), (x, y-1)):
+            if vecino in padres:
+                continue
+            if vecino != destino and mapa.casilla_bloqueada(*vecino):
+                continue
+            padres[vecino] = actual
+            pendientes.append(vecino)
+
+    raise ValueError(f"No hay ruta de cinemática entre {origen} y {destino}")
 
 
 class Director:

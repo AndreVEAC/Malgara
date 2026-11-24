@@ -1,4 +1,4 @@
-"""Conversación con Morales y cierre provisional de la primera noche."""
+"""Conversación con Morales y cierre de la primera noche."""
 import pygame
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
@@ -180,9 +180,8 @@ def _terminar():
     global en_curso
     mapa.eventos_completados.discard(HABITACION_PENDIENTE)
     mapa.eventos_completados.add(FINAL_COMPLETADO)
-    mapa.jugador_bloqueado = False
     en_curso = False
-    # Cierre provisional: no dormir automáticamente ni cargar el día 2.
+    mapa.cargar_nivel("habitaciones_dia_2")
 
 
 def actualizar():

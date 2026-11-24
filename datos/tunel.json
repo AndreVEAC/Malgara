@@ -1,0 +1,18 @@
+{
+  "evento_vigilancia_tunel": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Cuidado, hay vigilancia. Esperen a que aparten las linternas antes de cruzar."}
+    ]
+  },
+  "evento_puerta_hierro": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "La puerta está cerrada."}
+    ]
+  },
+  "evento_necesitan_llave": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Con esta no funciona. Necesitaríamos explosivos... o mejor, la llave."},
+      {"hablante": "Morales", "texto": "Volvamos afuera de la iglesia. Tenemos que preparar un plan."}
+    ]
+  }
+}

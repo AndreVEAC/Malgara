@@ -340,6 +340,18 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
     return "DIALOGO"
 
 
+def dibujar_objetivo_global(pantalla, texto):
+    if not fuente_notificacion:
+        inicializar()
+
+    rotulo = fuente_notificacion.render(texto, True, COLOR_NOTIF_TEXTO)
+    marco = pygame.Surface((rotulo.get_width() + 30, 40), pygame.SRCALPHA)
+    marco.fill(COLOR_NOTIF_FONDO)
+    pygame.draw.rect(marco, COLOR_NOTIF_BORDE, marco.get_rect(), width=2)
+    marco.blit(rotulo, (15, 10))
+    pantalla.blit(marco, (20, 20))
+
+
 def dibujar_notificacion_global(pantalla):
     global texto_notificacion, tiempo_inicio_notificacion
     tiempo_actual = pygame.time.get_ticks()

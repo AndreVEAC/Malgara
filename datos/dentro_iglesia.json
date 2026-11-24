@@ -1,0 +1,37 @@
+{
+  "evento_buscar_entrada": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Busquen cómo entrar. La entrada tiene que estar aquí."}
+    ]
+  },
+  "evento_banca": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Una banca de madera."}
+    ]
+  },
+  "evento_atril": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Hay un libro abierto sobre el atril."}
+    ]
+  },
+  "evento_bano": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Solo es el baño."}
+    ]
+  },
+  "evento_puerta_izquierda": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Esta puerta está bloqueada."}
+    ]
+  },
+  "evento_aparta_morales": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Apártate. Sé cómo abrir estas puertas bloqueadas."}
+    ]
+  },
+  "evento_bingo": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "¡Bingo! Entremos."}
+    ]
+  }
+}

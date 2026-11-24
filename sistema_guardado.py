@@ -80,11 +80,11 @@ def actualizar(estado_jugador):
 
     pendiente = None
 
-    if ranura == "manual" and (
-        mapa.nombre_mapa_actual != "hogar"
-        or "hogar:cinematica_completada"
-        not in mapa.eventos_completados
-    ):
+    libreta_disponible = mapa.nombre_mapa_actual == "hogar_dia2" or (
+        mapa.nombre_mapa_actual == "hogar"
+        and "hogar:cinematica_completada" in mapa.eventos_completados
+    )
+    if ranura == "manual" and not libreta_disponible:
         dialogo.activar_notificacion(
             "Solo puedes guardar en la libreta de casa."
         )

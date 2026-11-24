@@ -1,0 +1,70 @@
+{
+  "evento_lucas_iglesia": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Debe ser aquí"},
+      {"hablante": "Lucas", "texto": "busquemos a morales, debe estar cerca"}
+    ]
+  },
+  "evento_no_regresar": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Tenemos que reunirnos con Morales."}
+    ]
+  },
+  "evento_ninos_jugando": {
+    "lineas": [
+      {"hablante": "Niño", "texto": "Estamos jugando."}
+    ]
+  },
+  "evento_vista_morales": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Ahí está. Justo donde dijo que estaría."},
+      {"hablante": "Lucas", "texto": "Escondido entre los arbustos."},
+      {"hablante": "Lucas", "texto": "Al ser un detective, esperaba un escondite mejor..."}
+    ]
+  },
+  "evento_reunion_morales": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Ya los vi. Acérquense, pero no llamen la atención."},
+      {"hablante": "Mateo", "texto": "Llegamos. ¿Cómo está la situación?"},
+      {"hablante": "Morales", "texto": "La iglesia está sola. Siempre está sola."},
+      {"hablante": "Morales", "texto": "Solo se llena de gente un día a la semana."},
+      {"hablante": "Lucas", "texto": "Bueno, eso es un alivio. Supongo."},
+      {"hablante": "Morales", "texto": "No del todo. Hoy hay niños jugando afuera."},
+      {"hablante": "Morales", "texto": "No les presten atención, pero no se confíen."},
+      {"hablante": "Morales", "texto": "Tenemos que entrar rápido. Síganme."},
+      {"hablante": "Mateo", "texto": "Vamos."}
+    ]
+  },
+  "evento_siguen_morales": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Síganme."}
+    ]
+  },
+  "evento_plan_de_busqueda": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Necesitamos la llave. Y tiene que estar en algún lado."},
+      {"hablante": "Mateo", "texto": "¿No puedes ir tú a buscarla?"},
+      {"hablante": "Morales", "texto": "Llevo semanas aquí. Ya me tienen bien ubicado."},
+      {"hablante": "Morales", "texto": "Si me ven merodeando, sospecharán. Ustedes son 'turistas'."},
+      {"hablante": "Lucas", "texto": "Claro, los turistas que no se van."},
+      {"hablante": "Morales", "texto": "Tienen que separarse. Si van juntos, llaman la atención."},
+      {"hablante": "Morales", "texto": "Pero escuchen bien: no pregunten por la llave."},
+      {"hablante": "Mateo", "texto": "¿Entonces cómo demonios la encontramos?"},
+      {"hablante": "Morales", "texto": "Disimulen. Háganse los tontos."},
+      {"hablante": "Morales", "texto": "Saquen el tema de la iglesia como si les interesara para una foto."},
+      {"hablante": "Morales", "texto": "Pregunten por su historia, por los rituales, por el párroco."},
+      {"hablante": "Morales", "texto": "Dejen que ellos hablen. La gente siempre se jacta de lo que sabe."},
+      {"hablante": "Lucas", "texto": "Ah, el arte de sacar información sin preguntar. Me gusta."},
+      {"hablante": "Morales", "texto": "Yo me quedaré escondido cerca de la plaza."},
+      {"hablante": "Morales", "texto": "Si encuentran algo, o si se meten en problemas, vuelvan aquí."},
+      {"hablante": "Mateo", "texto": "De acuerdo. Nos vemos en un rato."},
+      {"hablante": "Lucas", "texto": "Oye, Mateo. Si no nos vemos en una hora..."},
+      {"hablante": "Mateo", "texto": "No digas tonterías. Nos vemos en una hora."}
+    ]
+  },
+  "evento_informar_morales": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Ve informándome de lo que vayas averiguando, Mateo."}
+    ]
+  }
+}

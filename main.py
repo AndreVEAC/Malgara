@@ -1,7 +1,9 @@
+import sys
+
 import pygame
 from pygame.locals import QUIT
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TITULO_JUEGO, FPS
-from estado import EstadoJuego
+from estado import BUSQUEDA_DIA_2, EstadoJuego
 import sistema_mapa
 import sistema_dialogo
 import sistema_guardado
@@ -14,10 +16,10 @@ reloj = pygame.time.Clock()
 estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
-# Cargamos el intro al iniciar el juego
-#
-#if not sistema_guardado.continuar(estado_jugador):
-sistema_mapa.cargar_nivel("viaje")
+#if "--dia-2" in sys.argv:
+#    sistema_mapa.cargar_nivel("habitaciones_dia_2")
+#elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
+sistema_mapa.cargar_nivel("habitaciones_dia_2")
 
 ejecutando = True
 while ejecutando:
@@ -53,6 +55,8 @@ while ejecutando:
         # sistema_dialogo se encarga de devolver "EXPLORACION" por sí solo al terminar de leer el JSON
         modo_juego = sistema_dialogo.actualizar_y_dibujar(pantalla, eventos, estado_jugador)
         
+    if BUSQUEDA_DIA_2 in sistema_mapa.eventos_completados:
+        sistema_dialogo.dibujar_objetivo_global(pantalla, "Encuentra 3 pistas importantes")
     sistema_dialogo.dibujar_notificacion_global(pantalla)
     pygame.display.flip()
 pygame.quit()

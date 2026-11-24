@@ -23,6 +23,7 @@ VELOCIDAD_SUAVIZADO = 0.25
 tiempo_ultimo_paso_mateo = 0
 tiempo_ultima_interaccion = 0  
 RETRASO_MATEO = 250 
+espacio_presionado = False
 
 # --- SISTEMAS GENÉRICOS ORIENTADOS A DATOS ---
 npcs_activos = {}
@@ -38,6 +39,7 @@ tipo_transicion = None
 alpha_transicion = 0
 mapa_pendiente = None
 spawn_pendiente = None
+sonido_llegada_pendiente = None
 
 eventos_completados = set()
 estado_npcs_guardado = {}
@@ -65,18 +67,39 @@ def cargar_sprites_personaje(carpeta):
     return anim
 
 
-def cargar_nivel(nombre_modulo, spawn_x=None, spawn_y=None):
+def cargar_nivel(nombre_modulo, spawn_x=None, spawn_y=None, *, sonido_llegada=None):
     global transicion_activa, tipo_transicion, mapa_pendiente, spawn_pendiente, fondo_actual
+    global sonido_llegada_pendiente
 
     
     spawn_pendiente = (spawn_x, spawn_y) if (spawn_x is not None and spawn_y is not None) else None
 
+    sonido_llegada_pendiente = sonido_llegada
     if fondo_actual is None:
-        _ejecutar_carga_real(nombre_modulo)
+        _cargar_destino(nombre_modulo)
     else:
         transicion_activa = True
         tipo_transicion = "fade_out"
         mapa_pendiente = nombre_modulo
+
+
+def _reproducir_sonido_portal(ruta):
+    if not ruta:
+        return
+
+    try:
+        pygame.mixer.Sound(ruta).play()
+    except (pygame.error, FileNotFoundError) as error:
+        print(f"[Portal] No se pudo reproducir el sonido: {error}")
+
+
+def _cargar_destino(nombre_modulo):
+    global sonido_llegada_pendiente
+
+    sonido = sonido_llegada_pendiente
+    sonido_llegada_pendiente = None
+    _ejecutar_carga_real(nombre_modulo)
+    _reproducir_sonido_portal(sonido)
 
 
 def _ejecutar_carga_real(nombre_modulo):
@@ -120,16 +143,21 @@ def _ejecutar_carga_real(nombre_modulo):
                 except (pygame.error, FileNotFoundError):
                     pass
 
+            carpeta_sprite = datos.get("carpeta_sprite")
+            sprite_override = datos.get("sprite_override")
+            sprites = cargar_sprites_personaje(carpeta_sprite) if carpeta_sprite else {}
             npcs_activos[npc_id] = {
                 "x": datos["x"],
                 "y": datos["y"],
                 "px_x": float(datos["x"] * TAMANO_CASILLA),
                 "px_y": float(datos["y"] * TAMANO_CASILLA),
                 "direccion": datos.get("direccion", "abajo"),
-                "visible": datos.get("visible", True),
-                "sprites": cargar_sprites_personaje(datos["carpeta_sprite"]),
+                "visible": datos.get("visible", True) and bool(
+                    sprites or sprite_override in sprites_esp
+                ),
+                "sprites": sprites,
                 "sprites_especiales": sprites_esp,
-                "sprite_override": None,
+                "sprite_override": sprite_override,
                 "comportamiento": datos.get("comportamiento", "estatico"),
                 "patrulla": dict(datos.get("patrulla", {})),
                 "seguimiento": dict(datos.get("seguimiento", {})),  
@@ -246,6 +274,7 @@ def solo_dibujar(pantalla):
 
 
 def actualizar_y_dibujar(pantalla, estado_jugador):
+    global espacio_presionado
     global mateo_x, mateo_y, tiempo_ultimo_paso_mateo, tiempo_ultima_interaccion
     global mateo_px_x, mateo_px_y, direccion_mateo
     global jugador_bloqueado, transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
@@ -255,6 +284,9 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     
     if script_nivel_actual and hasattr(script_nivel_actual, "actualizar"):
         script_nivel_actual.actualizar()
+    actualizar_estado = getattr(script_nivel_actual, "actualizar_estado", None)
+    if callable(actualizar_estado):
+        actualizar_estado(estado_jugador)
         
     actualizar_bloqueos()
         
@@ -263,6 +295,8 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
 
     # Revisar Espacio incluso cuando el escondite bloquea al jugador.
     teclas = pygame.key.get_pressed()
+    pulso_espacio = teclas[pygame.K_SPACE] and not espacio_presionado
+    espacio_presionado = teclas[pygame.K_SPACE]
     control_escondite = sistema_escondites.actualizar(teclas)
 
     # 1. CONTROL DE MATEO
@@ -273,7 +307,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
         and sistema_dialogo.obtener_evento_activo() is None
     ):
         tiempo_desde_cierre = tiempo_actual - sistema_dialogo.obtener_tiempo_ultimo_cierre()
-        if (teclas[pygame.K_SPACE]
+        if (pulso_espacio
                 and (tiempo_actual - tiempo_ultima_interaccion > 500)
                 and tiempo_desde_cierre > 300):
             tx, ty = mateo_x, mateo_y
@@ -396,31 +430,17 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                             if desbloqueado:
                                 jugador_bloqueado = True
 
-                                ruta_sonido = datos_portal.get(
-                                    "sonido_entrada"
+                                _reproducir_sonido_portal(
+                                    datos_portal.get("sonido_entrada")
                                 )
-
-                                if ruta_sonido:
-                                    try:
-                                        sonido = pygame.mixer.Sound(
-                                            ruta_sonido
-                                        )
-                                        sonido.play()
-
-                                    except (
-                                        pygame.error,
-                                        FileNotFoundError
-                                    ) as error:
-                                        print(
-                                            "[Portal] No se pudo "
-                                            "reproducir el sonido: "
-                                            f"{error}"
-                                        )
 
                                 cargar_nivel(
                                     datos_portal["mapa"],
                                     datos_portal.get("spawn_x"),
-                                    datos_portal.get("spawn_y")
+                                    datos_portal.get("spawn_y"),
+                                    sonido_llegada=datos_portal.get(
+                                        "sonido_llegada"
+                                    ),
                                 )
                             else:
                                 evento = datos_portal.get("evento_bloqueado")
@@ -462,7 +482,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
             alpha_transicion += 15
             if alpha_transicion >= 255:
                 alpha_transicion = 255
-                _ejecutar_carga_real(mapa_pendiente)
+                _cargar_destino(mapa_pendiente)
                 tipo_transicion = "fade_in"
         elif tipo_transicion == "fade_in":
             alpha_transicion -= 15

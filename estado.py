@@ -1,8 +1,11 @@
 from configuracion import CORDURA_MAX, SOSPECHA_MAX, CONFIANZA_MAX
 
+BUSQUEDA_DIA_2 = "dia2:busqueda_de_pistas"
+
 class EstadoJuego:
     def __init__(self):
         self.confianza_lucas = 50
+        self.confianza_lucas_separacion = None
         self.confianza_morales = 50
         self.cordura = CORDURA_MAX
         self.sospecha_pueblo = 0
