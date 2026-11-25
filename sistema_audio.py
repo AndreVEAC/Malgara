@@ -106,7 +106,10 @@ def _silenciar(fade_ms):
     global pista_actual
 
     if pygame.mixer.get_init():
-        pygame.mixer.music.fadeout(fade_ms)
+        if fade_ms > 0:
+            pygame.mixer.music.fadeout(fade_ms)
+        else:
+            pygame.mixer.music.stop()
 
     pista_actual = None
 

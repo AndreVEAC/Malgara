@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pygame
 
+import sistema_audio as audio
 import sistema_dialogo as dialogo
 import sistema_guardado as guardado
 import sistema_mapa as mapa
@@ -355,6 +356,7 @@ class Investigacion:
                 self.mostrar("cuarto_entrada")
 
     def captura(self):
+        audio.detener_musica(fade_ms=0)
         recorridos = []
         for numero, (origen, ruta) in enumerate(rutas_guardias()):
             nombre = f"guardia_dia2_{numero}"

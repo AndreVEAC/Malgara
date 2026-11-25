@@ -750,7 +750,7 @@
       "confianza_al_informar": 3
     },
     "carta_madre": {
-      "titulo": "Eduardo preguntaba por mi edad",
+      "titulo": "Mi madre le daba información a Eduardo",
       "crucial": false,
       "evento_informe": "informe_carta_madre",
       "confianza_al_informar": 3
@@ -941,11 +941,11 @@
       "lineas": [
         {
           "hablante": "Mateo",
-          "texto": "Mi madre escribió que Eduardo preguntaba por mi edad. Mi abuela anotó que debía hablar con él."
+          "texto": "Mi madre le mandaba a Eduardo mi edad y mis horarios. Menciona un sobre que preparó antes de que yo naciera."
         },
         {
           "hablante": "Morales",
-          "texto": "Eso significa que se interesaba por ti antes de tu llegada. No explica todavía por qué."
+          "texto": "Tu madre sabía qué datos quería. La carta no dice para qué los usaban."
         }
       ]
     },
@@ -2193,23 +2193,23 @@
         },
         {
           "hablante": "Carta",
-          "texto": "Me alegra que sigas bien. Cuando vengas, puedes quedarte con nosotros."
+          "texto": "Ya le mandé a Eduardo Álvarez la edad de Mateo y la hora a la que sale de la escuela."
         },
         {
           "hablante": "Carta",
-          "texto": "No entiendo por qué Eduardo volvió a preguntarte por su edad."
+          "texto": "Si vuelve a preguntar, dile que ahora los jueves sale más tarde. Yo te aviso si cambia otra vez."
         },
         {
           "hablante": "Carta",
-          "texto": "Dile que estamos bien. Con eso basta."
+          "texto": "Guarda una copia de la foto en el sobre que dejamos preparado antes de que naciera."
         },
         {
           "hablante": "Mateo",
-          "texto": "¿Eduardo preguntaba por mí?"
+          "texto": "Mamá le daba hasta mis horarios."
         },
         {
           "hablante": "Mateo",
-          "texto": "Yo ni siquiera lo conocía entonces."
+          "texto": "¿Qué habían dejado preparado antes de que yo naciera?"
         },
         {
           "hablante": "Mateo",
@@ -2217,11 +2217,11 @@
         },
         {
           "hablante": "Anotación",
-          "texto": "Contestar después de hablar con Eduardo."
+          "texto": "Entregarle la copia a Eduardo en persona."
         },
         {
           "hablante": "Mateo",
-          "texto": "¿Qué tenía que hablar con él?"
+          "texto": "La abuela también estaba al tanto."
         }
       ],
       "efectos_al_terminar": {

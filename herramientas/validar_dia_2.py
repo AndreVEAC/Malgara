@@ -11,6 +11,7 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 
 import pygame
 
+import sistema_audio as audio
 import sistema_dialogo as dialogo
 import sistema_guardado as guardado
 import sistema_mapa as mapa
@@ -115,6 +116,9 @@ def avanzar_escena():
     for _ in range(1500):
         tiempo += 120
         if dialogo.obtener_evento_activo() is not None:
+            if dialogo.obtener_evento_activo() == "captura_entrada":
+                assert audio.pista_actual is None
+                assert not pygame.mixer.music.get_busy()
             vistos.add(dialogo.obtener_evento_activo())
             leer()
         else:
