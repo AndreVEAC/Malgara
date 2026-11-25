@@ -26,7 +26,7 @@ def iniciar():
     director = None
     vieron_morales = en_borde = False
     proximo_giro = pygame.time.get_ticks() + 1300
-    if MARCA_TUNEL_SUPERADO in mapa.eventos_completados:
+    if {MARCA_TUNEL_SUPERADO, BUSQUEDA_DIA_2} & mapa.eventos_completados:
         for nombre, (x, y) in zip(iglesia.NINOS, iglesia.POSICIONES_NINOS):
             mapa.npcs_activos[nombre]["visible"] = False
             mapa.matriz_activa[y][x] = 0

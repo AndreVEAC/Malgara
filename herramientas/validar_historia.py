@@ -10,9 +10,14 @@ def cargar_todos_los_nodos():
     
     for nombre_archivo in archivos_json:
         ruta = os.path.join(RUTA_DATOS, nombre_archivo)
-        with open(ruta, 'r', encoding='utf-8') as f:
+        with open(ruta, 'r', encoding='utf-8-sig') as f:
             datos = json.load(f)
+            declarativo = "formato" in datos and isinstance(datos.get("eventos"), dict)
+            if declarativo:
+                datos = datos["eventos"]
             for id_nodo, contenido in datos.items():
+                if declarativo:
+                    id_nodo = f"{nombre_archivo}::{id_nodo}"
                 if id_nodo in todos_los_nodos:
                     print(f"⚠️ ADVERTENCIA: Nodo duplicado '{id_nodo}' en {nombre_archivo}")
                 todos_los_nodos[id_nodo] = (nombre_archivo, contenido)
@@ -27,13 +32,17 @@ def validar_arbol():
 
     for id_nodo, (archivo_origen, contenido) in nodos.items():
         opciones = contenido.get("opciones", [])
-        for i, opcion in enumerate(opciones):
-            total_opciones += 1
-            destino = opcion.get("siguiente")
+        referencias = [(f"Opción {i+1}", opcion.get("siguiente") or opcion.get("siguiente_evento"))
+                       for i, opcion in enumerate(opciones)]
+        referencias.append(("Continuación", contenido.get("siguiente") or contenido.get("siguiente_evento")))
+        total_opciones += len(opciones)
+        for origen, destino in referencias:
+            if destino and "::" in id_nodo:
+                destino = f"{archivo_origen}::{destino}"
             
             # Si el destino no es especial (como cambiar de estado a mapa) y no existe:
             if destino and destino not in nodos and not destino.startswith("MODO_MAPA:"):
-                print(f"❌ ERROR [Enlace Roto]: Nodo '{id_nodo}' ({archivo_origen}) -> Opción {i+1} apunta a '{destino}', que no existe.")
+                print(f"❌ ERROR [Enlace Roto]: Nodo '{id_nodo}' ({archivo_origen}) -> {origen} apunta a '{destino}', que no existe.")
                 errores += 1
 
     print("\n" + "="*50)

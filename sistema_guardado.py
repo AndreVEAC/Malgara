@@ -431,7 +431,7 @@ def cargar(estado_jugador, ranura="manual"):
         mapa.tipo_transicion = "fade_in"
         mapa.transicion_activa = True
 
-        dialogo.texto_notificacion = ""
+        dialogo.limpiar_notificaciones()
 
         return True
 

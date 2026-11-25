@@ -7,6 +7,7 @@ from estado import BUSQUEDA_DIA_2, EstadoJuego
 import sistema_mapa
 import sistema_dialogo
 import sistema_guardado
+from funciones_mapas.investigacion_dia_2 import Investigacion, objetivo
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -16,10 +17,15 @@ reloj = pygame.time.Clock()
 estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
 
-#if "--dia-2" in sys.argv:
-#    sistema_mapa.cargar_nivel("habitaciones_dia_2")
-#elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
-sistema_mapa.cargar_nivel("habitaciones_dia_2")
+investigacion = Investigacion(estado_jugador, autoguardar="--prueba-dia-2" not in sys.argv)
+if "--prueba-dia-2" in sys.argv:
+    sistema_mapa.eventos_completados.add(BUSQUEDA_DIA_2)
+    if "--captura" in sys.argv or "--rescate" in sys.argv:
+        estado_jugador.sospecha_pueblo = 99
+        estado_jugador.confianza_morales = 65 if "--rescate" in sys.argv else 64
+    sistema_mapa.cargar_nivel("pueblo_2_dia_2", 38, 15)
+elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
+    sistema_mapa.cargar_nivel("iglesia_dia2")
 
 ejecutando = True
 while ejecutando:
@@ -42,7 +48,7 @@ while ejecutando:
     # --- MÁQUINA DE ESTADOS ---
     if modo_juego == "EXPLORACION":
         # Todo el trabajo sucio lo hace sistema_mapa
-        nuevo_modo = sistema_mapa.actualizar_y_dibujar(pantalla, estado_jugador)
+        nuevo_modo = sistema_mapa.actualizar_y_dibujar(pantalla, estado_jugador, investigacion)
         
         # Si sistema_mapa dice que pisamos un evento, cambiamos de modo
         if nuevo_modo != modo_juego:
@@ -55,8 +61,9 @@ while ejecutando:
         # sistema_dialogo se encarga de devolver "EXPLORACION" por sí solo al terminar de leer el JSON
         modo_juego = sistema_dialogo.actualizar_y_dibujar(pantalla, eventos, estado_jugador)
         
-    if BUSQUEDA_DIA_2 in sistema_mapa.eventos_completados:
-        sistema_dialogo.dibujar_objetivo_global(pantalla, "Encuentra 3 pistas importantes")
+    rotulo = objetivo(estado_jugador)
+    if rotulo:
+        sistema_dialogo.dibujar_objetivo_global(pantalla, rotulo)
     sistema_dialogo.dibujar_notificacion_global(pantalla)
     pygame.display.flip()
 pygame.quit()

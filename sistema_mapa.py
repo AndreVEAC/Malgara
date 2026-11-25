@@ -45,6 +45,7 @@ eventos_completados = set()
 estado_npcs_guardado = {}
 bloqueos_activos = {}
 nombre_mapa_actual = None
+revision_nivel = 0
 
 RUTA_CAJA_BLOQUEO = (
     "recursos/sprites/objetos/caja_bloqueo.png"
@@ -110,10 +111,11 @@ def _ejecutar_carga_real(nombre_modulo):
     global jugador_bloqueado, script_nivel_actual
     global npcs_activos, interactuables_activos, triggers_pisar_activos, portales_activos
     global spawn_pendiente
-    global nombre_mapa_actual
+    global nombre_mapa_actual, revision_nivel
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
     nombre_mapa_actual = nombre_modulo
+    revision_nivel += 1
     bloqueos_activos.clear()
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
@@ -273,7 +275,7 @@ def solo_dibujar(pantalla):
     _dibujar_escenario(pantalla, animar=False)
 
 
-def actualizar_y_dibujar(pantalla, estado_jugador):
+def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
     global espacio_presionado
     global mateo_x, mateo_y, tiempo_ultimo_paso_mateo, tiempo_ultima_interaccion
     global mateo_px_x, mateo_px_y, direccion_mateo
@@ -282,7 +284,13 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
     tiempo_actual = pygame.time.get_ticks()
     nuevo_estado_juego = "EXPLORACION"
     
-    if script_nivel_actual and hasattr(script_nivel_actual, "actualizar"):
+    if investigacion is not None:
+        investigacion.actualizar()
+    if (
+        not estado_jugador.dia2["captura_pendiente"]
+        and sistema_dialogo.obtener_evento_activo() is None
+        and script_nivel_actual and hasattr(script_nivel_actual, "actualizar")
+    ):
         script_nivel_actual.actualizar()
     actualizar_estado = getattr(script_nivel_actual, "actualizar_estado", None)
     if callable(actualizar_estado):
@@ -327,7 +335,11 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         casilla_frente
                     )
 
-                if nombre_evento:
+                if investigacion is not None and investigacion.interactuar(tx, ty, nombre_evento):
+                    tiempo_ultima_interaccion = tiempo_actual
+                    if sistema_dialogo.obtener_evento_activo() is not None:
+                        nuevo_estado_juego = "DIALOGO"
+                elif nombre_evento:
                     sistema_dialogo.iniciar_dialogo(nombre_evento)
                     tiempo_ultima_interaccion = tiempo_actual
 
@@ -350,6 +362,8 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
 
         if (
             sistema_dialogo.obtener_evento_activo() is None
+            and not transicion_activa
+            and estado_jugador.dia2["rama"] != "invitados_honor"
             and tiempo_actual - tiempo_ultimo_paso_mateo > retraso_actual
         ):
             nx, ny = mateo_x, mateo_y
@@ -380,7 +394,11 @@ def actualizar_y_dibujar(pantalla, estado_jugador):
                         for npc in npcs_activos.values()
                     )
                     
-                    if not es_muro and not bloquea_npc:
+                    fin_de_segmento = (
+                        estado_jugador.dia2["resultado"]
+                        and casilla_destino in portales_activos
+                    )
+                    if not es_muro and not bloquea_npc and not fin_de_segmento:
                         mateo_x, mateo_y = nx, ny
                         tiempo_ultimo_paso_mateo = tiempo_actual
                         
@@ -673,6 +691,9 @@ def _dibujar_escenario(pantalla, animar=True):
         ))
 
     # 5. Dibujar personajes y objetos ordenados por profundidad.
+    capa = getattr(script_nivel_actual, "capa_profundidad", None)
+    if capa:
+        elementos.append(capa(camara_x, camara_y))
     elementos.sort(key=lambda elemento: elemento[0])
 
     for _, img, x, y in elementos:

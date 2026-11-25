@@ -1,5 +1,6 @@
 import pygame
 import json
+from collections import deque
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA
 import sistema_mapa
 
@@ -20,7 +21,8 @@ opcion_seleccionada = 0
 texto_notificacion = ""
 tiempo_inicio_notificacion = 0
 tiempo_ultima_interaccion = 0
-DURACION_NOTIFICACION = 3500
+DURACION_NOTIFICACION = 4000
+notificaciones_pendientes = deque()
 
 # Animación tipo máquina de escribir
 indice_letra = 0
@@ -51,6 +53,7 @@ COLOR_OPCION_INACTIVA = (160, 160, 180)
 COLOR_OPCION_ACTIVA = (255, 220, 80)
 COLOR_LUCAS = (255, 170, 50)
 COLOR_MATEO = (50, 220, 130)
+COLOR_MORALES = (80, 170, 255)
 
 # Colores de la Notificación
 COLOR_NOTIF_FONDO = (43, 27, 23, 230)
@@ -85,7 +88,7 @@ def inicializar():
         sonido_notificacion = None
 
 # FUNCIÓN PARA LA ARQUITECTURA DINÁMICA
-def cargar_json(ruta):
+def cargar_json(ruta=None):
     global datos_dialogo
 
     # Empezar de cero para no conservar eventos del mapa anterior.
@@ -97,8 +100,9 @@ def cargar_json(ruta):
 
     # Diálogos del mapa actual.
     # Si un nombre coincide, tiene prioridad la versión del mapa.
-    with open(ruta, "r", encoding="utf-8") as archivo:
-        datos_dialogo.update(json.load(archivo))
+    if ruta is not None:
+        with open(ruta, "r", encoding="utf-8") as archivo:
+            datos_dialogo.update(json.load(archivo))
 
 
 def iniciar_dialogo(nombre_evento):
@@ -131,12 +135,40 @@ def obtener_evento_activo():
     return nombre_evento_activo
 
 
-def activar_notificacion(texto):
-    global texto_notificacion, tiempo_inicio_notificacion
+def activar_notificacion(texto, *, fondo=None):
+    notificaciones_pendientes.append((texto, fondo))
+    _actualizar_notificacion(pygame.time.get_ticks())
+
+
+def limpiar_notificaciones():
+    global texto_notificacion
+    texto_notificacion = ""
+    notificaciones_pendientes.clear()
+
+
+def _actualizar_notificacion(tiempo):
+    global texto_notificacion, tiempo_inicio_notificacion, fondo_notificacion
+    if texto_notificacion and tiempo - tiempo_inicio_notificacion < DURACION_NOTIFICACION:
+        return
+    if not notificaciones_pendientes:
+        texto_notificacion = ""
+        return
+    texto, fondo_notificacion = notificaciones_pendientes.popleft()
     texto_notificacion = texto
-    tiempo_inicio_notificacion = pygame.time.get_ticks()
+    tiempo_inicio_notificacion = tiempo
     if sonido_notificacion:
         sonido_notificacion.play()
+
+
+def _completar_evento(tiempo):
+    global evento_actual, nombre_evento_activo, tiempo_ultimo_cierre_dialogo
+    completar = evento_actual.get("al_completar")
+    evento_actual = None
+    nombre_evento_activo = None
+    tiempo_ultimo_cierre_dialogo = tiempo
+    if completar:
+        completar()
+    return "DIALOGO" if evento_actual is not None else "EXPLORACION"
 
 
 def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
@@ -165,10 +197,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                 iniciar_dialogo(siguiente)
                 return "DIALOGO"  # <--- ¡ARREGLO 1!
             else:
-                evento_actual = None
-                nombre_evento_activo = None
-                tiempo_ultimo_cierre_dialogo = tiempo_actual
-                return "EXPLORACION"
+                return _completar_evento(tiempo_actual)
 
     # ----------------------------------------------------
     # LÓGICA DE TEXTO NORMAL (soporta mantener presionado ESPACIO)
@@ -235,10 +264,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                         iniciar_dialogo(siguiente)
                         return "DIALOGO"  # <--- ¡ARREGLO 2!
                     else:
-                        evento_actual = None
-                        nombre_evento_activo = None
-                        tiempo_ultimo_cierre_dialogo = tiempo_actual
-                        return "EXPLORACION"
+                        return _completar_evento(tiempo_actual)
 
     # LÓGICA DE MENÚ DE DECISIONES
     else:
@@ -251,6 +277,13 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
                 elif ev.key == pygame.K_SPACE:
                     
                     eleccion = opciones_actuales[opcion_seleccionada]
+                    if "al_elegir" in eleccion:
+                        elegir = eleccion["al_elegir"]
+                        evento_actual = nombre_evento_activo = None
+                        en_modo_decision = False
+                        tiempo_ultimo_cierre_dialogo = tiempo_actual
+                        elegir()
+                        return "DIALOGO" if evento_actual is not None else "EXPLORACION"
                     
                     if eleccion.get("contar_decision", True):
                         estado_jugador.registrar_decision(
@@ -309,6 +342,8 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
             color_nombre = COLOR_MATEO
         elif nombre == "LUCAS":
             color_nombre = COLOR_LUCAS
+        elif nombre == "MORALES":
+            color_nombre = COLOR_MORALES
         elif nombre in ("EDUARDO ÁLVAREZ", "EDUARDO ALVAREZ", "LÍDER", "LIDER"):
             color_nombre = (220, 60, 60)
         else:
@@ -328,14 +363,21 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
         surf_titulo = fuente_nombre.render("¿Qué responder?", True, COLOR_TEXTO)
         pantalla.blit(surf_titulo, (pos_x + 20, pos_y + 12))
 
-        for idx, opc in enumerate(opciones_actuales):
+        filas_opciones = 4 if evento_actual.get("desplazar_opciones") else len(opciones_actuales)
+        primera = max(0, opcion_seleccionada - filas_opciones + 1)
+        for idx, opc in enumerate(opciones_actuales[primera:primera + filas_opciones], primera):
             es_seleccionada = (idx == opcion_seleccionada)
             prefix = "► " if es_seleccionada else "  "
             color = COLOR_OPCION_ACTIVA if es_seleccionada else COLOR_OPCION_INACTIVA
 
             texto_opcion = f"{prefix}{opc.get('texto', '')}"
             surf_opc = fuente_texto.render(texto_opcion, True, color)
-            pantalla.blit(surf_opc, (pos_x + 20, pos_y + 45 + (idx * 28)))
+            paso = 23 if evento_actual.get("desplazar_opciones") else 28
+            pantalla.blit(surf_opc, (pos_x + 20, pos_y + 45 + ((idx - primera) * paso)))
+
+        if evento_actual.get("desplazar_opciones") and len(opciones_actuales) > filas_opciones:
+            avance = fuente_nombre.render(f"{opcion_seleccionada + 1}/{len(opciones_actuales)}", True, COLOR_TEXTO)
+            pantalla.blit(avance, (pos_x + ancho_caja - avance.get_width() - 20, pos_y + 12))
 
     return "DIALOGO"
 
@@ -353,14 +395,14 @@ def dibujar_objetivo_global(pantalla, texto):
 
 
 def dibujar_notificacion_global(pantalla):
-    global texto_notificacion, tiempo_inicio_notificacion
-    tiempo_actual = pygame.time.get_ticks()
+    _actualizar_notificacion(pygame.time.get_ticks())
 
-    if texto_notificacion and (tiempo_actual - tiempo_inicio_notificacion < DURACION_NOTIFICACION):
+    if texto_notificacion:
         if not fuente_notificacion:
             inicializar()
 
-        surf_txt_notif = fuente_notificacion.render(texto_notificacion, True, COLOR_NOTIF_TEXTO)
+        color_texto = COLOR_TEXTO if fondo_notificacion else COLOR_NOTIF_TEXTO
+        surf_txt_notif = fuente_notificacion.render(texto_notificacion, True, color_texto)
 
         ancho_notif = surf_txt_notif.get_width() + 30
         alto_notif = 40
@@ -370,13 +412,11 @@ def dibujar_notificacion_global(pantalla):
         pos_y = margin_top
 
         superficie_notif = pygame.Surface((ancho_notif, alto_notif), pygame.SRCALPHA)
-        superficie_notif.fill(COLOR_NOTIF_FONDO)
+        superficie_notif.fill(fondo_notificacion or COLOR_NOTIF_FONDO)
         pygame.draw.rect(superficie_notif, COLOR_NOTIF_BORDE, (0, 0, ancho_notif, alto_notif), width=2)
 
         pantalla.blit(superficie_notif, (pos_x, pos_y))
         pantalla.blit(surf_txt_notif, (pos_x + 15, pos_y + 10))
-    else:
-        texto_notificacion = ""
         
 def obtener_tiempo_ultimo_cierre():
     return tiempo_ultimo_cierre_dialogo

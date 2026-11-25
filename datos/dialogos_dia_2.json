@@ -1,0 +1,3193 @@
+{
+  "version": "1.0",
+  "formato": "Guion declarativo para adaptar al motor existente; no cargar sin adaptacion",
+  "reglas": {
+    "conversaciones_minimas": 5,
+    "sospecha_avisos": [
+      40,
+      70
+    ],
+    "sospecha_captura": 100,
+    "confianza_rescate": 65,
+    "confianza_informe_secundario": 3,
+    "confianza_informe_crucial": 7,
+    "color_confianza_morales": [
+      80,
+      170,
+      255
+    ],
+    "pistas_cruciales": [
+      "objetos_elena",
+      "marca_media_luna",
+      "caja_jm"
+    ],
+    "revelaciones_morales": [
+      {
+        "min_confianza": 56,
+        "evento": "morales_pasado"
+      },
+      {
+        "min_confianza": 62,
+        "evento": "morales_investigacion"
+      },
+      {
+        "min_confianza": 65,
+        "evento": "morales_compromiso"
+      }
+    ]
+  },
+  "personajes": {
+    "anciano": {
+      "hablante": "Anciano",
+      "mapa_referencia": "pueblo_2_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "anciano_inicio",
+      "preguntas": [
+        {
+          "id": "anciano_pregunta_1",
+          "texto": "¿Qué dibujaba mi mamá?",
+          "evento": "anciano_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "madre_caminos"
+            ],
+            "registrar_personaje": "anciano"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "anciano_pregunta_2",
+          "texto": "¿Qué pasó con aquellos libros?",
+          "evento": "anciano_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "objetos_elena"
+            ],
+            "registrar_personaje": "anciano"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "anciano_pregunta_3",
+          "texto": "¿Y detrás de las puertas cerradas?",
+          "evento": "anciano_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "anciano"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "anciano_salida",
+      "repetir_agotado": "anciano_repetir"
+    },
+    "amargado": {
+      "hablante": "Hombre amargado",
+      "mapa_referencia": "pueblo_2_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "amargado_inicio",
+      "preguntas": [
+        {
+          "id": "amargado_pregunta_1",
+          "texto": "¿Qué están preparando?",
+          "evento": "amargado_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "preparativos"
+            ],
+            "registrar_personaje": "amargado"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "amargado_pregunta_2",
+          "texto": "¿Dónde puedo mirar el pueblo tranquilo?",
+          "evento": "amargado_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "amargado"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "amargado_pregunta_3",
+          "texto": "¿Por qué vigilan los caminos?",
+          "evento": "amargado_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "amargado"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "amargado_salida",
+      "repetir_agotado": "amargado_repetir"
+    },
+    "nina": {
+      "hablante": "Niña de la muñeca",
+      "mapa_referencia": "pueblo_2_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "nina_inicio",
+      "preguntas": [
+        {
+          "id": "nina_pregunta_1",
+          "texto": "¿También irá a la celebración?",
+          "evento": "nina_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "ninos_fuera"
+            ],
+            "registrar_personaje": "nina"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "nina_pregunta_2",
+          "texto": "¿Qué le falta para estar lista?",
+          "evento": "nina_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "nina"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "nina_pregunta_3",
+          "texto": "¿Has visto a mi abuela?",
+          "evento": "nina_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "ventana_abuela"
+            ],
+            "registrar_personaje": "nina"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "nina_salida",
+      "repetir_agotado": "nina_repetir"
+    },
+    "preparativos_sur": {
+      "hablante": "Mujer organizadora",
+      "mapa_referencia": "pueblo_2_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "preparativos_sur_inicio",
+      "preguntas": [
+        {
+          "id": "preparativos_sur_pregunta_1",
+          "texto": "¿Necesitan tantos preparativos?",
+          "evento": "preparativos_sur_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "eduardo_prepara"
+            ],
+            "registrar_personaje": "preparativos_sur"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "preparativos_sur_pregunta_2",
+          "texto": "¿Qué están transportando?",
+          "evento": "preparativos_sur_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 5,
+            "descubrir": [],
+            "registrar_personaje": "preparativos_sur"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "preparativos_sur_pregunta_3",
+          "texto": "¿Quién decide por dónde pasan?",
+          "evento": "preparativos_sur_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "preparativos_sur"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "preparativos_sur_salida",
+      "repetir_agotado": "preparativos_sur_repetir"
+    },
+    "vecino": {
+      "hablante": "Vecino",
+      "mapa_referencia": "pueblo_1_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "vecino_inicio",
+      "preguntas": [
+        {
+          "id": "vecino_pregunta_1",
+          "texto": "¿Siempre alojan ahí a los visitantes?",
+          "evento": "vecino_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "alojamiento_elena"
+            ],
+            "registrar_personaje": "vecino"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "vecino_pregunta_2",
+          "texto": "¿Mi abuela estará ocupada hoy?",
+          "evento": "vecino_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "vecino"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "vecino_pregunta_3",
+          "texto": "¿Quién pasó anoche por nuestra casa?",
+          "evento": "vecino_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "vecino"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "vecino_salida",
+      "repetir_agotado": "vecino_repetir"
+    },
+    "fotografias": {
+      "hablante": "Señora de las fotografías",
+      "mapa_referencia": "pueblo_1_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "fotografias_inicio",
+      "preguntas": [
+        {
+          "id": "fotografias_pregunta_1",
+          "texto": "¿Las volverá a colocar?",
+          "evento": "fotografias_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "fotografias"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "fotografias_pregunta_2",
+          "texto": "¿De quiénes eran?",
+          "evento": "fotografias_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "fotos_visitantes"
+            ],
+            "registrar_personaje": "fotografias"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "fotografias_pregunta_3",
+          "texto": "¿No querían que las viéramos?",
+          "evento": "fotografias_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "fotografias"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "fotografias_salida",
+      "repetir_agotado": "fotografias_repetir"
+    },
+    "panadero": {
+      "hablante": "Panadero",
+      "mapa_referencia": "pueblo_1_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "panadero_inicio",
+      "preguntas": [
+        {
+          "id": "panadero_pregunta_1",
+          "texto": "¿Qué pan prepara para la fiesta?",
+          "evento": "panadero_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "panadero"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "panadero_pregunta_2",
+          "texto": "¿Siempre hacen una fiesta tan grande?",
+          "evento": "panadero_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "fiesta_invitados"
+            ],
+            "registrar_personaje": "panadero"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "panadero_pregunta_3",
+          "texto": "¿Por qué importa tanto que estemos?",
+          "evento": "panadero_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "panadero"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "panadero_salida",
+      "repetir_agotado": "panadero_repetir"
+    },
+    "mujer_clinica": {
+      "hablante": "Mujer que espera",
+      "mapa_referencia": "pueblo_3_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "mujer_clinica_inicio",
+      "preguntas": [
+        {
+          "id": "mujer_clinica_pregunta_1",
+          "texto": "¿Cómo se encuentra?",
+          "evento": "mujer_clinica_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "mujer_clinica"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "mujer_clinica_pregunta_2",
+          "texto": "¿No la han dejado verlo?",
+          "evento": "mujer_clinica_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 5,
+            "descubrir": [
+              "paciente_aislado"
+            ],
+            "registrar_personaje": "mujer_clinica"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "mujer_clinica_pregunta_3",
+          "texto": "¿Cómo sabe que sigue aquí?",
+          "evento": "mujer_clinica_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [],
+            "registrar_personaje": "mujer_clinica"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "mujer_clinica_salida",
+      "repetir_agotado": "mujer_clinica_repetir"
+    },
+    "hombre_calle": {
+      "hablante": "Hombre de la calle",
+      "mapa_referencia": "pueblo_3_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "hombre_calle_inicio",
+      "preguntas": [
+        {
+          "id": "hombre_calle_pregunta_1",
+          "texto": "¿Lleva mucho viviendo aquí?",
+          "evento": "hombre_calle_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "hombre_calle"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "hombre_calle_pregunta_2",
+          "texto": "¿Qué hay siguiendo este camino?",
+          "evento": "hombre_calle_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "hombre_calle"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "hombre_calle_pregunta_3",
+          "texto": "¿Siempre miran tanto a quien pasa?",
+          "evento": "hombre_calle_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 15,
+            "descubrir": [
+              "vigilancia_vecinos"
+            ],
+            "registrar_personaje": "hombre_calle"
+          },
+          "volver_al_menu": true
+        }
+      ],
+      "despedida": "hombre_calle_salida",
+      "repetir_agotado": "hombre_calle_repetir"
+    },
+    "ines": {
+      "hablante": "Muchacha de los barriles",
+      "mapa_referencia": "casa_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "ines_inicio",
+      "preguntas": [
+        {
+          "id": "ines_pregunta_1",
+          "texto": "¿Trabajas por aquí?",
+          "evento": "ines_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "ines"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "ines_pregunta_2",
+          "texto": "¿Te preocupa que nos vean hablando?",
+          "evento": "ines_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "preguntas_ines"
+            ],
+            "registrar_personaje": "ines"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "ines_pregunta_3",
+          "texto": "Estoy buscando recuerdos de mi madre.",
+          "evento": "ines_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "marca_media_luna"
+            ],
+            "registrar_personaje": "ines"
+          },
+          "volver_al_menu": true,
+          "variantes_lineas": [
+            {
+              "si_no_descubierto": "objetos_elena",
+              "lineas": [
+                {
+                  "hablante": "Mateo",
+                  "texto": "Estoy buscando recuerdos de mi madre."
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "¿Por aquí?"
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "Vivía en el pueblo. Hoy vi la iglesia por dentro."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "Me preguntaba si todavía quedan cosas de aquella época. Incluso las llaves parecen antiguas."
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "Había una con una muesca de media luna."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "¿La conoces?"
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "La vi hace tiempo."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "¿Sabes dónde está?"
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "Ahora, no."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "¿Y qué abre?"
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "No te he dicho que lo sepa."
+                },
+                {
+                  "hablante": "Muchacha de los barriles",
+                  "texto": "No digas que hablaste conmigo."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "despedida": "ines_salida",
+      "repetir_agotado": "ines_repetir",
+      "nota_escena": "Mateo deja espacio al comenzar. No revelar cartas, identidad de autora ni muerte del padre. La médica es Inés, no la madre de Mateo. Padre médico, no cerrajero. NPC pintado en fondo: no mover ni duplicar sprite."
+    },
+    "abuela": {
+      "hablante": "Abuela",
+      "mapa_referencia": "casa_abuela_dia_2",
+      "cuenta_para_cinco": true,
+      "introduccion": "abuela_inicio",
+      "preguntas": [
+        {
+          "id": "abuela_pregunta_1",
+          "texto": "¿Qué hacía cuando tenía mi edad?",
+          "evento": "abuela_pregunta_1",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [],
+            "registrar_personaje": "abuela"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "abuela_pregunta_2",
+          "texto": "¿Conservas fotografías o cosas suyas?",
+          "evento": "abuela_pregunta_2",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 0,
+            "descubrir": [
+              "cuarto_cerrado"
+            ],
+            "registrar_personaje": "abuela"
+          },
+          "volver_al_menu": true
+        },
+        {
+          "id": "abuela_pregunta_3",
+          "texto": "Me hablaron de tus cosas de la iglesia.",
+          "evento": "abuela_pregunta_3",
+          "una_vez": true,
+          "efectos_al_terminar": {
+            "sospecha_pueblo": 5,
+            "descubrir": [],
+            "registrar_personaje": "abuela"
+          },
+          "volver_al_menu": true,
+          "variantes_lineas": [
+            {
+              "si_no_descubierto": "objetos_elena",
+              "texto": "¿Ibas a la iglesia con mamá?",
+              "sospecha_override": 0,
+              "lineas": [
+                {
+                  "hablante": "Abuela",
+                  "texto": "Cuando era pequeña, sí."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "¿Le gustaba?"
+                },
+                {
+                  "hablante": "Abuela",
+                  "texto": "Le gustaba salir después y comprar algo de comer."
+                },
+                {
+                  "hablante": "Mateo",
+                  "texto": "Eso sí suena a ella."
+                },
+                {
+                  "hablante": "Abuela",
+                  "texto": "Siempre encontraba una razón para quedarse afuera."
+                }
+              ]
+            }
+          ],
+          "nota": "Variante previa no consume la pregunta informada futura; IDs de consumo distintos. Nunca otorgar objetos_elena desde esta pregunta."
+        }
+      ],
+      "despedida": "abuela_salida",
+      "repetir_agotado": "abuela_repetir"
+    }
+  },
+  "hallazgos": {
+    "objetos_elena": {
+      "titulo": "Elena conserva objetos de la parroquia",
+      "crucial": true,
+      "evento_informe": "informe_objetos_elena",
+      "confianza_al_informar": 7
+    },
+    "marca_media_luna": {
+      "titulo": "Una llave tiene una muesca de media luna",
+      "crucial": true,
+      "evento_informe": "informe_marca_media_luna",
+      "confianza_al_informar": 7
+    },
+    "caja_jm": {
+      "titulo": "La llave estaba en una caja marcada J. M.",
+      "crucial": true,
+      "evento_informe": "informe_caja_jm",
+      "confianza_al_informar": 7
+    },
+    "madre_caminos": {
+      "titulo": "Mi madre quería conocer otros lugares",
+      "crucial": false,
+      "evento_informe": "informe_madre_caminos",
+      "confianza_al_informar": 3
+    },
+    "preparativos": {
+      "titulo": "El pueblo está ocupado con los preparativos",
+      "crucial": false,
+      "evento_informe": "informe_preparativos",
+      "confianza_al_informar": 3
+    },
+    "ninos_fuera": {
+      "titulo": "Los niños se retiran antes del final",
+      "crucial": false,
+      "evento_informe": "informe_ninos_fuera",
+      "confianza_al_informar": 3
+    },
+    "ventana_abuela": {
+      "titulo": "Hay una ventana detrás de casa de mi abuela",
+      "crucial": false,
+      "evento_informe": "informe_ventana_abuela",
+      "confianza_al_informar": 3
+    },
+    "eduardo_prepara": {
+      "titulo": "Eduardo dirige los preparativos",
+      "crucial": false,
+      "evento_informe": "informe_eduardo_prepara",
+      "confianza_al_informar": 3
+    },
+    "alojamiento_elena": {
+      "titulo": "Elena preparó nuestro alojamiento",
+      "crucial": false,
+      "evento_informe": "informe_alojamiento_elena",
+      "confianza_al_informar": 3
+    },
+    "fotos_visitantes": {
+      "titulo": "Retiraron fotografías de visitantes",
+      "crucial": false,
+      "evento_informe": "informe_fotos_visitantes",
+      "confianza_al_informar": 3
+    },
+    "fiesta_invitados": {
+      "titulo": "La celebración cambia cuando hay invitados",
+      "crucial": false,
+      "evento_informe": "informe_fiesta_invitados",
+      "confianza_al_informar": 3
+    },
+    "paciente_aislado": {
+      "titulo": "Una mujer no puede visitar a su marido",
+      "crucial": false,
+      "evento_informe": "informe_paciente_aislado",
+      "confianza_al_informar": 3
+    },
+    "vigilancia_vecinos": {
+      "titulo": "Los vecinos comentan nuestros movimientos",
+      "crucial": false,
+      "evento_informe": "informe_vigilancia_vecinos",
+      "confianza_al_informar": 3
+    },
+    "preguntas_ines": {
+      "titulo": "La muchacha teme que nos vean hablando",
+      "crucial": false,
+      "evento_informe": "informe_preguntas_ines",
+      "confianza_al_informar": 3
+    },
+    "cuarto_cerrado": {
+      "titulo": "El cuarto de mi madre está cerrado",
+      "crucial": false,
+      "evento_informe": "informe_cuarto_cerrado",
+      "confianza_al_informar": 3
+    },
+    "carta_madre": {
+      "titulo": "Eduardo preguntaba por mi edad",
+      "crucial": false,
+      "evento_informe": "informe_carta_madre",
+      "confianza_al_informar": 3
+    }
+  },
+  "eventos": {
+    "informe_objetos_elena": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "El anciano trabajaba con mi abuela. Dice que ella guardó cajas y registros de la parroquia."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Entonces hay una razón para visitarla. Pregunta por los recuerdos de tu madre; no empieces pidiendo llaves."
+        }
+      ]
+    },
+    "informe_marca_media_luna": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Una persona reconoció una llave antigua por una muesca de media luna."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Una marca concreta. Nos ayudará a distinguirla, pero todavía hay que saber qué abre."
+        }
+      ]
+    },
+    "informe_caja_jm": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Encontré un inventario. La llave del acceso inferior estaba en una caja marcada J. M."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Y su destino? Si no está escrito, no lo demos por supuesto. Conserva esas iniciales."
+        }
+      ]
+    },
+    "informe_madre_caminos": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "El anciano recuerda que mi madre quería conocer lo que había fuera."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Podría explicar por qué se marchó. Pero no demuestra que huyera de algo."
+        }
+      ]
+    },
+    "informe_preparativos": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Todos están trabajando para la celebración."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Eso puede dejar algunos lugares menos atendidos. También hará que te encuentres con más gente."
+        }
+      ]
+    },
+    "informe_ninos_fuera": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "La niña dice que los niños se van antes de que termine la celebración."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Puede ser una costumbre. Conviene recordar cuándo se separan los grupos."
+        }
+      ]
+    },
+    "informe_ventana_abuela": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "La niña mencionó una ventana detrás de casa de mi abuela."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Si no te deja mirar el cuarto, comprueba desde fuera si esa ventana da allí. No fuerces nada."
+        }
+      ]
+    },
+    "informe_eduardo_prepara": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Eduardo decide hasta dónde ponen las sillas."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Le interesa controlar la celebración. Todavía no sabemos hasta qué punto."
+        }
+      ]
+    },
+    "informe_alojamiento_elena": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Mi abuela se aseguró de preparar la casa para nosotros."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Es normal que quiera recibirte bien. Apúntalo, pero no lo conviertas aún en una acusación."
+        }
+      ]
+    },
+    "informe_fotos_visitantes": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Las fotografías eran de gente que pasó por aquí. La señora perdió el contacto con ellos."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No sabemos si desaparecieron. Sí sabemos que esas fotos podrían permitir identificar a algunos."
+        }
+      ]
+    },
+    "informe_fiesta_invitados": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "El panadero dijo que no todos los años hay invitados y que Eduardo hace especial la ocasión."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Entonces nuestra llegada importa para los preparativos. Eso merece atención."
+        }
+      ]
+    },
+    "informe_paciente_aislado": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Una mujer espera noticias de su marido. No le permiten verlo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Podría haber una explicación médica. Lo extraño sería que no le dieran información clara."
+        }
+      ]
+    },
+    "informe_vigilancia_vecinos": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Un hombre se había fijado en cuántas veces pasé por su calle."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Cuenta con que se lo comenten entre ellos. Cambia de tema antes de que parezca un interrogatorio."
+        }
+      ]
+    },
+    "informe_preguntas_ines": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "La muchacha de ayer teme que le pregunten por hablar conmigo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No la expongas. Si te cuenta algo, puedes compartir el dato sin decir quién fue."
+        }
+      ]
+    },
+    "informe_cuarto_cerrado": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Mi abuela conserva el cuarto de mi madre, pero no quiso abrirlo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Eso por sí solo no prueba nada. Si vas a mirar, espera a que salga y revisa la ventana trasera."
+        }
+      ]
+    },
+    "informe_carta_madre": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Mi madre escribió que Eduardo preguntaba por mi edad. Mi abuela anotó que debía hablar con él."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Eso significa que se interesaba por ti antes de tu llegada. No explica todavía por qué."
+        }
+      ]
+    },
+    "anciano_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Anciano",
+          "texto": "Casas. Caminos. A veces nos dibujaba a nosotros."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Todavía tendrá alguno?"
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Yo no. Elena nunca tiraba nada de su hija."
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Tu madre siempre preguntaba adónde llevaban los caminos."
+        }
+      ]
+    },
+    "anciano_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Anciano",
+          "texto": "Cuando reorganizaron la parroquia, Elena se llevó varias cajas."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿A su casa?"
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Sí. Papeles, objetos viejos... Anotaba lo que entraba y salía."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Quizá haya algo de mi mamá."
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Pregúntale. Le dará gusto que te intereses."
+        }
+      ]
+    },
+    "anciano_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Anciano",
+          "texto": "¿Cuáles puertas?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Las que vi en la iglesia."
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Nosotros trabajábamos donde nos correspondía."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Era curiosidad."
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Entonces empieza por los libros."
+        }
+      ]
+    },
+    "anciano_inicio": {
+      "lineas": [
+        {
+          "hablante": "Anciano",
+          "texto": "Tú eres el nieto de Elena."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Sí. ¿Conoció a mi mamá?"
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Claro. Dibujaba mientras tu abuela y yo ordenábamos los libros de la parroquia."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Trabajaban juntos?"
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Ayudábamos. En aquel entonces siempre faltaban manos."
+        }
+      ]
+    },
+    "anciano_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Gracias por contarme."
+        },
+        {
+          "hablante": "Anciano",
+          "texto": "Si encuentras una fotografía de tu madre, tráela algún día."
+        }
+      ]
+    },
+    "anciano_repetir": {
+      "lineas": [
+        {
+          "hablante": "Anciano",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "amargado_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Mesas, adornos, comida. Lo mismo de siempre."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Parece mucho trabajo."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Por eso algunos tenemos menos tiempo para pasear."
+        }
+      ]
+    },
+    "amargado_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Hombre amargado",
+          "texto": "En la plaza. Aunque el viejo empezará a contarte su vida."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No me molesta escuchar."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Todavía."
+        }
+      ]
+    },
+    "amargado_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Hombre amargado",
+          "texto": "¿Vigilando?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "He visto hombres parados."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Yo también estoy parado. ¿Te estoy vigilando?"
+        }
+      ]
+    },
+    "amargado_inicio": {
+      "lineas": [
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Otra vez tú."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Buenos días."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Hasta ahora lo eran."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Veo que sigue de buen humor."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Alguien tiene que trabajar mientras preparan la celebración."
+        }
+      ]
+    },
+    "amargado_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Lo dejo trabajar."
+        },
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Por fin una buena idea."
+        }
+      ]
+    },
+    "amargado_repetir": {
+      "lineas": [
+        {
+          "hablante": "Hombre amargado",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "nina_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Sí. Pero los niños nos vamos temprano."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Antes de que termine?"
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Los grandes dicen que lo de después es aburrido."
+        }
+      ]
+    },
+    "nina_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Un vestido."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "El que tiene está bonito."
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Ese ya lo usó. Tú no entiendes."
+        }
+      ]
+    },
+    "nina_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Buscaba una cinta para sus cajas."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Qué cajas?"
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Las de su casa. Me dijo que no jugara junto a la ventana de atrás."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Por qué?"
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Porque hace ruido."
+        }
+      ]
+    },
+    "nina_inicio": {
+      "lineas": [
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Hoy viniste sin tu amigo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Fue a tomar fotografías."
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Mi muñeca no quiere que le tomen."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Por qué?"
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Todavía no está lista para la fiesta."
+        }
+      ]
+    },
+    "nina_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Las dejo prepararse."
+        },
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Gracias. Mi muñeca tiene mucho trabajo."
+        }
+      ]
+    },
+    "nina_repetir": {
+      "lineas": [
+        {
+          "hablante": "Niña de la muñeca",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "preparativos_sur_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Eduardo revisa hasta dónde va cada silla."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Le gusta tenerlo organizado."
+        },
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Le gusta que se haga como dijo."
+        }
+      ]
+    },
+    "preparativos_sur_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Cajas, manteles... lo que nos piden."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿No saben qué llevan?"
+        },
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "No abro las cajas de los demás."
+        }
+      ]
+    },
+    "preparativos_sur_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "¿Por qué te interesa?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Para no estorbar."
+        },
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Entonces quédate en el camino."
+        }
+      ]
+    },
+    "preparativos_sur_inicio": {
+      "lineas": [
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Si vas hacia la clínica, cuidado con los que vienen cargando."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Están moviendo cosas?"
+        },
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Todo tiene que estar acomodado antes de que oscurezca."
+        }
+      ]
+    },
+    "preparativos_sur_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Tendré cuidado."
+        },
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Gracias. No necesitamos más retrasos."
+        }
+      ]
+    },
+    "preparativos_sur_repetir": {
+      "lineas": [
+        {
+          "hablante": "Mujer organizadora",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "vecino_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "Cuando viene alguien, sí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Está bien cuidada."
+        },
+        {
+          "hablante": "Vecino",
+          "texto": "Elena se aseguró de que estuviera lista para ustedes."
+        }
+      ]
+    },
+    "vecino_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "Más tarde viene a ayudar."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Quería hablarle de mi mamá."
+        },
+        {
+          "hablante": "Vecino",
+          "texto": "Entonces aprovecha. Después estará de un lado a otro."
+        }
+      ]
+    },
+    "vecino_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "No lo sé. Yo estaba durmiendo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Escuchamos pasos."
+        },
+        {
+          "hablante": "Vecino",
+          "texto": "¿Solo los escucharon?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Sí."
+        },
+        {
+          "hablante": "Vecino",
+          "texto": "Sería alguien terminando su trabajo."
+        }
+      ]
+    },
+    "vecino_inicio": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "¿Qué tal la casa? ¿Encontraron todo?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Sí. Gracias."
+        },
+        {
+          "hablante": "Vecino",
+          "texto": "Descansen un poco. Mañana habrá bastante movimiento."
+        }
+      ]
+    },
+    "vecino_salida": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "Si necesitas algo de la casa, avísame."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Gracias."
+        }
+      ]
+    },
+    "vecino_repetir": {
+      "lineas": [
+        {
+          "hablante": "Vecino",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "fotografias_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Cuando me digan."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿No decide usted?"
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Durante la celebración procuramos ponernos de acuerdo."
+        }
+      ]
+    },
+    "fotografias_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "De gente que pasó por aquí. Algunos se quedaron una temporada."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Mantienen el contacto?"
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Con el tiempo se pierde."
+        }
+      ]
+    },
+    "fotografias_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Las viste ayer."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Por eso pregunto."
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Y yo ya te he contestado."
+        }
+      ]
+    },
+    "fotografias_inicio": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ya no están las fotografías."
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Hoy necesitaban que dejara libre el lugar."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Ayer parecían importantes."
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Lo siguen siendo."
+        }
+      ]
+    },
+    "fotografias_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Espero poder verlas otra vez."
+        },
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Yo también."
+        }
+      ]
+    },
+    "fotografias_repetir": {
+      "lineas": [
+        {
+          "hablante": "Señora de las fotografías",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "panadero_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "Uno distinto. La receta era de mi padre."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿La comparte?"
+        },
+        {
+          "hablante": "Panadero",
+          "texto": "El pan, sí. La receta, no."
+        }
+      ]
+    },
+    "panadero_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "No todos los años tenemos invitados."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Cambia mucho cuando viene alguien?"
+        },
+        {
+          "hablante": "Panadero",
+          "texto": "Eduardo se asegura de que sea una ocasión especial."
+        }
+      ]
+    },
+    "panadero_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "Porque son invitados."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Eso ya me lo han dicho."
+        },
+        {
+          "hablante": "Panadero",
+          "texto": "Entonces no entiendo qué respuesta estás buscando."
+        }
+      ]
+    },
+    "panadero_inicio": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "Hoy llegas tarde. Ya hice la primera tanda."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Estaba dando una vuelta."
+        },
+        {
+          "hablante": "Panadero",
+          "texto": "No te olvides de comer. Con los preparativos se nos pasa hasta a nosotros."
+        }
+      ]
+    },
+    "panadero_salida": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "Vuelve cuando quieras pan. De conversación ya vas servido."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Lo tendré en cuenta."
+        }
+      ]
+    },
+    "panadero_repetir": {
+      "lineas": [
+        {
+          "hablante": "Panadero",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "mujer_clinica_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Me dicen que está mejor."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Qué bueno."
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Sí. Quiero escuchárselo a él."
+        }
+      ]
+    },
+    "mujer_clinica_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Dicen que necesita descansar."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Desde cuándo?"
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Desde que lo trajeron."
+        }
+      ]
+    },
+    "mujer_clinica_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Mujer que espera",
+          "texto": "¿Por qué dices eso?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No lo he dicho por nada."
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Entonces no me asustes. Bastante tengo."
+        }
+      ]
+    },
+    "mujer_clinica_inicio": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Está esperando que la atiendan?"
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Espero noticias de mi marido."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Perdone."
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Ayer me dijeron que volviera hoy."
+        }
+      ]
+    },
+    "mujer_clinica_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ojalá le den noticias pronto."
+        },
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Gracias."
+        }
+      ]
+    },
+    "mujer_clinica_repetir": {
+      "lineas": [
+        {
+          "hablante": "Mujer que espera",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "hombre_calle_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Toda mi vida."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Entonces conocerá a todos."
+        },
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Lo suficiente."
+        }
+      ]
+    },
+    "hombre_calle_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Más casas. Si buscas un comercio, vuelve a la plaza."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Solo estoy paseando."
+        },
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Entonces no tienes prisa."
+        }
+      ]
+    },
+    "hombre_calle_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Nos conocemos. Cuando llega alguien nuevo, se nota."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Eso estoy viendo."
+        },
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "No tiene nada de malo, si no haces nada malo."
+        }
+      ]
+    },
+    "hombre_calle_inicio": {
+      "lineas": [
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Te he visto pasar varias veces."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No es un pueblo muy grande."
+        },
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Precisamente."
+        }
+      ]
+    },
+    "hombre_calle_salida": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Seguiré caminando."
+        },
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Ya veo."
+        }
+      ]
+    },
+    "hombre_calle_repetir": {
+      "lineas": [
+        {
+          "hablante": "Hombre de la calle",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "ines_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "En la clínica."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Eres médica?"
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Sí. ¿Necesitas que te vea alguien?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Entonces estás teniendo un buen día."
+        }
+      ]
+    },
+    "ines_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Porque después preguntan."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Qué preguntan?"
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Lo mismo que tú. Pero durante más tiempo."
+        }
+      ]
+    },
+    "ines_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Me hablaron de unas cosas antiguas de la iglesia."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "¿Qué cosas?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Papeles. Objetos... llaves."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Había una con una muesca de media luna."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿La conoces?"
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "La vi hace tiempo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Sabes dónde está?"
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Ahora, no."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y qué abre?"
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "No te he dicho que lo sepa."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "No digas que hablaste conmigo."
+        }
+      ]
+    },
+    "ines_inicio": {
+      "lineas": [
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "¿Puedes hacerte a un lado?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Perdona. No te había visto."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Pues ya me viste."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Quería agradecerte la indicación de ayer."
+        },
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "No hace falta. Tengo que volver al trabajo."
+        }
+      ]
+    },
+    "ines_salida": {
+      "lineas": [
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "Ahora déjame pasar, por favor."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Está bien."
+        }
+      ]
+    },
+    "ines_repetir": {
+      "lineas": [
+        {
+          "hablante": "Muchacha de los barriles",
+          "texto": "No puedo quedarme hablando."
+        }
+      ]
+    },
+    "abuela_pregunta_1": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "Decía que tendría una casa con ventanas enormes."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Por qué?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Aquí nunca le parecía que entrara suficiente luz."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "En casa siempre abría las cortinas temprano."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Entonces no cambió tanto."
+        }
+      ]
+    },
+    "abuela_pregunta_2": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "Algunas. Cuadernos, cartas..."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Puedo verlos?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Hay fotografías aquí. Lo demás está guardado."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿En ese cuarto?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Sí. Antes dormía ahí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Me gustaría conocerlo."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Ahora está lleno de cajas. Déjame acomodarlo primero."
+        }
+      ]
+    },
+    "abuela_pregunta_3": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "¿Quién te dijo eso?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Un señor de la plaza. Me contó que ayudabas allí."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Fue hace muchos años."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Todavía conservas esas cosas?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Papeles viejos. Algunas cosas vinieron a recogerlas."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Quién?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "No me acuerdo, Mateo. Tengo demasiadas cosas en la cabeza."
+        }
+      ]
+    },
+    "abuela_inicio": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "¡Mateo! Pasa, hijo."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "¿Y tu amigo?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Está tomando fotografías. Yo quería venir a verte."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Todavía no salgo a ayudar con los preparativos."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Quería preguntarte por mamá."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "¿Por tu madre?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Casi nunca hablaba de cuando vivía aquí."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Siéntate un momento."
+        }
+      ]
+    },
+    "abuela_salida": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "Tengo que terminar antes de salir."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Vas a tardar?"
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Seguramente. Tú disfruta el pueblo."
+        },
+        {
+          "hablante": "Abuela",
+          "texto": "Y come algo. Llevas toda la mañana de un lado a otro."
+        }
+      ]
+    },
+    "abuela_repetir": {
+      "lineas": [
+        {
+          "hablante": "Abuela",
+          "texto": "Ya hemos hablado. Tengo que seguir con lo mío."
+        }
+      ]
+    },
+    "abuela_puerta_cerrada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Está cerrado."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "La abuela dijo que quería acomodarlo primero."
+        }
+      ]
+    },
+    "abuela_casa_vacia": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ya salió a los preparativos."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Podría mirar por detrás."
+        }
+      ]
+    },
+    "ventana_no_disponible": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Mi abuela sigue dentro. No voy a entrar por aquí ahora."
+        }
+      ]
+    },
+    "ventana_disponible": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Esta ventana da al cuarto."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "El cierre está suelto."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Entrar con cuidado.",
+          "accion": "entrar_habitacion_abuela"
+        },
+        {
+          "texto": "Mejor vuelvo después.",
+          "accion": "cerrar_dialogo"
+        }
+      ]
+    },
+    "cuarto_entrada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Así que aquí dormía mamá."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Todavía conserva sus cosas."
+        }
+      ],
+      "una_vez": true
+    },
+    "cajon_inventario": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Hay un inventario entre estos papeles."
+        },
+        {
+          "hablante": "Documento",
+          "texto": "Inventario de la parroquia."
+        },
+        {
+          "hablante": "Documento",
+          "texto": "Llave del acceso inferior."
+        },
+        {
+          "hablante": "Documento",
+          "texto": "Guardada en la caja de madera marcada J. M."
+        },
+        {
+          "hablante": "Documento",
+          "texto": "Caja retirada junto con los libros antiguos."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "La llave estaba en una caja marcada J. M."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Se la llevaron con los libros... pero no dice adónde."
+        }
+      ],
+      "efectos_al_terminar": {
+        "descubrir": [
+          "caja_jm"
+        ]
+      },
+      "una_vez": true,
+      "siguiente": "cajon_correspondencia"
+    },
+    "cajon_correspondencia": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Debajo hay una carta. Reconozco la letra de mamá."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Leer la carta.",
+          "siguiente": "carta_madre_lectura"
+        },
+        {
+          "texto": "Dejarla para después.",
+          "accion": "cerrar_dialogo"
+        }
+      ]
+    },
+    "carta_madre_lectura": {
+      "lineas": [
+        {
+          "hablante": "Carta",
+          "texto": "Mamá: Mateo ya casi tiene mi estatura."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "Te mando una fotografía. Salió serio porque no quería dejar de jugar."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "Me alegra que sigas bien. Cuando vengas, puedes quedarte con nosotros."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "No entiendo por qué Eduardo volvió a preguntarte por su edad."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "Dile que estamos bien. Con eso basta."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Eduardo preguntaba por mí?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Yo ni siquiera lo conocía entonces."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Hay algo escrito detrás. Parece letra de la abuela."
+        },
+        {
+          "hablante": "Anotación",
+          "texto": "Contestar después de hablar con Eduardo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Qué tenía que hablar con él?"
+        }
+      ],
+      "efectos_al_terminar": {
+        "descubrir": [
+          "carta_madre"
+        ]
+      },
+      "siguiente": "carta_madre_decision"
+    },
+    "carta_madre_decision": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No sé qué pensar de esto."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Llevarme la carta.",
+          "accion": "tomar_carta_madre",
+          "siguiente": "carta_tomada"
+        },
+        {
+          "texto": "Recordarla y dejarla donde estaba.",
+          "accion": "dejar_carta_madre",
+          "siguiente": "carta_dejada"
+        },
+        {
+          "texto": "Volver a leerla.",
+          "siguiente": "carta_madre_lectura"
+        }
+      ]
+    },
+    "carta_tomada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Quiero leerla con más calma."
+        }
+      ]
+    },
+    "carta_dejada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Me acuerdo de lo que dice. Mejor no mover nada."
+        }
+      ]
+    },
+    "cajon_repetir": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "El inventario habla de la caja J. M. No indica su destino."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Revisar la correspondencia.",
+          "siguiente": "cajon_correspondencia",
+          "condicion": "carta_madre_no_tomada"
+        },
+        {
+          "texto": "Cerrar el cajón.",
+          "accion": "cerrar_dialogo"
+        }
+      ]
+    },
+    "foto_cuarto": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Es mamá frente a la iglesia."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Nunca había visto esta fotografía."
+        }
+      ]
+    },
+    "cama_cuarto": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Todavía tiene la colcha doblada."
+        }
+      ]
+    },
+    "planta_cuarto": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Alguien sigue cuidando esta planta."
+        }
+      ]
+    },
+    "cocina_abuela": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "La cocina está limpia. Huele a café."
+        }
+      ]
+    },
+    "sillon_abuela": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Me sentaré cuando deje de tener tantas preguntas."
+        }
+      ]
+    },
+    "mueble_abuela": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Recibos y cosas de la casa."
+        }
+      ]
+    },
+    "salida_cuarto": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Mejor salgo por donde entré."
+        }
+      ]
+    },
+    "morales_inicio": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "¿Cómo va la búsqueda?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Estoy hablando con la gente."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Bien. Puedes venir a contarme lo que encuentres."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No tiene que ser una llave. Una contradicción también puede servir."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Pero separa lo que viste de lo que supones."
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_repetir": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Te escucho."
+        }
+      ]
+    },
+    "morales_sin_hallazgos": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Todavía no tengo nada claro."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No inventes una pista por volver con algo. Sigue escuchando."
+        }
+      ]
+    },
+    "morales_despedida": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "No te quedes demasiado tiempo aquí. Volveremos a hablar."
+        }
+      ]
+    },
+    "morales_reserva_familiar": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Encontré algo de mi familia. Prefiero guardármelo por ahora."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Está bien. Puedes contármelo cuando estés preparado."
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_fuente_reservada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No voy a decirte quién me describió la llave. Tenía miedo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No necesito un nombre. No expongas a alguien por ayudarnos."
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_caja_marca": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Si encuentro la caja, podré reconocer la llave por la muesca."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Bien. Ahora falta averiguar dónde acabaron esos libros."
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_pasado": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Por qué sigues aquí? Podrías haberte ido."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No puedo volver con otra investigación vacía."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Otra?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Mi último trabajo salió mal. Seguí una pista que no pude sostener."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Se perdió tiempo, dinero... y la confianza en mi criterio."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Viniste a arreglarlo aquí?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Vine a comprobar algo. Si vuelvo sin resultados, puedo perder mi trabajo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Entonces necesitas encontrar algo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí."
+        }
+      ],
+      "opciones": [
+        {
+          "id": "pasado_escuchar",
+          "texto": "Cuéntame qué falló.",
+          "siguiente": "morales_pasado_escuchar"
+        },
+        {
+          "id": "pasado_limite",
+          "texto": "No quiero que arriesgues mi vida por tu trabajo.",
+          "siguiente": "morales_pasado_limite"
+        },
+        {
+          "id": "pasado_apoyo",
+          "texto": "Te ayudaré, pero necesito que seas honesto.",
+          "siguiente": "morales_pasado_apoyo"
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_pasado_escuchar": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Quería que los datos encajaran. Dejé de comprobar lo que los contradecía."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y ahora?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Ahora prefiero reconocer que no sé algo."
+        }
+      ],
+      "efectos_al_terminar": {
+        "confianza_morales": 2
+      },
+      "una_vez": true
+    },
+    "morales_pasado_limite": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "No te lo voy a pedir."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Entonces no decidas por mí."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "De acuerdo. Te diré lo que sé y lo que no."
+        }
+      ]
+    },
+    "morales_pasado_apoyo": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Es justo. Si me equivoco, quiero que me lo digas."
+        }
+      ],
+      "efectos_al_terminar": {
+        "confianza_morales": 2
+      },
+      "una_vez": true
+    },
+    "morales_investigacion": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "He observado algo desde que llegué."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Hay gente que deja de aparecer. Siempre hay una explicación, pero cambia según a quién preguntes."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Los enfermos?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Algunos. También visitantes."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Tienes pruebas?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No suficientes. Por eso necesito nombres, documentos y fechas."
+        }
+      ],
+      "opciones": [
+        {
+          "id": "investigacion_pruebas",
+          "texto": "Te contaré lo que pueda comprobar.",
+          "siguiente": "morales_pruebas"
+        },
+        {
+          "id": "investigacion_duda",
+          "texto": "Puede que estés repitiendo tu error.",
+          "siguiente": "morales_duda"
+        },
+        {
+          "id": "investigacion_directo",
+          "texto": "Podría preguntar por los desaparecidos.",
+          "siguiente": "morales_cautela"
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_pruebas": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Eso necesito. Si algo no encaja, también quiero saberlo."
+        }
+      ],
+      "efectos_al_terminar": {
+        "confianza_morales": 2
+      },
+      "una_vez": true
+    },
+    "morales_duda": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Puede ser. Por eso no te estoy pidiendo que me creas sin comprobarlo."
+        }
+      ]
+    },
+    "morales_cautela": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "No de esa forma. Si creen que estás investigando, dejarán de hablarte."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Entendido."
+        }
+      ]
+    },
+    "morales_compromiso": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Si empiezan a seguirte, no los traigas hasta aquí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y si me detienen?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sé dónde suelen encerrar a la gente."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Los he visto llevar a alguien allí. El cerrojo es viejo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Sabes abrirlo?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí. Si te veo en problemas, no voy a dejarte ahí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Gracias."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Ayúdame a no tener que hacerlo."
+        }
+      ],
+      "una_vez": true
+    },
+    "morales_aviso_sospecha": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Están comentando tus preguntas."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Quiénes?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Eso importa menos que lo que has estado diciendo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Deja de insistir cuando alguien se cierre. No estamos solos."
+        }
+      ],
+      "una_vez": true
+    },
+    "inicio_investigacion": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Lucas irá por su lado. Yo preguntaré por aquí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Primero escuchar. Nada de pedir una llave a la primera persona que vea."
+        }
+      ],
+      "una_vez": true
+    },
+    "aviso_sospecha_40": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No le gustó esa pregunta."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Tengo que cuidar cómo digo las cosas."
+        }
+      ],
+      "una_vez": true
+    },
+    "aviso_sospecha_70": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ya no me miran como esta mañana."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Estoy llamando demasiado la atención."
+        }
+      ],
+      "una_vez": true
+    },
+    "aviso_cinco": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ya he recorrido una parte del pueblo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Puedo volver a casa y esperar a Lucas en el sillón."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "O seguir investigando un poco más."
+        }
+      ],
+      "una_vez": true
+    },
+    "aviso_abuela_salio": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "La abuela ya salió a ayudar con los preparativos."
+        }
+      ],
+      "una_vez": true
+    },
+    "sillon_antes_cinco": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Lucas todavía no vuelve. Voy a seguir preguntando."
+        }
+      ]
+    },
+    "sillon_esperar": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Puedo esperar aquí a Lucas... o investigar un poco más."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Esperar a Lucas.",
+          "siguiente": "confirmar_fin_dia"
+        },
+        {
+          "texto": "Seguir investigando.",
+          "accion": "cerrar_dialogo"
+        }
+      ]
+    },
+    "confirmar_fin_dia": {
+      "lineas": [
+        {
+          "hablante": "Sistema",
+          "texto": "Pistas importantes: {pistas_obtenidas}/3."
+        },
+        {
+          "hablante": "Sistema",
+          "texto": "Hallazgos pendientes de contar a Morales: {informes_pendientes}."
+        },
+        {
+          "hablante": "Sistema",
+          "texto": "Si esperas a Lucas, terminará la investigación diurna."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Sí, terminar la investigación.",
+          "accion": "cerrar_dia_normal"
+        },
+        {
+          "texto": "No, seguir investigando.",
+          "accion": "cerrar_dialogo"
+        }
+      ]
+    },
+    "captura_entrada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Desde cuándo están ahí?"
+        },
+        {
+          "hablante": "Hombre",
+          "texto": "Eduardo quiere hablar contigo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Puedo ir después."
+        },
+        {
+          "hablante": "Hombre",
+          "texto": "Vas a venir con nosotros."
+        }
+      ]
+    },
+    "prision_inicio": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No debí preguntar tanto."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Lucas ni siquiera sabe que estoy aquí."
+        }
+      ],
+      "una_vez": true
+    },
+    "prision_rescate": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Morales?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Baja la voz."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Pensé que no vendrías."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Vi cómo te llevaban. Tuve que esperar a que se apartaran."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Puedes abrir eso?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Déjame escuchar."
+        }
+      ],
+      "una_vez": true
+    },
+    "prision_abierta": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Vamos. No te quedes mirando."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Dónde está Lucas?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Lo encontré buscándote. Le dije que esperara en la casa."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Podemos volver?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Por detrás. Solo para recogerlo. No podemos quedarnos."
+        }
+      ],
+      "una_vez": true
+    },
+    "prision_sin_rescate": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Hola?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Hay alguien ahí?"
+        },
+        {
+          "hablante": "Guardia",
+          "texto": "Descansa. Mañana vendrán por ti."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Quiero hablar con mi abuela."
+        },
+        {
+          "hablante": "Guardia",
+          "texto": "Ya saben dónde estás."
+        }
+      ],
+      "una_vez": true
+    },
+    "inicio_invitados_honor": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Las horas pasan. Nadie abre la puerta."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Al amanecer, unos pasos se detienen frente a la celda."
+        },
+        {
+          "hablante": "Guardia",
+          "texto": "Es hora. Te están esperando."
+        }
+      ],
+      "una_vez": true
+    },
+    "reencuentro_normal": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Por fin. Empezaba a pensar que te habías unido a los preparativos."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "He estado preguntando."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Espero que te haya ido mejor que a mí fingiendo interés por las decoraciones."
+        }
+      ],
+      "una_vez": true
+    },
+    "reencuentro_rescate": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¿Dónde te habías metido?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Me encerraron."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Era una pregunta. No hacía falta tomársela tan en serio."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "No tenemos mucho tiempo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Te contaré lo que encontré."
+        }
+      ],
+      "una_vez": true
+    },
+    "lucas_caja_confianza_alta": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Encontré un inventario. La llave estaba en una caja de madera marcada J. M."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Espera. Esas letras las vi."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Dónde?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "En la clínica. Me dejaron fotografiar unos libros antiguos."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Había una caja junto a ellos?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Sí. Pensé que tenía más papeles."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Podría contener la llave."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Fotografié los libros y dejé la llave. Excelente trabajo, Lucas."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "También vi por dónde entran a cargar. Podemos acercarnos sin pasar por recepción."
+        }
+      ],
+      "requiere": [
+        "caja_jm",
+        "lucas_colabora"
+      ],
+      "una_vez": true
+    },
+    "lucas_caja_confianza_baja": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Encontré un inventario. Habla de una caja marcada J. M."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Mateo, ya basta."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Puede tener la llave."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Yo he estado buscando cómo salir de aquí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Encontraste algo?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Vi gente moviendo cajas. No voy a meterme en otro edificio a buscarlas."
+        }
+      ],
+      "requiere": [
+        "caja_jm",
+        "lucas_no_colabora"
+      ],
+      "una_vez": true
+    },
+    "lucas_sin_caja": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Vi libros antiguos y cajas en la clínica."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Algo que nos ayude?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "No reconocí nada. Sin saber qué buscamos, no podemos revisar todo."
+        }
+      ],
+      "requiere": [
+        "no_caja_jm",
+        "lucas_colabora"
+      ],
+      "una_vez": true
+    },
+    "lucas_tres_pistas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "El registro explica por qué mi abuela guardaba esos papeles."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Y la llave tiene una muesca de media luna."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Entonces sabemos qué caja buscar y qué llave sacar."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Tenemos una oportunidad."
+        }
+      ],
+      "requiere": [
+        "tres_pistas",
+        "lucas_colabora"
+      ],
+      "una_vez": true
+    },
+    "lucas_pistas_incompletas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Nos falta información. No quiero arriesgarnos a entrar para salir con cualquier llave."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Por una vez, un plan que incluye no entrar a un sitio peligroso."
+        }
+      ],
+      "requiere": [
+        "no_tres_pistas",
+        "lucas_colabora"
+      ],
+      "una_vez": true
+    }
+  },
+  "morales": {
+    "menu": {
+      "tipo": "hallazgos_descubiertos_no_informados",
+      "plantilla": "Contar: {titulo}",
+      "paginacion": true,
+      "al_terminar_informe": "marcar_informado_y_aplicar_recompensa_atomica",
+      "opciones_fijas": [
+        {
+          "texto": "Preguntarle por su pasado.",
+          "evento": "morales_pasado",
+          "min_confianza": 56,
+          "ocultar_si_completado": true
+        },
+        {
+          "texto": "Preguntarle qué ha descubierto.",
+          "evento": "morales_investigacion",
+          "min_confianza": 62,
+          "ocultar_si_completado": true
+        },
+        {
+          "texto": "¿Y si me detienen?",
+          "evento": "morales_compromiso",
+          "min_confianza": 65,
+          "ocultar_si_completado": true
+        },
+        {
+          "texto": "Hay algo familiar que prefiero reservarme.",
+          "evento": "morales_reserva_familiar",
+          "requiere_descubierto": "carta_madre",
+          "ocultar_si_completado": true
+        },
+        {
+          "texto": "Irme.",
+          "evento": "morales_despedida"
+        }
+      ]
+    },
+    "evento_previo_informe_marca": "morales_fuente_reservada",
+    "evento_combinacion": {
+      "evento": "morales_caja_marca",
+      "requiere_informados": [
+        "marca_media_luna",
+        "caja_jm"
+      ]
+    },
+    "revelaciones_se_encolan_al_cerrar_informe": true,
+    "no_iniciar_dos_dialogos_simultaneos": true,
+    "rescate_no_exige_haber_leido_revelacion": true
+  },
+  "notificaciones": {
+    "hallazgo": "Nuevo dato: {titulo}",
+    "pista": "Pista importante: {titulo} ({pistas_obtenidas}/3)",
+    "confianza_morales": {
+      "texto": "Morales confía más en ti",
+      "color_rgb": [
+        65,
+        111,
+        162
+      ]
+    },
+    "objetivo_inicial": "Habla con los habitantes ({conversaciones}/5)",
+    "objetivo_disponible": "Puedes esperar a Lucas en el sillón de casa.",
+    "objetivo_abuela": "La abuela salió a los preparativos. Puedes seguir investigando."
+  },
+  "contrato": {
+    "lineas": "Orden de lectura; hablantes Documento/Carta/Anotación/Narración/Sistema son narración o interfaz, no NPC nuevos.",
+    "preguntas": "Tres temas por NPC, salida aparte; volver al menú, marcar leída; no repetir efectos. Una respuesta terminada cuenta como visita.",
+    "efectos_al_terminar": "Transacción única persistente asociada al ID de pregunta/evento; nunca aplicar otra vez tras volver, cargar o repetir.",
+    "una_vez": "Persistir finalización; si se reanuda un evento no duplicar efectos.",
+    "variantes_lineas": "Elegir primera variante aplicable antes de mostrar el nodo; no afirmar información no descubierta.",
+    "requiere": "Predicados narrativos que el adaptador debe resolver, no nombres de variables existentes garantizados.",
+    "acciones": "Acciones del director a implementar, no llamadas Python literales.",
+    "placeholders": "Sustituir únicamente por datos del estado antes de mostrar.",
+    "menu_morales": "No mostrar hallazgos no descubiertos; paginar sin recortar; revelaciones pendientes se pueden consultar luego.",
+    "captura": "Prioridad sobre retorno al menú, avisos, portales y cambios de mapa cuando termina la respuesta que alcanzó 100."
+  }
+}

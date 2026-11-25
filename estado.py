@@ -12,6 +12,14 @@ class EstadoJuego:
         self.decisiones_tomadas = 0
         self.objetos_clave = set()
         self.historial_decisiones = []
+        self.dia2 = {
+            "personas": set(), "consumidos": set(), "hallazgos": set(),
+            "informados": set(), "revelaciones_pendientes": set(),
+            "abuela_visitada": False, "abuela_salio": False, "carta_tomada": False,
+            "captura_pendiente": False, "captura_resuelta": False,
+            "rescate_elegible": False, "cerrada": False, "reencuentro": False,
+            "rama": None, "resultado": None,
+        }
 
     def aplicar_efectos(self, efectos: dict):
         """Aplica cambios a las métricas del jugador según las elecciones en el JSON."""
