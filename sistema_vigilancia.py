@@ -18,20 +18,19 @@ def configurar():
 
     global persecucion_activa
     persecucion_activa = False
-    audio.establecer_persecucion(False)
+    if not mapa.control_cinematico:
+        audio.establecer_persecucion(False)
     for npc in mapa.npcs_activos.values():
-        if npc.get("comportamiento") != "vigilante":
-            continue
-
-        npc["congelado"] = False
-        npc["_vigilancia"] = {
-            "estado": "NORMAL",
-            "origen": (npc["x"], npc["y"]),
-            "direccion": npc["direccion"],
-            "hasta": 0,
-            "ultimo_paso": pygame.time.get_ticks(),
-            "indice": 0,
-        }
+        if npc.get("comportamiento") == "vigilante":
+            npc["congelado"] = False
+            npc["_vigilancia"] = {
+                "estado": "NORMAL",
+                "origen": (npc["x"], npc["y"]),
+                "direccion": npc["direccion"],
+                "hasta": 0,
+                "ultimo_paso": pygame.time.get_ticks(),
+                "indice": 0,
+            }
 
         ruta = npc.get("vigilancia", {}).get("luz")
 
@@ -290,7 +289,7 @@ def actualizar(ahora):
     global persecucion_activa
 
     # Durante la cinemática, el director controla al loco.
-    if getattr(
+    if mapa.control_cinematico or getattr(
         mapa.script_nivel_actual,
         "CONTROL_CINEMATICO",
         False,
@@ -366,7 +365,7 @@ def actualizar(ahora):
                 mapa.jugador_bloqueado = True
 
                 # Restaurar el mapa en su punto de entrada con un fundido.
-                mapa.cargar_nivel(mapa.nombre_mapa_actual)
+                mapa.cargar_nivel(mapa.nombre_mapa_actual, *(mapa.reinicio_entrada or (None, None)))
 
                 persecucion_activa = False
                 audio.establecer_persecucion(False)
@@ -524,10 +523,7 @@ def dibujar_linternas(pantalla, camara_x, camara_y):
     )
 
     for npc in mapa.npcs_activos.values():
-        if (
-            npc.get("comportamiento") != "vigilante"
-            or not npc.get("visible", True)
-        ):
+        if not npc.get("visible", True):
             continue
 
         config = npc.get("vigilancia", {})

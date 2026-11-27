@@ -2988,7 +2988,7 @@
         },
         {
           "hablante": "Lucas",
-          "texto": "En la clínica. Me dejaron fotografiar unos libros antiguos."
+          "texto": "En la oficina municipal, junto a la iglesia. Me dejaron fotografiar unos libros antiguos."
         },
         {
           "hablante": "Mateo",
@@ -3054,7 +3054,7 @@
       "lineas": [
         {
           "hablante": "Lucas",
-          "texto": "Vi libros antiguos y cajas en la clínica."
+          "texto": "Vi libros antiguos y cajas en la oficina municipal."
         },
         {
           "hablante": "Mateo",

@@ -46,6 +46,10 @@ estado_npcs_guardado = {}
 bloqueos_activos = {}
 nombre_mapa_actual = None
 revision_nivel = 0
+reinicio_entrada = None
+pantalla_negra_en = None
+ocultar_mateo = False
+control_cinematico = False
 
 RUTA_CAJA_BLOQUEO = (
     "recursos/sprites/objetos/caja_bloqueo.png"
@@ -111,11 +115,12 @@ def _ejecutar_carga_real(nombre_modulo):
     global jugador_bloqueado, script_nivel_actual
     global npcs_activos, interactuables_activos, triggers_pisar_activos, portales_activos
     global spawn_pendiente
-    global nombre_mapa_actual, revision_nivel
+    global nombre_mapa_actual, revision_nivel, reinicio_entrada
     
     mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
     nombre_mapa_actual = nombre_modulo
     revision_nivel += 1
+    reinicio_entrada = None
     bloqueos_activos.clear()
 
     matriz_activa = [fila[:] for fila in mapa_datos.MATRIZ]
@@ -305,11 +310,12 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
     teclas = pygame.key.get_pressed()
     pulso_espacio = teclas[pygame.K_SPACE] and not espacio_presionado
     espacio_presionado = teclas[pygame.K_SPACE]
-    control_escondite = sistema_escondites.actualizar(teclas)
+    control_escondite = not control_cinematico and sistema_escondites.actualizar(teclas)
 
     # 1. CONTROL DE MATEO
     if (
         not control_escondite
+        and not control_cinematico
         and not jugador_bloqueado
         and not transicion_activa
         and sistema_dialogo.obtener_evento_activo() is None
@@ -364,6 +370,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
             sistema_dialogo.obtener_evento_activo() is None
             and not transicion_activa
             and estado_jugador.dia2["rama"] != "invitados_honor"
+            and estado_jugador.noche2["fase"] != "honor"
             and tiempo_actual - tiempo_ultimo_paso_mateo > retraso_actual
         ):
             nx, ny = mateo_x, mateo_y
@@ -386,6 +393,10 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
                     casilla_destino = matriz_activa[ny][nx]
                     
                     es_muro = casilla_bloqueada(nx, ny)
+                    if es_muro:
+                        avisar = getattr(script_nivel_actual, "al_intentar_paso_bloqueado", None)
+                        if avisar and avisar(nx, ny, estado_jugador):
+                            nuevo_estado_juego = "DIALOGO"
                     
                     bloquea_npc = any(
                         npc["visible"]
@@ -396,6 +407,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
                     
                     fin_de_segmento = (
                         estado_jugador.dia2["resultado"]
+                        and not estado_jugador.noche2["fase"]
                         and casilla_destino in portales_activos
                     )
                     if not es_muro and not bloquea_npc and not fin_de_segmento:
@@ -578,7 +590,8 @@ def calcular_camara():
     return camara_x, camara_y
 
 def _dibujar_escenario(pantalla, animar=True):
-    if getattr(script_nivel_actual, "PANTALLA_NEGRA", False):
+    if (pantalla_negra_en == nombre_mapa_actual
+            or getattr(script_nivel_actual, "PANTALLA_NEGRA", False)):
         pantalla.fill((0, 0, 0))
         return
 
@@ -669,7 +682,7 @@ def _dibujar_escenario(pantalla, animar=True):
         ))
 
     # 4. Mateo: no dibujarlo mientras esté escondido.
-    if not sistema_escondites.escondido:
+    if not sistema_escondites.escondido and not ocultar_mateo:
         caminando = (
             abs(mateo_px_x - mateo_x * TAMANO_CASILLA) > 0.5
             or abs(mateo_px_y - mateo_y * TAMANO_CASILLA) > 0.5
@@ -719,6 +732,9 @@ def _dibujar_escenario(pantalla, animar=True):
 
     # 8. Aviso del barril por encima de las luces.
     sistema_escondites.dibujar_aviso(pantalla)
+    encuadrar = getattr(script_nivel_actual, "aplicar_encuadre", None)
+    if encuadrar:
+        encuadrar(pantalla, camara_x, camara_y)
             
 def casilla_bloqueada(x, y):
     if not (0 <= x < columnas_mapa and 0 <= y < filas_mapa):

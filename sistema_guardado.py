@@ -11,6 +11,7 @@ VERSION = 1
 
 pendiente = None
 cargando = False
+revision_cargada = -1
 
 # Solo datos del NPC; nunca imágenes ni sonidos.
 CAMPOS_NPC = (
@@ -62,6 +63,7 @@ def actualizar(estado_jugador):
 
     import sistema_mapa as mapa
     import sistema_dialogo as dialogo
+    import sistema_vigilancia as vigilancia
 
     if pendiente is None or cargando:
         return
@@ -74,6 +76,8 @@ def actualizar(estado_jugador):
     if (
         mapa.transicion_activa
         or mapa.jugador_bloqueado
+        or mapa.control_cinematico
+        or (estado_jugador.noche2["fase"] == "sigilo" and vigilancia.persecucion_activa)
         or dialogo.obtener_evento_activo() is not None
     ):
         return
@@ -298,6 +302,7 @@ def continuar(estado_jugador):
 
 
 def cargar(estado_jugador, ranura="manual"):
+    global revision_cargada
     global cargando, pendiente
 
     import sistema_mapa as mapa
@@ -380,6 +385,9 @@ def cargar(estado_jugador, ranura="manual"):
                     )
 
         jugador = datos["jugador"]
+        mapa.control_cinematico = False
+        mapa.pantalla_negra_en = None
+        mapa.ocultar_mateo = False
 
         mapa.spawn_pendiente = (
             jugador["x"],
@@ -389,6 +397,7 @@ def cargar(estado_jugador, ranura="manual"):
         # Carga inmediata para restaurar los datos antes
         # de mostrar el primer fotograma de la partida.
         mapa._ejecutar_carga_real(datos["mapa"])
+        revision_cargada = mapa.revision_nivel
 
         mapa.matriz_activa = [
             fila[:] for fila in datos["matriz"]

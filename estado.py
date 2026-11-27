@@ -4,7 +4,7 @@ BUSQUEDA_DIA_2 = "dia2:busqueda_de_pistas"
 
 class EstadoJuego:
     def __init__(self):
-        self.confianza_lucas = 50
+        self.confianza_lucas = 60
         self.confianza_lucas_separacion = None
         self.confianza_morales = 50
         self.cordura = CORDURA_MAX
@@ -19,6 +19,13 @@ class EstadoJuego:
             "captura_pendiente": False, "captura_resuelta": False,
             "rescate_elegible": False, "cerrada": False, "reencuentro": False,
             "rama": None, "resultado": None,
+        }
+        self.noche2 = {
+            "fase": None, "consumidos": set(), "morales_conoce_cartas": False,
+            "plan_dia3": None, "cita": None, "ayudantes": None,
+            "checkpoint": None, "captura_tipo": None, "rama": None,
+            "completada": False, "dia_actual": 2, "companeros_disponibles": set(),
+            "barril_oculto": False,
         }
 
     def aplicar_efectos(self, efectos: dict):

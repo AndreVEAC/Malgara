@@ -1,0 +1,1184 @@
+{
+  "version": "1.0",
+  "formato": "Guion declarativo: adaptar al motor real; no cargar directamente sin integración.",
+  "canon": {
+    "morales_sabia_cartas_antes": false,
+    "ubicacion_llave": "Caja J. M., archivo de la oficina municipal de Álvarez, junto a la iglesia",
+    "ines_autoria_secreta": true,
+    "llave_otorgada_en_esta_entrega": false,
+    "destinos": [
+      "clinica",
+      "oficina"
+    ],
+    "barril_final": [
+      9,
+      5
+    ]
+  },
+  "eventos": {
+    "n2_entrada_normal": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "¿Los siguieron?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Hola a ti también."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "A mí no. Creo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Procura estar seguro la próxima vez."
+        }
+      ]
+    },
+    "n2_entrada_rescate": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "No se acerquen a las ventanas."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¿De verdad lo encerraron?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No quiero volver a hablar de eso ahora."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Pues recuerda cómo se siente antes de volver a preguntar demasiado."
+        }
+      ]
+    },
+    "n2_correccion_oficina": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Revisé las fotos. La caja J. M. está en la oficina municipal, junto a la iglesia. Vi una entrada de servicio."
+        }
+      ]
+    },
+    "n2_pregunta_lucas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Encontraste algo, Lucas?"
+        }
+      ]
+    },
+    "n2_caja_colabora": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "En los papeles de mi abuela aparecía una caja de madera. Marcada con las letras J. M."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Espera. Yo vi esa caja."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Dónde?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "En la oficina municipal, junto a la iglesia. Me dejaron fotografiar unos libros viejos."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "La caja estaba al lado. Mira, sale aquí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "El inventario dice que guardaban dentro la llave del pasadizo."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Fotografío la caja y dejo la llave. Un día productivo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Álvarez está organizando los preparativos desde esa oficina. No será fácil entrar."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Hay una entrada de servicio. Vi salir a un hombre por ahí."
+        }
+      ]
+    },
+    "n2_tres_pistas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Los libros venían de la parroquia. Y sabemos cómo reconocer la llave: tiene una muesca de media luna."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Entonces ya tienen algo concreto que buscar."
+        }
+      ]
+    },
+    "n2_pistas_incompletas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Pero no conseguí aclarar todo lo demás."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Puede ser esa caja. También puede que el inventario esté desactualizado."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Preferiría estar un poco más seguro antes de meterme donde trabaja Álvarez."
+        }
+      ]
+    },
+    "n2_lucas_no_colabora": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Vi gente entrando y saliendo de la oficina municipal. Poco más."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿No pudiste acercarte?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Pude. También pude llamar la atención. Preferí no hacerlo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Necesitamos saber qué está pasando."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Y yo necesito seguir vivo para enterarme."
+        }
+      ]
+    },
+    "n2_sin_caja_colabora": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Me dejaron fotografiar unos libros antiguos en la oficina municipal."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Algo sobre la iglesia?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "No pude leerlos con el encargado respirándome en la nuca."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Entonces todavía no sabemos dónde buscar la llave."
+        }
+      ]
+    },
+    "n2_carta_hallazgo": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Espera…"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¿Qué?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Hay algo aquí."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "No me digas que es otro papel."
+        }
+      ]
+    },
+    "n2_carta_lectura": {
+      "lineas": [
+        {
+          "hablante": "Carta",
+          "texto": "Esta noche irán a buscarlos."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "Salgan cuando oscurezca, antes de que empiecen las rondas. No vuelvan a esa casa."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "Al amanecer estaré en la clínica. Entren por detrás. Puedo ayudarlos a salir del pueblo."
+        },
+        {
+          "hablante": "Carta",
+          "texto": "No intenten encontrarme antes. No puedo dejar que me vean con ustedes."
+        }
+      ]
+    },
+    "n2_confesion_cartas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Sabe dónde estamos."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Eso ya lo sabe medio pueblo. Lo preocupante es que haya entrado."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Por qué dijiste «otro papel»?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No es la primera carta que recibimos."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Desde cuándo?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Desde que llegamos. Una nos llevó a mirar detrás de la placa de la estatua."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Y decidieron no contármelo?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Tampoco sabíamos si podíamos confiar en ti."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Lo entiendo. Pero si vamos a movernos juntos, necesito saber qué los está guiando."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Por eso te lo estamos contando ahora."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Alguna está firmada?"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Nuestro misterioso amigo tiene muy mala letra para presentarse."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Puede estar ayudándolos. O puede querer que salgan por una puerta concreta."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Pero la información de la estatua era cierta."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí. Eso cuenta a su favor. No lo demuestra todo."
+        }
+      ],
+      "efectos_al_terminar": {
+        "morales_conoce_cartas": true
+      }
+    },
+    "n2_decision_intro": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Si nos quedamos y la carta dice la verdad, nos encontrarán aquí."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Esta casa ya no nos sirve."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Me estaba empezando a acostumbrar a no morir dentro."
+        }
+      ]
+    },
+    "n2_elegir_destino": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Tenemos dos posibilidades. Buscar a esa persona en la clínica o conseguir la llave e investigar el pasadizo."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Una cita con un desconocido o entrar donde está Álvarez. Qué difícil elegir."
+        }
+      ],
+      "opciones": [
+        {
+          "texto": "Buscar ayuda en la clínica.",
+          "siguiente": "n2_plan_clinica",
+          "efectos": {
+            "plan_dia3": "clinica"
+          }
+        },
+        {
+          "texto": "Conseguir la llave e investigar el pasadizo.",
+          "siguiente": "n2_plan_oficina",
+          "efectos": {
+            "plan_dia3": "oficina"
+          }
+        }
+      ],
+      "requiere": "tres_pistas_y_lucas_colabora"
+    },
+    "n2_plan_clinica": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Quiero salir de aquí. Si esa persona puede ayudarnos, tenemos que intentarlo."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Bien. Al amanecer iremos a la parte de atrás de la clínica."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Una clínica. Por fin un sitio donde estar nervioso resulta normal."
+        }
+      ]
+    },
+    "n2_plan_oficina": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Encontramos esas pistas por algo. Quiero saber qué hay bajo la iglesia."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Yo preferiría descubrirlo desde bastante lejos."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Primero la llave. Sin ella no hay ningún pasadizo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Entonces iremos a la oficina municipal."
+        }
+      ]
+    },
+    "n2_plan_unico": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No conseguimos lo necesario para encontrar la llave."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Nos queda la persona de la clínica."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Pues esperemos que sepa sacarnos de aquí."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Iremos al amanecer."
+        }
+      ],
+      "efectos_al_terminar": {
+        "plan_dia3": "clinica"
+      }
+    },
+    "n2_refugio": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y dónde pasamos esta noche?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "En las afueras hay una caseta de mantenimiento. Llevo varias noches usándola."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¿Tiene camas?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Tiene una puerta que cierra."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Casi un hotel."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Llegaremos cuando oscurezca. De día me verían cruzar el pueblo con ustedes."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y si ya están vigilando el camino?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Por eso saldremos antes de que empiecen las rondas. Y evitaremos las calles más expuestas."
+        }
+      ]
+    },
+    "n2_cita_clinica": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Si nos separamos, al amanecer nos encontramos detrás de la clínica."
+        }
+      ]
+    },
+    "n2_cita_oficina": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Si nos separamos, al amanecer nos encontramos detrás de la oficina municipal."
+        }
+      ]
+    },
+    "n2_descanso": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "No vuelvan a buscarnos a esta casa."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "De acuerdo."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Intentemos no separarnos. Por variar."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Descansen un rato. Yo vigilo."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No creo que pueda dormir."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Yo tampoco."
+        }
+      ]
+    },
+    "n2_despertar_negro": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Mateo. Lucas. Despierten."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "No estaba dormido."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Claro. Levántate."
+        }
+      ],
+      "pantalla_negra": true
+    },
+    "n2_despertar_visible": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Ya es hora?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí. La caseta está más allá de la casa de tu abuela, por detrás. Yo les indicaré al llegar."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¿Tenemos que pasar por todo el pueblo?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sólo si el camino directo está cerrado."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Vamos antes de averiguarlo."
+        }
+      ]
+    },
+    "n2_desvio": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "Ahí tienes la respuesta."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Antes podíamos pasar por aquí."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Hay guardias al final del camino de arriba. Haremos el rodeo por la derecha."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Por donde está la clínica."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí. Después subimos a la plaza y cruzamos hacia la casa de tu abuela."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Un paseo nocturno. Justo lo que necesitaba."
+        }
+      ]
+    },
+    "n2_llegada_guia": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Desde aquí voy delante."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Por detrás de la casa?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí. Dejé un camino de piedras para reconocer la entrada de noche."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¿Y para que los demás también la encuentren?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Desde el camino parecen piedras sueltas. Síganme."
+        }
+      ]
+    },
+    "n2_barda_camino": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¿Falta mucho?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "La caseta está al otro lado de la cerca."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Ya me conformo con que no tenga a nadie dentro."
+        }
+      ]
+    },
+    "n2_barda_cruce": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "Por aquí. Cuidado con el alambre."
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Mi ropa ya estaba demasiado entera."
+        }
+      ]
+    },
+    "n2_agarre": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¡Suéltame!"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¡Lucas! ¡Morales!"
+        }
+      ]
+    },
+    "n2_ambos_regreso": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¡Lo tiene agarrado!"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Voy! Lucas, deja libre el paso."
+        }
+      ]
+    },
+    "n2_ambos_caida": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¡Mateo, por aquí!"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Levántate!"
+        }
+      ]
+    },
+    "n2_ambos_separacion": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¡No va a poder pasar!"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Mateo, vuelve por donde vinimos!"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¡Pero ustedes…!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¡Corre! ¡Nos vemos donde quedamos!"
+        }
+      ]
+    },
+    "n2_lucas_regreso": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¡Morales, ayúdame!"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Vienen más! ¡Tenemos que irnos!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¡No voy a dejarlo!"
+        }
+      ]
+    },
+    "n2_lucas_caida": {
+      "lineas": [
+        {
+          "hablante": "Lucas",
+          "texto": "¡Arriba, idiota! ¡Corre!"
+        }
+      ]
+    },
+    "n2_lucas_separacion": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¡Lucas!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¡Por atrás! ¡No intentes cruzar!"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Y tú?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "¡Nos vemos donde quedamos! ¡Muévete!"
+        }
+      ]
+    },
+    "n2_morales_regreso": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "¡Lucas, espera aquí!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "No… no puedo quedarme."
+        }
+      ]
+    },
+    "n2_morales_caida": {
+      "lineas": [
+        {
+          "hablante": "Morales",
+          "texto": "¡Mateo, levántate!"
+        }
+      ]
+    },
+    "n2_morales_separacion": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¡No puedo pasar!"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Da la vuelta! ¡El camino de atrás sigue libre!"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¿Dónde está Lucas?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¡Ahora no! ¡Nos vemos donde acordamos!"
+        }
+      ]
+    },
+    "n2_ninguno_abandono": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¡Ayúdenme!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Morales…"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Vienen más."
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "¡Todavía pueden sacarme!"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Yo… no puedo."
+        }
+      ]
+    },
+    "n2_ninguno_final": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "¡No! ¡Esperen!"
+        }
+      ]
+    },
+    "n2_prision": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Se fueron…"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Los dos."
+        }
+      ]
+    },
+    "n2_prision_reincidente": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Esta vez saben por dónde me sacaron."
+        }
+      ],
+      "requiere": "rescate_diurno_completado"
+    },
+    "n2_prision_cierre": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Tengo que encontrar otra salida."
+        },
+        {
+          "hablante": "Voz",
+          "texto": "No te canses. Mañana vendrán por ti."
+        }
+      ],
+      "efectos_al_terminar": {
+        "rama": "invitados_honor",
+        "captura_tipo": "nocturna_definitiva",
+        "noche2_completada": true
+      }
+    },
+    "n2_barril_aproximacion": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "No puedo seguir corriendo…"
+        }
+      ]
+    },
+    "n2_barril_entrada": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ahí."
+        }
+      ]
+    },
+    "n2_barril_espera": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Todavía están cerca…"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "No salgas. Espera."
+        }
+      ]
+    },
+    "n2_amanecer": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Ya amaneció…"
+        },
+        {
+          "hablante": "Mateo",
+          "texto": "Me duele todo."
+        }
+      ]
+    },
+    "n2_amanecer_ambos": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Lucas y Morales consiguieron cruzar. Ojalá hayan encontrado dónde esconderse."
+        }
+      ]
+    },
+    "n2_amanecer_lucas": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Lucas volvió por mí… Tengo que encontrarlo."
+        }
+      ]
+    },
+    "n2_amanecer_morales": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Morales me sacó de ahí. Ojalá haya logrado escapar."
+        }
+      ]
+    },
+    "n2_amanecer_clinica": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Quedamos detrás de la clínica. Tengo que llegar."
+        }
+      ]
+    },
+    "n2_amanecer_oficina": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Quedamos detrás de la oficina municipal. Tengo que llegar."
+        }
+      ]
+    },
+    "n2_oficina_dia2_exterior": {
+      "lineas": [
+        {
+          "hablante": "Mateo",
+          "texto": "Están ocupados con los preparativos. No puedo entrar así como así."
+        }
+      ]
+    }
+  },
+  "secuencias": {
+    "casa": [
+      {
+        "accion": "entrada_morales_si_normal_sin_duplicar"
+      },
+      {
+        "accion": "colocar_tres_de_pie_alrededor_sillones"
+      },
+      {
+        "accion": "seleccionar_reencuentro_no_repetir"
+      },
+      {
+        "accion": "mateo_caminar_hacia_sillon_y_detenerse"
+      },
+      {
+        "dialogo": "n2_carta_hallazgo"
+      },
+      {
+        "accion": "recoger_carta"
+      },
+      {
+        "dialogo": "n2_carta_lectura"
+      },
+      {
+        "dialogo": "n2_confesion_cartas"
+      },
+      {
+        "dialogo": "n2_decision_intro"
+      },
+      {
+        "accion": "eleccion_si_tres_pistas_y_lucas_colabora_sino_plan_unico"
+      },
+      {
+        "dialogo": "n2_refugio"
+      },
+      {
+        "accion": "dialogo_cita_segun_plan"
+      },
+      {
+        "dialogo": "n2_descanso"
+      },
+      {
+        "accion": "fade_out_cargar_hogar_noche2_mantener_negro"
+      },
+      {
+        "dialogo": "n2_despertar_negro"
+      },
+      {
+        "accion": "fade_in"
+      },
+      {
+        "dialogo": "n2_despertar_visible"
+      },
+      {
+        "accion": "salida_por_puerta"
+      },
+      {
+        "accion": "mostrar_camino_superior_bloqueado"
+      },
+      {
+        "dialogo": "n2_desvio"
+      },
+      {
+        "accion": "checkpoint_y_control_jugable"
+      }
+    ],
+    "llegada": [
+      {
+        "dialogo": "n2_llegada_guia"
+      },
+      {
+        "accion": "morales_lider_hacia_salida_superior"
+      },
+      {
+        "accion": "cargar_barda_abajo_centro"
+      },
+      {
+        "dialogo": "n2_barda_camino"
+      },
+      {
+        "accion": "seguir_piedras_hasta_agujero"
+      },
+      {
+        "dialogo": "n2_barda_cruce"
+      },
+      {
+        "accion": "cruzar_morales_y_lucas_mateo_queda_abajo"
+      },
+      {
+        "accion": "un_guardia_llega_desde_abajo_y_sujeta_mateo"
+      },
+      {
+        "dialogo": "n2_agarre"
+      },
+      {
+        "accion": "seleccionar_variante_por_confianza"
+      }
+    ],
+    "huida_comun": [
+      {
+        "accion": "mateo_huye_abajo_solo_control_bloqueado"
+      },
+      {
+        "accion": "volver_por_mapas_conectados_hasta_pueblo1_noche2"
+      },
+      {
+        "dialogo": "n2_barril_aproximacion"
+      },
+      {
+        "accion": "caminar_a_casilla_libre_adyacente_barril_9_5"
+      },
+      {
+        "dialogo": "n2_barril_entrada"
+      },
+      {
+        "accion": "ocultar_mateo_cinematico_sin_espacio"
+      },
+      {
+        "accion": "patrulla_guion_pasa_despues_sin_ver_entrada"
+      },
+      {
+        "accion": "esperar_cinco_segundos_y_terminar_musica_persecucion"
+      },
+      {
+        "dialogo": "n2_barril_espera"
+      },
+      {
+        "accion": "breve_espera_y_fade_out"
+      },
+      {
+        "accion": "cargar_pueblo1_dia3_mateo_oculto"
+      },
+      {
+        "accion": "fade_in_y_sacar_mateo_a_casilla_libre"
+      },
+      {
+        "dialogo": "n2_amanecer"
+      },
+      {
+        "accion": "dialogo_amanecer_segun_ayudantes"
+      },
+      {
+        "accion": "dialogo_objetivo_segun_plan"
+      },
+      {
+        "accion": "checkpoint_dia3_y_control_jugable_solo"
+      }
+    ],
+    "prision": [
+      {
+        "accion": "fade_y_cargar_prision_cerrada_tipo_nocturna"
+      },
+      {
+        "dialogo": "n2_prision"
+      },
+      {
+        "accion": "dialogo_reincidente_solo_si_rescate_diurno"
+      },
+      {
+        "accion": "sonido_pasos_fuera_de_pantalla_si_disponible"
+      },
+      {
+        "dialogo": "n2_prision_cierre"
+      },
+      {
+        "accion": "checkpoint_terminal_honor_sin_rescate_ni_portal_inexistente"
+      }
+    ]
+  },
+  "variantes_emboscada": {
+    "ambos": {
+      "ayudantes": [
+        "lucas",
+        "morales"
+      ],
+      "pasos": [
+        {
+          "dialogo": "n2_ambos_regreso"
+        },
+        {
+          "accion": "huir_no_ayudante_si_existe"
+        },
+        {
+          "accion": "ayudante_cruza_hacia_mateo_empuja_guardia_mateo_cae"
+        },
+        {
+          "dialogo": "n2_ambos_caida"
+        },
+        {
+          "accion": "ayudante_recruza_y_dos_refuerzos_laterales_bloquean_agujero_lado_mateo"
+        },
+        {
+          "dialogo": "n2_ambos_separacion"
+        },
+        {
+          "accion": "guardar_ayudantes_y_ejecutar_huida_comun"
+        }
+      ]
+    },
+    "lucas": {
+      "ayudantes": [
+        "lucas"
+      ],
+      "pasos": [
+        {
+          "dialogo": "n2_lucas_regreso"
+        },
+        {
+          "accion": "huir_no_ayudante_si_existe"
+        },
+        {
+          "accion": "ayudante_cruza_hacia_mateo_empuja_guardia_mateo_cae"
+        },
+        {
+          "dialogo": "n2_lucas_caida"
+        },
+        {
+          "accion": "ayudante_recruza_y_dos_refuerzos_laterales_bloquean_agujero_lado_mateo"
+        },
+        {
+          "dialogo": "n2_lucas_separacion"
+        },
+        {
+          "accion": "guardar_ayudantes_y_ejecutar_huida_comun"
+        }
+      ]
+    },
+    "morales": {
+      "ayudantes": [
+        "morales"
+      ],
+      "pasos": [
+        {
+          "dialogo": "n2_morales_regreso"
+        },
+        {
+          "accion": "huir_no_ayudante_si_existe"
+        },
+        {
+          "accion": "ayudante_cruza_hacia_mateo_empuja_guardia_mateo_cae"
+        },
+        {
+          "dialogo": "n2_morales_caida"
+        },
+        {
+          "accion": "ayudante_recruza_y_dos_refuerzos_laterales_bloquean_agujero_lado_mateo"
+        },
+        {
+          "dialogo": "n2_morales_separacion"
+        },
+        {
+          "accion": "guardar_ayudantes_y_ejecutar_huida_comun"
+        }
+      ]
+    },
+    "ninguno": {
+      "ayudantes": [],
+      "pasos": [
+        {
+          "dialogo": "n2_ninguno_abandono"
+        },
+        {
+          "accion": "lucas_y_morales_huyen_guardia_no_suelta"
+        },
+        {
+          "dialogo": "n2_ninguno_final"
+        },
+        {
+          "accion": "llegan_refuerzos_y_ejecutar_prision"
+        }
+      ]
+    }
+  },
+  "contrato": {
+    "condiciones": "Resolver con estado real; IDs conceptuales, no variables garantizadas del motor.",
+    "eventos": "Una sola ejecución narrativa persistente; no duplicar reencuentros ni recompensas.",
+    "acciones": "Implementar como estados del director por frame, sin sleep bloqueante.",
+    "eleccion": "Dos opciones sólo con objetos_elena + marca_media_luna + caja_jm y Lucas colaborador; sin requisitos se fija clinica.",
+    "confianza": "No añadir cambios de confianza por estas líneas/elección/confesión. Reusar umbrales existentes; sólo si no hay usar Lucas60/Morales65.",
+    "nombres": "Carta y Voz son texto, no NPC adicionales. Inés no firma ni se revela.",
+    "morales_cartas": "Canon fijo: ignoraba TODAS las cartas hasta n2_confesion_cartas. No crear variante donde ya sabía."
+  }
+}

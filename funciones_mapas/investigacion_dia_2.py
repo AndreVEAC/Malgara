@@ -53,6 +53,8 @@ def activa(estado):
 
 
 def objetivo(estado):
+    if estado.noche2["fase"]:
+        return None
     if activa(estado) and not estado.dia2["captura_pendiente"]:
         datos = estado.dia2
         return f"Personas {min(MINIMO, len(datos['personas']))}/{MINIMO}    Pistas {len(PISTAS & datos['hallazgos'])}/3"
@@ -73,6 +75,7 @@ class Investigacion:
         self.autoguardar = autoguardar
         self.director = None
         self.revision_nivel = -1
+        self.noche = None
 
     @property
     def datos(self):
@@ -286,6 +289,8 @@ class Investigacion:
             self.menu_morales()
 
     def interactuar(self, x, y, evento):
+        if self.noche is not None and self.noche.exterior(x, y):
+            return True
         if not activa(self.estado):
             return False
         punto = PUNTOS.get(mapa.nombre_mapa_actual, {}).get((x, y))
@@ -322,6 +327,8 @@ class Investigacion:
         return True
 
     def actualizar(self):
+        if self.noche is not None and self.noche.actualizar():
+            return
         actual = mapa.nombre_mapa_actual
         datos = self.datos
         if self.revision_nivel != mapa.revision_nivel:
@@ -426,7 +433,7 @@ class Investigacion:
             yield "hacer", partial(self.mostrar, "lucas_sin_caja")
         else:
             yield "hacer", partial(self.mostrar, "lucas_sin_caja_baja", lineas=[
-                {"hablante": "Lucas", "texto": "Vi movimiento cerca de la clínica. No me quedé a averiguar más."},
+                {"hablante": "Lucas", "texto": "Vi movimiento cerca de la oficina municipal. No me quedé a averiguar más."},
                 {"hablante": "Mateo", "texto": "Entonces todavía nos falta por dónde empezar."},
             ])
         yield "hacer", self.guardar_resultado
@@ -449,6 +456,8 @@ class Investigacion:
             "morales_aliado": self.estado.confianza_morales >= REGLAS["confianza_rescate"],
             "plan_llave": not honor and lucas and pistas == PISTAS,
             "continuacion": "invitados_honor" if honor else "emboscada_nocturna",
+            "reencuentro_oficina": True,
+            "ubicacion_llave": "oficina" if lucas and "caja_jm" in pistas and not honor else None,
         }
         # El mapa permite usar la libreta del hogar en el punto de continuación.
         mapa.jugador_bloqueado = False

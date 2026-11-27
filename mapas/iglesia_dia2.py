@@ -6,6 +6,9 @@ INICIO_X, INICIO_Y = 1, 7
 ENTRADA_IGLESIA = (5, 4)
 REGRESO_INTERIOR = (5, 5)
 ESCONDITE_MORALES = (10, 3)
+PUERTA_OFICINA = (15, 12)
+ARBOL_RETIRADO = (18, 14)
+FACHADA_OFICINA = tuple((x, y) for y in range(9, 13) for x in range(14, 20))
 SALIDA_PUEBLO = (0, 7)
 REGRESO_PUEBLO = (1, 7)
 POSICIONES_NINOS = ((5, 10), (6, 11), (7, 12))
@@ -75,5 +78,9 @@ for x in (2, 8, 14):
 for fila in MATRIZ:
     fila[-1] = 1
 for x, y in ((18, 2), (19, 3), (17, 5), (19, 6), (18, 7), (19, 7), (18, 8),
-             (19, 9), (17, 11), (19, 12), (18, 14)):
+             (19, 9), (17, 11), (19, 12)):
     MATRIZ[y][x] = 21
+
+# Fachada municipal incorporada al fondo, al este de la fuente.
+for x, y in FACHADA_OFICINA:
+    MATRIZ[y][x] = 1

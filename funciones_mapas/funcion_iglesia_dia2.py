@@ -17,6 +17,7 @@ director = None
 vieron_morales = False
 en_borde = False
 proximo_giro = 0
+revision_oficina = -1
 
 
 def iniciar():
@@ -82,6 +83,14 @@ def actualizar():
 
 
 def actualizar_estado(estado_jugador):
+    global revision_oficina
+    if revision_oficina != mapa.revision_nivel:
+        revision_oficina = mapa.revision_nivel
+        # Un guardado anterior puede restaurar la matriz sin la nueva fachada.
+        for x, y in iglesia.FACHADA_OFICINA:
+            mapa.matriz_activa[y][x] = 1
+        x, y = iglesia.ARBOL_RETIRADO
+        mapa.matriz_activa[y][x] = 0
     if (
         BUSQUEDA_DIA_2 in mapa.eventos_completados
         and estado_jugador.confianza_lucas_separacion is None
