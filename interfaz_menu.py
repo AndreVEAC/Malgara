@@ -39,6 +39,8 @@ class MenuOpciones:
         self.error = ""
         self.fuente = pygame.font.Font(FUENTE, 32)
         self.detalle = pygame.font.Font(FUENTE, 21)
+        self.fuente_teclas = pygame.font.Font(FUENTE, 21)
+        self.fuente_teclas.set_bold(True)
         self.titulo = pygame.font.Font(FUENTE, 36)
         self.sonido_teclas = pygame.mixer.Sound("recursos/sonidos/efectos/teclas_menu.wav")
         self.sonido_teclas.set_volume(0.5)
@@ -102,6 +104,25 @@ class MenuOpciones:
     def dibujar_texto(pantalla, texto, fuente, color, centro):
         imagen = fuente.render(texto, True, color)
         pantalla.blit(imagen, imagen.get_rect(center=centro))
+
+    def dibujar_atajos(self, pantalla, *, volver=False, pantalla_completa=False):
+        atajos = [("Flechas", "Mover"), ("Enter / Espacio", "Elegir")]
+        if volver:
+            atajos.append(("Esc", "Volver"))
+        if pantalla_completa:
+            atajos.append(("F11", "Pantalla completa"))
+
+        grupos = [(self.fuente_teclas.render(tecla, True, CLARO), self.detalle.render(accion, True, SUAVE))
+                  for tecla, accion in atajos]
+        ancho = sum(tecla.get_width() + accion.get_width() + 8 for tecla, accion in grupos)
+        ancho += 22 * (len(grupos) - 1)
+        x = (pantalla.get_width() - ancho) // 2
+        y = pantalla.get_height() - 31
+        for tecla, accion in grupos:
+            pantalla.blit(tecla, tecla.get_rect(midleft=(x, y)))
+            x += tecla.get_width() + 8
+            pantalla.blit(accion, accion.get_rect(midleft=(x, y)))
+            x += accion.get_width() + 22
 
 
 class MenuPrincipal(MenuOpciones):
@@ -182,10 +203,7 @@ class MenuPrincipal(MenuOpciones):
             base_y += 74
 
         self.dibujar_opciones(pantalla, base_y)
-        instrucciones = "Flechas  Mover    Enter / Espacio  Elegir    F11  Pantalla completa"
-        if self.vista != "principal":
-            instrucciones = "Flechas  Mover    Enter / Espacio  Elegir    Esc  Volver    F11  Pantalla completa"
-        self.dibujar_texto(pantalla, instrucciones, self.detalle, SUAVE, (centro_x, pantalla.get_height() - 31))
+        self.dibujar_atajos(pantalla, volver=self.vista != "principal", pantalla_completa=True)
 
 
 class MenuPausa(MenuOpciones):
@@ -226,5 +244,4 @@ class MenuPausa(MenuOpciones):
             self.dibujar_texto(pantalla, "Perderás el progreso sin guardar.",
                                self.detalle, SUAVE, (centro_x, centro_y - 68))
         self.dibujar_opciones(pantalla, centro_y - 40)
-        self.dibujar_texto(pantalla, "Flechas  Mover    Enter / Espacio  Elegir    Esc  Volver",
-                           self.detalle, CLARO, (centro_x, pantalla.get_height() - 31))
+        self.dibujar_atajos(pantalla, volver=True)
