@@ -22,6 +22,7 @@ texto_notificacion = ""
 tiempo_inicio_notificacion = 0
 tiempo_ultima_interaccion = 0
 DURACION_NOTIFICACION = 4000
+duracion_notificacion = DURACION_NOTIFICACION
 notificaciones_pendientes = deque()
 
 # Animación tipo máquina de escribir
@@ -135,8 +136,8 @@ def obtener_evento_activo():
     return nombre_evento_activo
 
 
-def activar_notificacion(texto, *, fondo=None):
-    notificaciones_pendientes.append((texto, fondo))
+def activar_notificacion(texto, *, fondo=None, duracion_ms=DURACION_NOTIFICACION):
+    notificaciones_pendientes.append((texto, fondo, duracion_ms))
     _actualizar_notificacion(pygame.time.get_ticks())
 
 
@@ -147,13 +148,13 @@ def limpiar_notificaciones():
 
 
 def _actualizar_notificacion(tiempo):
-    global texto_notificacion, tiempo_inicio_notificacion, fondo_notificacion
-    if texto_notificacion and tiempo - tiempo_inicio_notificacion < DURACION_NOTIFICACION:
+    global texto_notificacion, tiempo_inicio_notificacion, fondo_notificacion, duracion_notificacion
+    if texto_notificacion and tiempo - tiempo_inicio_notificacion < duracion_notificacion:
         return
     if not notificaciones_pendientes:
         texto_notificacion = ""
         return
-    texto, fondo_notificacion = notificaciones_pendientes.popleft()
+    texto, fondo_notificacion, duracion_notificacion = notificaciones_pendientes.popleft()
     texto_notificacion = texto
     tiempo_inicio_notificacion = tiempo
     if sonido_notificacion:
@@ -336,6 +337,10 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
 
     if not en_modo_decision:
         linea_actual = lineas[indice_linea]
+        aviso = linea_actual.get("aviso")
+        if aviso and aviso["marca"] not in sistema_mapa.eventos_completados:
+            sistema_mapa.eventos_completados.add(aviso["marca"])
+            activar_notificacion(aviso["texto"], duracion_ms=aviso["duracion_ms"])
         hablante = linea_actual.get("hablante", "???")
         nombre = hablante.strip().upper()
         if nombre == "MATEO":

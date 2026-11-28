@@ -374,6 +374,7 @@ def actualizar(ahora):
 
             if distancia2 <= (T * 0.3) ** 2:
                 mapa.jugador_bloqueado = True
+                mapa._reproducir_sonido_portal("recursos/sonidos/efectos/atrapado.wav")
 
                 # Restaurar el mapa en su punto de entrada con un fundido.
                 mapa.cargar_nivel(mapa.nombre_mapa_actual, *(mapa.reinicio_entrada or (None, None)))

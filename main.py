@@ -7,6 +7,7 @@ from estado import BUSQUEDA_DIA_2, EstadoJuego
 import sistema_mapa
 import sistema_dialogo
 import sistema_guardado
+from interfaz_controles import GuiaControles
 from funciones_mapas.investigacion_dia_2 import Investigacion, objetivo
 from funciones_mapas.noche_2 import Noche2
 from funciones_mapas.epilogo_laboratorio import EpilogoLaboratorio
@@ -61,11 +62,12 @@ elif prueba_dia:
         estado_jugador.confianza_morales = 65 if "--rescate" in sys.argv else 64
     sistema_mapa.cargar_nivel("pueblo_2_dia_2", 38, 15)
 elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
-    sistema_mapa.cargar_nivel("iglesia_dia2")
+    sistema_mapa.cargar_nivel("intro")
 
 ejecutando = True
 epilogo = None
 salida_fin = None
+guia_controles = GuiaControles()
 while ejecutando:
     segundos = reloj.tick(FPS) / 1000
     sistema_guardado.actualizar(estado_jugador)
@@ -135,5 +137,12 @@ while ejecutando:
         if rotulo:
             sistema_dialogo.dibujar_objetivo_global(pantalla, rotulo)
         sistema_dialogo.dibujar_notificacion_global(pantalla)
+    if "llegada_completada" not in sistema_mapa.eventos_completados:
+        puede_moverse = (
+            modo_juego == "EXPLORACION" and not sistema_mapa.transicion_activa
+            and not sistema_mapa.jugador_bloqueado and not sistema_mapa.control_cinematico
+        )
+        guia_controles.dibujar(pantalla, sistema_mapa.nombre_mapa_actual, sistema_mapa.alpha_transicion,
+                               puede_moverse=puede_moverse)
     pygame.display.flip()
 pygame.quit()

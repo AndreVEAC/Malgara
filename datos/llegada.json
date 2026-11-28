@@ -5,7 +5,15 @@
       { "hablante": "Mateo", "texto": "Debemos estar cerca." },
       { "hablante": "Lucas", "texto": "Eso espero." },
       { "hablante": "Lucas", "texto": "Mis pies ya están considerando abandonarme." },
-      { "hablante": "Abuela", "texto": "¡Vaya! ¿Visitantes?" },
+      {
+        "hablante": "Abuela",
+        "texto": "¡Vaya! ¿Visitantes?",
+        "aviso": {
+          "marca": "llegada:aviso_espacio",
+          "texto": "Mantén «Espacio» para saltar los diálogos.",
+          "duracion_ms": 10000
+        }
+      },
       { "hablante": "Mateo", "texto": "Buenas tardes, señora." },
       { "hablante": "Abuela", "texto": "Buenas tardes, muchachos." },
       { "hablante": "Abuela", "texto": "Qué sorpresa ver caras nuevas por aquí." },

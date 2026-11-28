@@ -12,7 +12,7 @@ import sistema_guardado as guardado
 import sistema_mapa as mapa
 from configuracion import ANCHO_PANTALLA
 from estado import BUSQUEDA_DIA_2
-from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar
+from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar, sonido
 from mapas.hogar_dia2 import PUERTA_EXTERIOR
 from mapas.iglesia_dia2 import ESCONDITE_MORALES
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA, CERRAR_PUERTA
@@ -372,6 +372,7 @@ class Investigacion:
             recorridos.append(Recorrido(nombre, ruta, intervalo=180))
         if recorridos:
             yield "mover", recorridos
+        yield "hacer", partial(sonido, "atrapado")
         yield "hacer", partial(self.mostrar, "captura_entrada")
         yield "hacer", partial(mapa.cargar_nivel, PRISION)
 

@@ -10,7 +10,7 @@ import sistema_mapa as mapa
 from funciones_mapas.clinica_dia_3 import ClinicaDia3
 from funciones_mapas.dia_3 import Dia3
 from funciones_mapas.invitados_honor import FinalHonor
-from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar, posicion, ruta_a
+from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar, posicion, ruta_a, sonido
 from funciones_mapas.investigacion_dia_2 import HOGAR, PISTAS, PRISION, opcion
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA, CERRAR_PUERTA
 from mapas.hogar_dia2 import PUERTA_EXTERIOR
@@ -275,6 +275,7 @@ class Noche2:
         yield "hacer", partial(audio.establecer_persecucion, True)
         crear_npc("guardia", "loco", 10, 18, "arriba")
         yield "mover", [Recorrido("guardia", [(10, 9)], 105)]
+        yield "hacer", partial(sonido, "atrapado")
         yield from self.decir("n2_agarre")
 
         if self.datos["ayudantes"] is None:

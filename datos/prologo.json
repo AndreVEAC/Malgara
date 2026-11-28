@@ -21,16 +21,34 @@
     ],
     "es_decision": false
   },
-  "evento_9": {
-    "lineas": [
-      { "hablante": "Mateo", "texto": "Mi mamá decía que era el lugar más bonito del mundo." },
-      { "hablante": "Lucas", "texto": "¿Era de aquí?" }
-    ],
-    "es_decision": true,
-    "opciones": [
-      { "tecla": "1", "texto": "1. «Sí. Se fue de joven, pero hablaba de Malgara.» [Verdad]", "efecto_lucas": 3 },
-      { "tecla": "2", "texto": "2. «Vine por mi reportaje. Lo demás es secundario.» [Indif.]", "efecto_lucas": -1 },
-      { "tecla": "3", "texto": "3. «No, nació en la ciudad, mis abuelos vivieron aquí.» [Mentira]", "efecto_lucas": -3 }
-    ]
-  }
+"evento_9": {
+  "lineas": [
+    {
+      "hablante": "Mateo",
+      "texto": "Mi mamá decía que era el lugar más bonito del mundo."
+    },
+    {
+      "hablante": "Lucas",
+      "texto": "¿Y qué se siente conocerlo por fin?"
+    }
+  ],
+  "es_decision": true,
+  "opciones": [
+    {
+      "tecla": "1",
+      "texto": "1. «Me habría gustado venir con ella.»",
+      "efecto_lucas": 3
+    },
+    {
+      "tecla": "2",
+      "texto": "2. «Todavía no sé. Apenas llegamos.»",
+      "efecto_lucas": 0
+    },
+    {
+      "tecla": "3",
+      "texto": "3. «Prefiero no pensar mucho en eso. Vine a trabajar.» [Reservado]",
+      "efecto_lucas": -1
+    }
+  ]
+}
 }

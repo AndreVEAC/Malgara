@@ -418,7 +418,7 @@
 
   "evento_banca": {
     "lineas": [
-      { "hablante": "Mateo", "texto": "Una banca de hierro forjado." }
+      { "hablante": "Mateo", "texto": "Una banca de madera verde." }
     ]
   },
   "evento_casa_bloqueada": {

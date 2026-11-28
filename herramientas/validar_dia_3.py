@@ -185,7 +185,9 @@ def probar_bosque(juego):
 def sufrir_captura(juego, nombre):
     npc = mapa.npcs_activos[nombre]
     cerca(npc["x"], npc["y"], npc["direccion"])
-    fotograma(juego)
+    with patch.object(mapa, "_reproducir_sonido_portal", wraps=mapa._reproducir_sonido_portal) as sonido:
+        fotograma(juego)
+        sonido.assert_called_once_with("recursos/sonidos/efectos/atrapado.wav")
     assert mapa.transicion_activa
     avanzar(juego)
 
