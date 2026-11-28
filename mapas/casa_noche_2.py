@@ -1,11 +1,14 @@
-from mapas import casa_dia2
-from mapas.geografia_noche_2 import matriz_desde, objetos, paso
+from mapas import casa_dia2, casa_noche_1
+from mapas.geografia_noche_2 import marcar, matriz_desde, objetos, paso
 
 FONDO_IMG = "recursos/sprites/fondos/fondo_casa_noche_2.png"
 AMBIENTE = "noche_calmada"
 INICIO_X, INICIO_Y = 15, 17
 DICCIONARIO_OBJETOS = objetos()
 MATRIZ = matriz_desde(casa_dia2)
+POSTES = tuple((x, y) for y, fila in enumerate(casa_noche_1.MATRIZ)
+               for x, casilla in enumerate(fila) if casilla == 20)
+marcar(MATRIZ, POSTES, 20)
 GUARDIAS_CAMINO_NORTE = ((2, 0), (3, 0), (4, 0))
 LIMITE_CAMINO_NORTE = 5
 NPCS = {

@@ -1,6 +1,6 @@
 FONDO_IMG = "recursos/sprites/fondos/fondo_prision.png"
 CENTRAR_FONDO = True
-AMBIENTE = "miradas"
+AMBIENTE = None
 INICIO_X, INICIO_Y = 3, 4
 FILA_BARROTES = 5
 HUECO = 4

@@ -10,6 +10,7 @@ import sistema_guardado
 from funciones_mapas.investigacion_dia_2 import Investigacion, objetivo
 from funciones_mapas.noche_2 import Noche2
 from funciones_mapas.epilogo_laboratorio import EpilogoLaboratorio
+from funciones_mapas.invitados_honor import TITULO as TITULO_HONOR
 from mapas.dia_3 import PUEBLO
 
 pygame.init()
@@ -83,15 +84,25 @@ while ejecutando:
                 ejecutando = False
 
     fase_dia3 = estado_jugador.dia3["fase"]
+    if prueba_dia and noche.honor.activo:
+        investigacion.noche = noche
+    if noche.honor.activo and fase_dia3 == "fin_honor":
+        if epilogo is None:
+            epilogo = EpilogoLaboratorio(pantalla, eventos=(), fondos=(), titulo=TITULO_HONOR)
+            fuente = pygame.font.Font(None, 22)
+            salida_fin = fuente.render("Esc para salir", True, (185, 185, 185))
+        epilogo.actualizar_y_dibujar(pantalla, segundos)
+        if epilogo.terminado:
+            pantalla.blit(salida_fin, salida_fin.get_rect(midbottom=(ANCHO_PANTALLA // 2, ALTO_PANTALLA - 42)))
+        pygame.display.flip()
+        continue
     if noche.dia3.activo and fase_dia3 in ("epilogo", "fin", "epilogo_clinica", "fin_clinica"):
         es_clinica = fase_dia3 in ("epilogo_clinica", "fin_clinica")
         if epilogo is None:
             if es_clinica:
-                eventos_clinica = [nodo for nombre, nodo in noche.clinica.guion.items()
-                                   if nombre.startswith("clinica_d3_epilogo_")]
-                epilogo = EpilogoLaboratorio(pantalla, eventos=eventos_clinica, fondos=(), titulo="Final: escape")
+                epilogo = EpilogoLaboratorio(pantalla, eventos=(), fondos=(), titulo="Final: escape")
             else:
-                epilogo = EpilogoLaboratorio(pantalla)
+                epilogo = EpilogoLaboratorio(pantalla, eventos=())
             fuente = pygame.font.Font(None, 22)
             salida_fin = fuente.render("Esc para salir", True, (185, 185, 185))
         epilogo.actualizar_y_dibujar(pantalla, segundos)
@@ -119,9 +130,10 @@ while ejecutando:
         # sistema_dialogo se encarga de devolver "EXPLORACION" por sí solo al terminar de leer el JSON
         modo_juego = sistema_dialogo.actualizar_y_dibujar(pantalla, eventos, estado_jugador)
         
-    rotulo = noche.objetivo() or objetivo(estado_jugador)
-    if rotulo:
-        sistema_dialogo.dibujar_objetivo_global(pantalla, rotulo)
-    sistema_dialogo.dibujar_notificacion_global(pantalla)
+    if not noche.honor.activo:
+        rotulo = noche.objetivo() or objetivo(estado_jugador)
+        if rotulo:
+            sistema_dialogo.dibujar_objetivo_global(pantalla, rotulo)
+        sistema_dialogo.dibujar_notificacion_global(pantalla)
     pygame.display.flip()
 pygame.quit()

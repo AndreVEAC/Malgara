@@ -11,7 +11,6 @@ import sistema_mapa as mapa
 from funciones_mapas.dia_3 import Dia3
 from funciones_mapas.escena_morales import Recorrido, crear_npc, mirar, posicion, sonido
 from funciones_mapas.investigacion_dia_2 import PISTAS
-from configuracion import TAMANO_CASILLA as T
 from mapas import dia_3 as niveles
 from mapas.geografia_noche_2 import marcar
 
@@ -20,7 +19,6 @@ PREPARATIVOS = "clinica_d3_preparativos"
 FRENTE_CLINICA = (19, 17)
 ACOMPANANTES = ("lucas", "morales", "ines")
 ESCONDITE_SERVICIO = (13, 5)
-TIEMPO_REJA = 650
 
 
 class ClinicaDia3(Dia3):
@@ -67,12 +65,7 @@ class ClinicaDia3(Dia3):
 
     def poner_grupo(self, **puntos):
         for nombre, (x, y) in puntos.items():
-            crear_npc(nombre, None if nombre == "ines" else nombre, x, y)
-            if nombre == "ines":
-                imagen = pygame.image.load("recursos/sprites/personajes/ines.png").convert_alpha()
-                sprite = pygame.Surface((T, T), pygame.SRCALPHA)
-                sprite.blit(imagen, imagen.get_rect(midbottom=(T // 2, T)))
-                mapa.npcs_activos[nombre].update(sprite_override="ines", sprites_especiales={"ines": sprite})
+            crear_npc(nombre, nombre, x, y)
 
     def activar_seguidores(self, nombres, *, recolocar=True):
         for nombre in nombres:
@@ -107,6 +100,8 @@ class ClinicaDia3(Dia3):
         elif actual == niveles.CLINICA_ACCESO:
             mapa.reinicio_entrada = (nivel.INICIO_X, nivel.INICIO_Y)
             self.reja = pygame.image.load("recursos/sprites/objetos/puerta_desliza.png").convert_alpha()
+            self.sonido_reja = pygame.mixer.Sound("recursos/sonidos/efectos/porton_deslizandose.wav")
+            self.duracion_reja = round(self.sonido_reja.get_length() * 1000)
             self.reja_inicio = None
             self.reja_abierta = False
             mapa.script_nivel_actual.dibujar_efectos = self.dibujar_reja
@@ -203,13 +198,14 @@ class ClinicaDia3(Dia3):
     def mover_reja(self, abierta):
         self.reja_abierta = abierta
         self.reja_inicio = pygame.time.get_ticks()
-        marcar(mapa.matriz_activa, niveles.REJA, 0 if abierta else 1)
-        sonido("open_door" if abierta else "close_door")
+        if not abierta:
+            marcar(mapa.matriz_activa, niveles.REJA, 1)
+        self.sonido_reja.play()
 
     def dibujar_reja(self, pantalla, camara_x, camara_y):
         ancho, alto = self.reja.get_size()
         progreso = 1 if self.reja_inicio is None else min(
-            1, (pygame.time.get_ticks() - self.reja_inicio) / TIEMPO_REJA,
+            1, (pygame.time.get_ticks() - self.reja_inicio) / self.duracion_reja,
         )
         desplazamiento = round((progreso if self.reja_abierta else 1 - progreso) * ancho / 2)
         mitad = ancho // 2
@@ -224,18 +220,20 @@ class ClinicaDia3(Dia3):
         yield "mover", [self.caminar("mateo", (9, 11)), self.caminar("lucas", (8, 11)),
                         self.caminar("ines", (10, 11))]
         yield from self.decir("clinica_d3_reja")
-        yield "mover", [self.caminar("mateo", (9, 13)), self.caminar("lucas", (8, 13)),
+        yield "mover", [self.caminar("mateo", (9, 13)), self.caminar("lucas", (11, 12)),
                         self.caminar("ines", (10, 13))]
+        mirar("lucas", "izq")
         yield "hacer", partial(self.mover_reja, True)
-        yield "pausa", TIEMPO_REJA
-        yield "mover", [Recorrido("mateo", [(9, 16)], 155), Recorrido("ines", [(10, 17)], 145)]
-        yield "hacer", partial(mirar, "mateo", "arriba")
-        yield "mover", [Recorrido("lucas", [(8, 16)], 145)]
+        yield "pausa", self.duracion_reja
+        marcar(mapa.matriz_activa, niveles.REJA, 0)
+        yield "mover", [Recorrido("mateo", [(9, 16)], 155), Recorrido("ines", [(10, 17)], 145),
+                        Recorrido("lucas", [(11, 16)], 145, retraso=250)]
         yield "hacer", partial(self.mover_reja, False)
-        yield "pausa", TIEMPO_REJA
+        yield "pausa", self.duracion_reja
         yield from self.decir("clinica_d3_fuera")
         yield "mover", [Recorrido(nombre, [(x, 25)], 145)
-                        for nombre, x in (("mateo", 9), ("lucas", 8), ("ines", 10))]
+                        for nombre, x in (("mateo", 9), ("lucas", 11), ("ines", 10))]
         yield from self.fundido_prision(hacia_negro=True)
         audio.reproducir_ambiente("falta_uno", volumen=0.35, fade_ms=0)
+        yield from self.narrar_epilogo(nombre for nombre in self.guion if nombre.startswith("clinica_d3_epilogo_"))
         self.datos["fase"] = "epilogo_clinica"

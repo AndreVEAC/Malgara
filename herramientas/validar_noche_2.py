@@ -84,6 +84,8 @@ def partida(lucas, morales, oficina, rescate=False):
             if nombre.startswith("loco_norte_")} == set(casa_noche_2.GUARDIAS_CAMINO_NORTE)
     assert all(mapa.casilla_bloqueada(x, casa_noche_2.LIMITE_CAMINO_NORTE)
                for x in range(mapa.columnas_mapa))
+    assert all(mapa.matriz_activa[y][x] == 20 for x, y in casa_noche_2.POSTES)
+    assert len(mapa.script_nivel_actual.obtener_zonas_iluminadas()) == len(casa_noche_2.POSTES) == 3
     assert all(npc["vigilancia"]["luz"] in vigilancia._luces
                for nombre, npc in mapa.npcs_activos.items() if nombre.startswith("loco_norte_"))
     cargar(LLEGADA)

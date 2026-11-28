@@ -1,0 +1,382 @@
+{
+  "honor_espera_dia": {
+    "lineas": [
+      {
+        "hablante": "",
+        "texto": "Lo mantuvieron encerrado hasta el día del banquete."
+      },
+      {
+        "hablante": "",
+        "texto": "Mateo escuchó pasos al otro lado de los barrotes muchas veces."
+      },
+      {
+        "hablante": "",
+        "texto": "Ninguno se detuvo para ayudarlo."
+      }
+    ]
+  },
+  "honor_espera_noche": {
+    "lineas": [
+      {
+        "hablante": "",
+        "texto": "La noche terminó sin que nadie viniera por él."
+      },
+      {
+        "hablante": "",
+        "texto": "Al otro lado de los barrotes, el pueblo comenzó a prepararse para el banquete."
+      }
+    ]
+  },
+  "honor_alvarez_llegada": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "Mateo. Ya es hora."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿De qué?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Hoy es el banquete."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Abre la puerta."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "La abrirán en un momento."
+      }
+    ]
+  },
+  "honor_busqueda_dia": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Dónde está Lucas?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Todavía estamos buscando a tu amigo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Entonces consiguió escapar."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Todavía no lo hemos encontrado. No es lo mismo."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Lo encontraremos."
+      }
+    ]
+  },
+  "honor_busqueda_noche": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Y Lucas? ¿Y Morales?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Seguimos buscando a los otros dos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No van a encontrarlos."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Conocemos todos los caminos, Mateo. Los encontraremos."
+      }
+    ]
+  },
+  "honor_motivos": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Por qué hacen esto?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Porque mi gente está enferma."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Y eso qué tiene que ver conmigo?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Mereces saberlo antes de que te lleven."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Aquí hemos visto familias enteras consumirse. Padres enterrando a sus hijos. Personas que ya no podían levantarse de la cama."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Encontramos una forma de darles más tiempo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La cura."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "La llamamos así. Pero la enfermedad siempre vuelve."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Entonces no es una cura."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Es lo que tenemos."
+      }
+    ]
+  },
+  "honor_descendientes": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué necesitan de mí?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "El tratamiento depende de personas que conservan un vínculo con este pueblo, pero que crecieron sanas fuera de él."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Los visitantes."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "No todos. Hay turistas que vienen, toman fotografías y regresan a sus casas."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Otros tienen aquí una familia que nunca llegaron a conocer."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mi madre nació aquí."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Por eso me estaban esperando."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Hace años, algunas familias aceptaron que sus hijos se marcharan. Que formaran una familia lejos de la enfermedad."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Para traer después a sus hijos."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Para que el pueblo pudiera seguir viviendo."
+      }
+    ]
+  },
+  "honor_madre": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Mi madre no sabía lo que iban a hacer."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sabía por qué se había marchado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Estás mintiendo."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Recibimos noticias suyas durante años. Tu edad. Tu salud. Cómo crecías."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Tu abuela sabía a quién debía recibir."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ella me abrazó."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Eres su nieto."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y aun así me entregó."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Su familia también depende del tratamiento."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Yo también era su familia."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mi madre me cuidaba. Se quedaba conmigo cuando tenía miedo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Todo eso también era parte del acuerdo?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "No puedo decirte qué sentía tu madre."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero sí sabes lo que hizo."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sí."
+      }
+    ]
+  },
+  "honor_banquete": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "¿Cuántas personas han traído?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Esto empezó antes de que yo estuviera al frente."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No te pregunté cuándo empezó."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Muchas."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y cuando yo ya no les sirva, traerán a otro."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "El tratamiento no dura para siempre."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Por eso el banquete."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Se prepara el tratamiento. Se reparte lo que nos permite continuar. El pueblo se reúne."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿También se lo comen?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y lo celebran."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Celebran que sus familias vivirán un poco más."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "A costa de la mía."
+      }
+    ]
+  },
+  "honor_ultima_respuesta": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "Haría cualquier cosa por salvar a mi gente."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mientras el que muera sea otro."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "¿Qué habrías hecho tú si fueran tu familia?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No traer a la de alguien más."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Puedes odiarme. No voy a pedirte que lo entiendas."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Entonces no lo llames salvarlos."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Es hora."
+      }
+    ]
+  },
+  "honor_epilogo": {
+    "lineas": [
+      {
+        "hablante": "",
+        "texto": "Mateo no volvió a salir de Malgara."
+      },
+      {
+        "hablante": "",
+        "texto": "Su nombre desapareció de los registros. El banquete se celebró."
+      },
+      {
+        "hablante": "",
+        "texto": "Con él prepararon nuevas dosis del tratamiento."
+      },
+      {
+        "hablante": "",
+        "texto": "Durante un tiempo, los enfermos mejoraron."
+      },
+      {
+        "hablante": "",
+        "texto": "Hasta que volvieron a necesitar invitados."
+      }
+    ]
+  },
+  "honor_nuevos_invitados": {
+    "lineas": [
+      {
+        "hablante": "???",
+        "texto": "Así que este es Malgara… Igualito a las fotos del abuelo."
+      },
+      {
+        "hablante": "???",
+        "texto": "Vamos, niños. Bajen sus cosas. Nos esperan."
+      }
+    ]
+  }
+}

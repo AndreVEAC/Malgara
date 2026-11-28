@@ -3,7 +3,9 @@ import pygame
 import sistema_dialogo as dialogo
 import sistema_mapa as mapa
 from configuracion import TAMANO_CASILLA
-from mapas.casa_noche_2 import GUARDIAS_CAMINO_NORTE, LIMITE_CAMINO_NORTE, cerrar_camino
+from funciones_mapas.luces_noche_2 import dibujar_efectos, iniciar as iniciar_luces, obtener_zonas_iluminadas
+from mapas.casa_noche_2 import GUARDIAS_CAMINO_NORTE, LIMITE_CAMINO_NORTE, POSTES, cerrar_camino
+from mapas.geografia_noche_2 import marcar
 
 DURACION_ENCUADRE = 760
 AUMENTO = 1.45
@@ -16,7 +18,7 @@ revision_camino = -1
 
 def iniciar():
     global inicio_encuadre, acercando, CAMARA_CINEMATICA, camara_origen
-    dialogo.cargar_json()
+    iniciar_luces()
     dialogo.datos_dialogo["n2_camino_norte_vigilado"] = {
         "lineas": [{"hablante": "Mateo", "texto": "Si me acerco más, me van a ver."}],
     }
@@ -39,6 +41,7 @@ def actualizar_estado(estado):
     global revision_camino
     if revision_camino != mapa.revision_nivel:
         revision_camino = mapa.revision_nivel
+        marcar(mapa.matriz_activa, POSTES, 20)
         cerrar_camino(mapa.matriz_activa)
 
 

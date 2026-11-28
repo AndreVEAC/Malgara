@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
@@ -22,6 +23,7 @@ from funciones_mapas.clinica_dia_3 import ESCONDITE_SERVICIO
 from funciones_mapas.epilogo_laboratorio import DURACION_FONDO, DURACION_TUMBAS, EpilogoLaboratorio, FUNDIDO
 from funciones_mapas.escena_morales import colocar, ruta_a
 from funciones_mapas.investigacion_dia_2 import Investigacion
+from funciones_mapas.invitados_honor import CAMILLA_MS
 from funciones_mapas.noche_2 import Noche2
 from mapas import dia_3 as niveles, tunel
 
@@ -252,6 +254,8 @@ def probar_recorrido():
     assert juego.estado.dia3["llamada_confirmada"] and juego.estado.dia3["rescate_policial"]
     assert guardado._leer("automatico")["mapa"] == niveles.BOSQUE
     assert "d3_rescate_policial" in VISITADOS
+    assert "d3_d3_epilogo_operativo" in VISITADOS
+    assert not any(nombre.startswith("guardia_prision_") for nombre in mapa.npcs_activos)
 
 
 def probar_epilogo():
@@ -299,7 +303,11 @@ def probar_clinica():
         pisar(juego, 12, 28, "abajo", niveles.CLINICA_ACCESO)
         assert (mapa.mateo_x, mapa.mateo_y) == ESCONDITE_SERVICIO
         assert set(mapa.npcs_activos) == {"lucas", "ines"}
-        assert mapa.npcs_activos["ines"]["sprite_override"] == "ines"
+        ines = mapa.npcs_activos["ines"]
+        assert ines["sprite_override"] is None
+        assert len(ines["sprites"]) == 4
+        assert all(len(cuadros) == 2 and all(cuadro.get_bounding_rect().width for cuadro in cuadros)
+                   for cuadros in ines["sprites"].values())
         assert all(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
         for _ in range(ESCONDITE_SERVICIO[0] - 9):
             correr(juego, "izq")
@@ -310,12 +318,81 @@ def probar_clinica():
             if juego.noche.clinica.reja_abierta:
                 break
         assert juego.noche.clinica.reja_abierta and mapa.control_cinematico
+        assert all(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
+        for _ in range(100):
+            fotograma(juego)
+            if not any(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA):
+                break
         assert not any(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
+        assert TIEMPO - juego.noche.clinica.reja_inicio >= juego.noche.clinica.duracion_reja
         avanzar(juego, lambda: juego.estado.dia3["fase"] == "epilogo_clinica")
         assert "d3_clinica_d3_reja" in VISITADOS
+        assert "d3_clinica_d3_epilogo_denuncia" in VISITADOS
         assert all(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
         assert mapa.mateo_y == 25
         assert audio.pista_actual == "falta_uno"
+        mapa.pantalla_negra_en = None
+
+
+def probar_invitados_honor():
+    for origen in ("dia", "noche"):
+        VISITADOS.clear()
+        juego = preparar(set())
+        juego.estado.noche2.update(fase=None, plan_dia3=None)
+        if origen == "dia":
+            juego.estado.dia2["captura_pendiente"] = True
+        else:
+            juego.estado.noche2.update(fase="prision", captura_tipo="nocturna_definitiva")
+        mapa.transicion_activa = False
+        mapa.spawn_pendiente = None
+        mapa._ejecutar_carga_real("prision_dia_2")
+        assert not juego.noche.honor.activo
+        efectos = []
+        camilla_visible = False
+        inicio_dialogo_final = None
+
+        def sonido(efecto):
+            assert audio.pista_actual is None
+            efectos.append((efecto, TIEMPO))
+            return SimpleNamespace(stop=lambda: None, get_busy=lambda: False)
+
+        with patch("funciones_mapas.invitados_honor.sonido", side_effect=sonido):
+            for _ in range(2500):
+                fotograma(juego)
+                evento = dialogo.obtener_evento_activo()
+                if evento == "d3_honor_alvarez_llegada":
+                    assert audio.pista_actual == "tension"
+                    assert {"guardia_prision_oeste", "guardia_prision_este"} <= mapa.npcs_activos.keys()
+                director = juego.noche.honor.director
+                if not camilla_visible and director and director.accion == ("pausa", CAMILLA_MS):
+                    imagen = pygame.Surface(pantalla.get_size())
+                    mapa.solo_dibujar(imagen)
+                    cx, cy = mapa.calcular_camara()
+                    for x, y, ancho, alto in ((211, 120, 20, 35), (177, 126, 30, 37), (235, 126, 30, 37)):
+                        fondo = mapa.fondo_actual.subsurface((x, y, ancho, alto))
+                        frente = imagen.subsurface((x - cx, y - cy, ancho, alto))
+                        assert pygame.image.tobytes(fondo, "RGB") != pygame.image.tobytes(frente, "RGB")
+                    camilla_visible = True
+                if evento == "d3_honor_epilogo":
+                    assert audio.pista_actual == "banquete"
+                    mapa.solo_dibujar(pantalla)
+                    assert pantalla.get_at((400, 300))[:3] == (0, 0, 0)
+                if evento == "d3_honor_nuevos_invitados":
+                    inicio_dialogo_final = TIEMPO
+                if juego.estado.dia3["fase"] == "fin_honor":
+                    break
+        assert juego.estado.dia3["origen_honor"] == origen
+        assert juego.estado.dia3["final_completado"]
+        assert f"d3_honor_espera_{origen}" in VISITADOS
+        assert f"d3_honor_busqueda_{origen}" in VISITADOS
+        assert len({evento for evento in VISITADOS if evento.startswith("d3_honor_busqueda_")}) == 1
+        assert "d3_honor_nuevos_invitados" in VISITADOS
+        assert camilla_visible
+        assert [efecto for efecto, _ in efectos] == ["sonido_camion", "inicio_camion"]
+        assert 5000 <= efectos[1][1] - efectos[0][1] <= 5100
+        assert inicio_dialogo_final == efectos[1][1]
+        assert mapa.nombre_mapa_actual == niveles.LAB_HONOR
+        assert mapa.control_cinematico and mapa.jugador_bloqueado
         mapa.pantalla_negra_en = None
 
 
@@ -335,6 +412,7 @@ if __name__ == "__main__":
             probar_recorrido()
             probar_epilogo()
             probar_clinica()
-        print("Día 3 validado: laboratorio, clínica y acceso de servicio.")
+            probar_invitados_honor()
+        print("Día 3 validado: laboratorio, clínica e Invitados de honor.")
     finally:
         pygame.quit()

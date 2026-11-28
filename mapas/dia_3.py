@@ -218,3 +218,7 @@ CLINICA_NIVELES = {
     CLINICA_INTERIOR: clinica_interior, CLINICA_ACCESO: clinica_acceso,
 }
 NIVELES.update(CLINICA_NIVELES)
+
+LAB_HONOR = "laboratorio_invitados_honor"
+NIVELES[LAB_HONOR] = nivel("fondo_laboratorio", [[1] * 10 for _ in range(8)],
+                          (5, 3), ambiente=None, CENTRAR_FONDO=True, PANTALLA_NEGRA=True)

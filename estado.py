@@ -4,7 +4,7 @@ BUSQUEDA_DIA_2 = "dia2:busqueda_de_pistas"
 
 class EstadoJuego:
     def __init__(self):
-        self.confianza_lucas = 60
+        self.confianza_lucas = 40
         self.confianza_lucas_separacion = None
         self.confianza_morales = 50
         self.cordura = CORDURA_MAX

@@ -344,12 +344,13 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
             color_nombre = COLOR_LUCAS
         elif nombre == "MORALES":
             color_nombre = COLOR_MORALES
-        elif nombre in ("EDUARDO ÁLVAREZ", "EDUARDO ALVAREZ", "LÍDER", "LIDER"):
+        elif nombre in ("ÁLVAREZ", "EDUARDO ÁLVAREZ", "EDUARDO ALVAREZ", "LÍDER", "LIDER"):
             color_nombre = (220, 60, 60)
         else:
             color_nombre = COLOR_TEXTO
-        surf_nombre = fuente_nombre.render(hablante, True, color_nombre)
-        pantalla.blit(surf_nombre, (pos_x + 20, pos_y + 15))
+        if nombre:
+            surf_nombre = fuente_nombre.render(hablante, True, color_nombre)
+            pantalla.blit(surf_nombre, (pos_x + 20, pos_y + 15))
 
         texto_parcial = texto_completo[:indice_letra]
         surf_texto = fuente_texto.render(texto_parcial, True, COLOR_TEXTO)

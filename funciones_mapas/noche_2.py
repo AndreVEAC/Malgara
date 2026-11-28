@@ -9,6 +9,7 @@ import sistema_guardado as guardado
 import sistema_mapa as mapa
 from funciones_mapas.clinica_dia_3 import ClinicaDia3
 from funciones_mapas.dia_3 import Dia3
+from funciones_mapas.invitados_honor import FinalHonor
 from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar, posicion, ruta_a
 from funciones_mapas.investigacion_dia_2 import HOGAR, PISTAS, PRISION, opcion
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA, CERRAR_PUERTA
@@ -37,6 +38,7 @@ class Noche2:
         self.revision = -1
         self.oficina = Dia3(investigacion)
         self.clinica = ClinicaDia3(investigacion)
+        self.honor = FinalHonor(investigacion)
 
     @property
     def dia3(self):
@@ -85,6 +87,9 @@ class Noche2:
 
     def actualizar(self):
         fase = self.datos["fase"]
+        if self.honor.activo:
+            self.honor.actualizar()
+            return True
         if self.dia3.activo:
             self.dia3.actualizar()
             return True
@@ -134,6 +139,8 @@ class Noche2:
         return False
 
     def objetivo(self):
+        if self.honor.activo:
+            return None
         if self.dia3.activo:
             return self.dia3.objetivo()
         if self.datos["fase"] == "dia3":
@@ -359,6 +366,10 @@ class Noche2:
         mirar("mateo", "abajo")
 
     def prision(self):
+        from funciones_mapas.funcion_prision_dia_2 import colocar_guardias
+
+        colocar_guardias()
+        audio.reproducir_ambiente("tension", fade_ms=0)
         yield from self.decir("n2_prision")
         if self.dia["rama"] == "rescate":
             yield from self.decir("n2_prision_reincidente")
@@ -366,4 +377,4 @@ class Noche2:
         yield from self.decir("n2_prision_cierre")
         self.datos.update(fase="honor", completada=True,
                           checkpoint={"mapa": PRISION, "entrada": posicion("mateo")[:2]})
-        self.checkpoint()
+        self.estado.dia3["origen_honor"] = "noche"

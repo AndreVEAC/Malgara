@@ -194,7 +194,10 @@ def _ejecutar_carga_real(nombre_modulo):
         portales_activos.update(mapa_datos.PORTALES)
 
     if isinstance(mapa_datos, SimpleNamespace):
-        script_nivel_actual = SimpleNamespace(CENTRAR_FONDO=getattr(mapa_datos, "CENTRAR_FONDO", False))
+        script_nivel_actual = SimpleNamespace(
+            CENTRAR_FONDO=getattr(mapa_datos, "CENTRAR_FONDO", False),
+            PANTALLA_NEGRA=getattr(mapa_datos, "PANTALLA_NEGRA", False),
+        )
     else:
         try:
             script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")

@@ -18,6 +18,9 @@ from mapas import dia_3 as niveles, tunel
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA, CERRAR_PUERTA
 
 GUION = json.loads((Path(__file__).resolve().parents[1] / "datos/dialogos_dia_3.json").read_text(encoding="utf-8"))
+EPILOGO = json.loads((Path(__file__).resolve().parents[1] / "datos/epilogo_laboratorio.json")
+                     .read_text(encoding="utf-8"))["eventos"]
+GUION.update(EPILOGO)
 ALIADOS = ("lucas", "morales")
 FUNDIDO_PRISION_MS = 750
 
@@ -71,6 +74,15 @@ class Dia3:
         for evento in eventos:
             if evento not in self.datos["consumidos"]:
                 yield "hacer", partial(self.mostrar, evento)
+
+    def narrar_epilogo(self, eventos):
+        mapa.pantalla_negra_en = mapa.nombre_mapa_actual
+        dialogo.limpiar_notificaciones()
+        for evento in eventos:
+            if evento not in self.datos["consumidos"]:
+                lineas = [dict(linea, hablante="") if linea["hablante"] == "Narración" else linea
+                          for linea in self.guion[evento]["lineas"]]
+                yield "hacer", partial(self.mostrar, evento, lineas=lineas)
 
     def aviso(self, evento):
         ahora = pygame.time.get_ticks()
@@ -462,9 +474,10 @@ class Dia3:
         yield "mover", [self.caminar("mateo", (4, 6)), self.caminar("lucas", (5, 6)),
                         self.caminar("morales", (3, 6))]
         self.datos["rescate_policial"] = True
-        self.datos["fase"] = "epilogo"
-        dialogo.limpiar_notificaciones()
+        yield from self.fundido_prision(hacia_negro=True)
         audio.reproducir_ambiente("ultima_cura", volumen=0.35)
+        yield from self.narrar_epilogo(EPILOGO)
+        self.datos["fase"] = "epilogo"
 
     def fundido_prision(self, *, hacia_negro):
         inicio = pygame.time.get_ticks()
@@ -475,6 +488,6 @@ class Dia3:
             negro.set_alpha(round(255 * (progreso if hacia_negro else 1 - progreso)))
             pantalla.blit(negro, (0, 0))
 
-        mapa.script_nivel_actual.dibujar_efectos = dibujar
+        mapa.script_nivel_actual.aplicar_encuadre = dibujar
         yield "pausa", FUNDIDO_PRISION_MS
-        del mapa.script_nivel_actual.dibujar_efectos
+        del mapa.script_nivel_actual.aplicar_encuadre

@@ -2,6 +2,7 @@ import pygame
 
 import sistema_dialogo as dialogo
 import sistema_mapa as mapa
+from funciones_mapas.escena_morales import crear_npc
 from mapas.prision_dia_2 import CENTRAR_FONDO, FILA_BARROTES, HUECO, ORIGEN_BARROTES
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA
 
@@ -25,6 +26,11 @@ def abrir():
     abierta = True
     mapa.matriz_activa[FILA_BARROTES][HUECO] = 0
     mapa._reproducir_sonido_portal(ABRIR_PUERTA)
+
+
+def colocar_guardias():
+    crear_npc("guardia_prision_oeste", "loco", 2, 6, "arriba")
+    crear_npc("guardia_prision_este", "loco", 6, 6, "arriba")
 
 
 def capa_profundidad(camara_x, camara_y):

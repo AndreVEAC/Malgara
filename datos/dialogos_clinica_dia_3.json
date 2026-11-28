@@ -164,7 +164,7 @@
       {"hablante": "Inés", "texto": "Hay un antiguo acceso de servicio más abajo de la clínica."},
       {"hablante": "Inés", "texto": "Por ahí traían los suministros. El camino continúa fuera del pueblo."},
       {"hablante": "Morales", "texto": "¿Por qué no te fuiste por ahí?"},
-      {"hablante": "Inés", "texto": "Lo vigilan. Y la reja ya no se sostiene abierta: hay que levantarla y sujetarla mientras pasa otra persona."},
+      {"hablante": "Inés", "texto": "Lo vigilan. La reja se abre con una manivela, pero vuelve a cerrarse al poco rato."},
       {"hablante": "Inés", "texto": "Mi compañero iba a ayudarme. Íbamos a salir juntos."},
       {"hablante": "Inés", "texto": "Después desapareció. Yo seguí esperando una oportunidad que nunca llegaba."},
       {"hablante": "Lucas", "texto": "Ahora somos cuatro."}
@@ -216,9 +216,9 @@
   "clinica_d3_reja": {
     "lineas": [
       {"hablante": "Inés", "texto": "Es aquí."},
-      {"hablante": "Lucas", "texto": "Yo la sujeto. Pasen."},
-      {"hablante": "Mateo", "texto": "Cuando esté al otro lado la sostengo para ti."},
-      {"hablante": "Lucas", "texto": "Hazlo rápido, por favor."}
+      {"hablante": "Lucas", "texto": "Ahí está la manivela. Voy a girarla para abrir el portón."},
+      {"hablante": "Mateo", "texto": "En cuanto se abra, cruzamos los tres."},
+      {"hablante": "Inés", "texto": "Dense prisa. Se va a cerrar enseguida."}
     ]
   },
   "clinica_d3_fuera": {

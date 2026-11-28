@@ -173,6 +173,7 @@ class Investigacion:
             datos["captura_pendiente"] = True
             datos["rescate_elegible"] = self.estado.confianza_morales >= REGLAS["confianza_rescate"]
             mapa.jugador_bloqueado = True
+            audio.detener_musica(fade_ms=0)
             return False
         if nuevos:
             hallazgo = sorted(nuevos)[0]
@@ -377,6 +378,7 @@ class Investigacion:
     def prision(self):
         from funciones_mapas import funcion_prision_dia_2 as prision
 
+        prision.colocar_guardias()
         yield "hacer", partial(self.mostrar, "prision_inicio")
         yield "pausa", 650
         if self.datos["rescate_elegible"]:
@@ -459,6 +461,9 @@ class Investigacion:
             "reencuentro_oficina": True,
             "ubicacion_llave": "oficina" if lucas and "caja_jm" in pistas and not honor else None,
         }
+        if honor:
+            self.estado.dia3["origen_honor"] = "dia"
+            return
         # El mapa permite usar la libreta del hogar en el punto de continuación.
         mapa.jugador_bloqueado = False
         if self.autoguardar:
