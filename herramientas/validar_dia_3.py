@@ -11,12 +11,14 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 
 import pygame
 
+import sistema_audio as audio
 import sistema_dialogo as dialogo
 import sistema_escondites as escondites
 import sistema_guardado as guardado
 import sistema_mapa as mapa
 import sistema_vigilancia as vigilancia
 from estado import EstadoJuego
+from funciones_mapas.clinica_dia_3 import ESCONDITE_SERVICIO
 from funciones_mapas.epilogo_laboratorio import DURACION_FONDO, DURACION_TUMBAS, EpilogoLaboratorio, FUNDIDO
 from funciones_mapas.escena_morales import colocar, ruta_a
 from funciones_mapas.investigacion_dia_2 import Investigacion
@@ -295,14 +297,13 @@ def probar_clinica():
                    for n in ("lucas", "morales", "ines"))
         assert ruta_a((19, 19), (12, 28))
         pisar(juego, 12, 28, "abajo", niveles.CLINICA_ACCESO)
-        assert (mapa.mateo_x, mapa.mateo_y) == niveles.ENTRADA_SERVICIO
-        assert "morales" not in mapa.npcs_activos
+        assert (mapa.mateo_x, mapa.mateo_y) == ESCONDITE_SERVICIO
+        assert set(mapa.npcs_activos) == {"lucas", "ines"}
+        assert mapa.npcs_activos["ines"]["sprite_override"] == "ines"
         assert all(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
-        VISITADOS.discard("d3_clinica_d3_despedida")
-        sufrir_captura(juego, "ronda_servicio")
-        assert (mapa.mateo_x, mapa.mateo_y) == niveles.ENTRADA_SERVICIO
-        assert "d3_clinica_d3_despedida" not in VISITADOS
-        for _ in range(10):
+        for _ in range(ESCONDITE_SERVICIO[0] - 9):
+            correr(juego, "izq")
+        for _ in range(11 - ESCONDITE_SERVICIO[1]):
             correr(juego, "abajo")
         for _ in range(500):
             fotograma(juego)
@@ -314,6 +315,7 @@ def probar_clinica():
         assert "d3_clinica_d3_reja" in VISITADOS
         assert all(mapa.casilla_bloqueada(*punto) for punto in niveles.REJA)
         assert mapa.mateo_y == 25
+        assert audio.pista_actual == "falta_uno"
         mapa.pantalla_negra_en = None
 
 

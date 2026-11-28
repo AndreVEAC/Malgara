@@ -14,7 +14,7 @@ MARCA_HOGAR = 'morales_noche_1:en_hogar'
 def crear_npc(nombre, carpeta, x, y, direccion='abajo', visible=True):
     mapa.npcs_activos[nombre] = dict(
         x=x, y=y, px_x=float(x*T), px_y=float(y*T),
-        direccion=direccion, visible=visible, sprites=mapa.cargar_sprites_personaje(carpeta),
+        direccion=direccion, visible=visible, sprites=mapa.cargar_sprites_personaje(carpeta) if carpeta else {},
         comportamiento='estatico', sprite_override=None, sprites_especiales={},
         seguimiento={}, vigilancia={}, patrulla={}, pausado=True, congelado=False)
 

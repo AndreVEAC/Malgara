@@ -89,7 +89,7 @@ while ejecutando:
             if es_clinica:
                 eventos_clinica = [nodo for nombre, nodo in noche.clinica.guion.items()
                                    if nombre.startswith("clinica_d3_epilogo_")]
-                epilogo = EpilogoLaboratorio(pantalla, eventos=eventos_clinica, fondos=(), titulo="Escape")
+                epilogo = EpilogoLaboratorio(pantalla, eventos=eventos_clinica, fondos=(), titulo="Final: escape")
             else:
                 epilogo = EpilogoLaboratorio(pantalla)
             fuente = pygame.font.Font(None, 22)

@@ -190,7 +190,7 @@ marcar(m, ((x, 29) for x in (11, 12, 13)), 91)
 m[PUERTA_CLINICA[1]][PUERTA_CLINICA[0]] = 92
 m[18][0] = 93
 clinica_exterior = nivel(
-    "fondo_pueblo_3_dia_2", m, (12, 1),
+    "fondo_pueblo_3_dia_3", m, (12, 1),
     PORTALES={90: paso(CLINICA_PLAZA, 31, 28), 91: paso(CLINICA_ACCESO, *ENTRADA_SERVICIO),
               92: paso(CLINICA_INTERIOR, 1, 3), 93: paso(CLINICA_DESVIO, 0, 0)},
     DICCIONARIO_OBJETOS=pueblo_3_dia_2.DICCIONARIO_OBJETOS,
@@ -200,7 +200,7 @@ m = [[1] * 10 for _ in range(3)] + [[0] * 10 for _ in range(5)]
 marcar(m, ((x, y) for y in (4, 5) for x in range(3)), 1)
 marcar(m, ((x, y) for x, y in ((8, 3), (9, 3), (7, 5), (8, 5), (0, 6), (1, 6),
                                      (3, 6), (1, 7), (3, 7))), 1)
-clinica_interior = nivel("fondo_clinica", m, (1, 3), CENTRAR_FONDO=True)
+clinica_interior = nivel("fondo_clinica", m, (1, 3), ambiente="tension", CENTRAR_FONDO=True)
 
 m = [[1] * 20 for _ in range(25)]
 for y in range(13):
@@ -210,7 +210,7 @@ for y in range(13, 25):
 marcar(m, REJA, 1)
 clinica_acceso = nivel(
     "fondo_salida", m, ENTRADA_SERVICIO,
-    NPCS={"ronda_servicio": guardia(14, 9, "izq", miradas=(("izq", 1800), ("der", 2500)), alcance=3)},
+    NPCS={"vigia_oeste": guardia(8, 8, "arriba"), "vigia_este": guardia(10, 8, "arriba")},
 )
 
 CLINICA_NIVELES = {

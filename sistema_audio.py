@@ -20,6 +20,7 @@ PISTAS = {
     "triste": "recursos/musica/triste.wav",
     "ultima_cura": "recursos/musica/ultima cura.wav",
     "ultimo_paseo": "recursos/musica/un ultimo paseo.wav",
+    "falta_uno": "recursos/musica/falta uno.wav",
 }
 
 

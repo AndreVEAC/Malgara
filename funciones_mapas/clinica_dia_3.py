@@ -5,11 +5,13 @@ from pathlib import Path
 
 import pygame
 
+import sistema_audio as audio
 import sistema_dialogo as dialogo
 import sistema_mapa as mapa
 from funciones_mapas.dia_3 import Dia3
 from funciones_mapas.escena_morales import Recorrido, crear_npc, mirar, posicion, sonido
 from funciones_mapas.investigacion_dia_2 import PISTAS
+from configuracion import TAMANO_CASILLA as T
 from mapas import dia_3 as niveles
 from mapas.geografia_noche_2 import marcar
 
@@ -17,7 +19,7 @@ GUION = json.loads(Path("datos/dialogos_clinica_dia_3.json").read_text(encoding=
 PREPARATIVOS = "clinica_d3_preparativos"
 FRENTE_CLINICA = (19, 17)
 ACOMPANANTES = ("lucas", "morales", "ines")
-SPRITES = {"lucas": "lucas", "morales": "morales", "ines": "abuela"}
+ESCONDITE_SERVICIO = (13, 5)
 TIEMPO_REJA = 650
 
 
@@ -65,15 +67,21 @@ class ClinicaDia3(Dia3):
 
     def poner_grupo(self, **puntos):
         for nombre, (x, y) in puntos.items():
-            crear_npc(nombre, SPRITES[nombre], x, y)
+            crear_npc(nombre, None if nombre == "ines" else nombre, x, y)
+            if nombre == "ines":
+                imagen = pygame.image.load("recursos/sprites/personajes/ines.png").convert_alpha()
+                sprite = pygame.Surface((T, T), pygame.SRCALPHA)
+                sprite.blit(imagen, imagen.get_rect(midbottom=(T // 2, T)))
+                mapa.npcs_activos[nombre].update(sprite_override="ines", sprites_especiales={"ines": sprite})
 
-    def activar_seguidores(self, nombres):
+    def activar_seguidores(self, nombres, *, recolocar=True):
         for nombre in nombres:
             if nombre not in mapa.npcs_activos:
                 self.poner_grupo(**{nombre: posicion("mateo")[:2]})
             mapa.npcs_activos[nombre].update(comportamiento="sigue_jugador", pausado=False,
                                             seguimiento={"velocidad_ms": 170})
-        mapa.colocar_seguidores_cerca()
+        if recolocar:
+            mapa.colocar_seguidores_cerca()
 
     def configurar(self, actual):
         nivel = niveles.CLINICA_NIVELES[actual]
@@ -103,6 +111,8 @@ class ClinicaDia3(Dia3):
             self.reja_abierta = False
             mapa.script_nivel_actual.dibujar_efectos = self.dibujar_reja
             if self.datos["fase"] == "escape_clinica":
+                for nombre in nivel.NPCS:
+                    mapa.npcs_activos.pop(nombre, None)
                 self.activar_seguidores(("lucas", "ines"))
             else:
                 self.poner_grupo(lucas=(10, 1), morales=(8, 1), ines=(9, 2))
@@ -175,13 +185,20 @@ class ClinicaDia3(Dia3):
 
     def distraccion(self):
         yield from self.decir("clinica_d3_salida_servicio", "clinica_d3_despedida")
-        yield "hacer", partial(crear_npc, "vigia_lateral", "loco", 6, 6, "arriba")
-        yield "mover", [Recorrido("morales", [(8, 4), (5, 4), (5, 0)], 125),
-                        Recorrido("vigia_lateral", [(6, 4), (5, 4), (5, 0)], 175, retraso=500)]
-        for nombre in ("morales", "vigia_lateral"):
+        yield "mover", [Recorrido("mateo", [(13, 1), ESCONDITE_SERVICIO], 150),
+                        Recorrido("lucas", [(14, 1), (14, 5)], 150),
+                        Recorrido("ines", [(14, 2), (14, 6)], 150)]
+        for nombre in ("mateo", "lucas", "ines"):
+            mirar(nombre, "izq")
+        yield "mover", [Recorrido("morales", [(8, 6)], 125)]
+        camino_lateral = [(5, 6), (5, -1)]
+        yield "mover", [Recorrido("morales", camino_lateral, 125),
+                        Recorrido("vigia_oeste", [(8, 6), *camino_lateral], 155, retraso=200),
+                        Recorrido("vigia_este", [(10, 6), *camino_lateral], 155, retraso=500)]
+        for nombre in ("morales", *niveles.clinica_acceso.NPCS):
             mapa.npcs_activos.pop(nombre)
         self.datos["fase"] = "escape_clinica"
-        self.activar_seguidores(("lucas", "ines"))
+        self.activar_seguidores(("lucas", "ines"), recolocar=False)
 
     def mover_reja(self, abierta):
         self.reja_abierta = abierta
@@ -204,9 +221,11 @@ class ClinicaDia3(Dia3):
     def cruce(self):
         for nombre in ("ines", "lucas"):
             mapa.npcs_activos[nombre].update(comportamiento="estatico", pausado=True)
+        yield "mover", [self.caminar("mateo", (9, 11)), self.caminar("lucas", (8, 11)),
+                        self.caminar("ines", (10, 11))]
+        yield from self.decir("clinica_d3_reja")
         yield "mover", [self.caminar("mateo", (9, 13)), self.caminar("lucas", (8, 13)),
                         self.caminar("ines", (10, 13))]
-        yield from self.decir("clinica_d3_reja")
         yield "hacer", partial(self.mover_reja, True)
         yield "pausa", TIEMPO_REJA
         yield "mover", [Recorrido("mateo", [(9, 16)], 155), Recorrido("ines", [(10, 17)], 145)]
@@ -218,4 +237,5 @@ class ClinicaDia3(Dia3):
         yield "mover", [Recorrido(nombre, [(x, 25)], 145)
                         for nombre, x in (("mateo", 9), ("lucas", 8), ("ines", 10))]
         yield from self.fundido_prision(hacia_negro=True)
+        audio.reproducir_ambiente("falta_uno", volumen=0.35, fade_ms=0)
         self.datos["fase"] = "epilogo_clinica"
