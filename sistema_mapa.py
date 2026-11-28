@@ -1,5 +1,6 @@
 import pygame
 import importlib
+from types import SimpleNamespace
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA, TAMANO_CASILLA, VERDE_MATEO
 import sistema_dialogo
@@ -107,6 +108,14 @@ def _cargar_destino(nombre_modulo):
     _reproducir_sonido_portal(sonido)
 
 
+def datos_nivel(nombre):
+    from mapas.dia_3 import NIVELES
+
+    if nombre in NIVELES:
+        return NIVELES[nombre]
+    return importlib.import_module(f"mapas.{nombre}")
+
+
 def _ejecutar_carga_real(nombre_modulo):
     global matriz_activa, fondo_actual, mateo_x, mateo_y
     global columnas_mapa, filas_mapa, imagenes_objetos
@@ -117,7 +126,7 @@ def _ejecutar_carga_real(nombre_modulo):
     global spawn_pendiente
     global nombre_mapa_actual, revision_nivel, reinicio_entrada
     
-    mapa_datos = importlib.import_module(f"mapas.{nombre_modulo}")
+    mapa_datos = datos_nivel(nombre_modulo)
     nombre_mapa_actual = nombre_modulo
     revision_nivel += 1
     reinicio_entrada = None
@@ -184,12 +193,15 @@ def _ejecutar_carga_real(nombre_modulo):
     if hasattr(mapa_datos, 'PORTALES'):
         portales_activos.update(mapa_datos.PORTALES)
 
-    try:
-        script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
-        if hasattr(script_nivel_actual, "iniciar"):
-            script_nivel_actual.iniciar()
-    except ImportError:
-        script_nivel_actual = None
+    if isinstance(mapa_datos, SimpleNamespace):
+        script_nivel_actual = SimpleNamespace(CENTRAR_FONDO=getattr(mapa_datos, "CENTRAR_FONDO", False))
+    else:
+        try:
+            script_nivel_actual = importlib.import_module(f"funciones_mapas.funcion_{nombre_modulo}")
+            if hasattr(script_nivel_actual, "iniciar"):
+                script_nivel_actual.iniciar()
+        except ImportError:
+            script_nivel_actual = None
     
     mateo_px_x = float(mateo_x * TAMANO_CASILLA)
     mateo_px_y = float(mateo_y * TAMANO_CASILLA)
@@ -310,7 +322,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
     teclas = pygame.key.get_pressed()
     pulso_espacio = teclas[pygame.K_SPACE] and not espacio_presionado
     espacio_presionado = teclas[pygame.K_SPACE]
-    control_escondite = not control_cinematico and sistema_escondites.actualizar(teclas)
+    control_escondite = sistema_escondites.actualizar(teclas)
 
     # 1. CONTROL DE MATEO
     if (
@@ -411,6 +423,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
                         and casilla_destino in portales_activos
                     )
                     if not es_muro and not bloquea_npc and not fin_de_segmento:
+                        origen = (mateo_x, mateo_y)
                         mateo_x, mateo_y = nx, ny
                         tiempo_ultimo_paso_mateo = tiempo_actual
                         
@@ -457,7 +470,12 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
                                 or requisito in eventos_completados
                             )
 
-                            if desbloqueado:
+                            if (investigacion is not None and investigacion.noche is not None
+                                    and investigacion.noche.dia3.interceptar_portal(datos_portal["mapa"])):
+                                mateo_x, mateo_y = origen
+                                if sistema_dialogo.obtener_evento_activo() is not None:
+                                    nuevo_estado_juego = "DIALOGO"
+                            elif desbloqueado:
                                 jugador_bloqueado = True
 
                                 _reproducir_sonido_portal(

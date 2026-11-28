@@ -121,7 +121,9 @@ def _ve_jugador(mapa, npc):
     lateral = dx * (-uy) + dy * ux
 
     # Rectángulo frontal: tres casillas de largo y tres de ancho.
-    frontal = 1 <= delante <= 3 and abs(lateral) <= 1
+    vision = npc.get("vigilancia", {})
+    frontal = (1 <= delante <= vision.get("alcance_vision", 3)
+               and abs(lateral) <= vision.get("semiancho_vision", 1))
 
     return (cercano or frontal) and _linea_libre(
         mapa,
@@ -317,6 +319,7 @@ def actualizar(ahora):
     for npc in guardias:
         datos = npc["_vigilancia"]
         npc["congelado"] = False
+        retirada = npc.get("vigilancia", {}).get("retirada_tras_barril")
 
         # Girar periódicamente si está quieto y sin perseguir.
         _actualizar_mirada(npc, ahora)
@@ -324,7 +327,7 @@ def actualizar(ahora):
         # Resolver primero la espera junto al barril.
         if datos["estado"] == "ESPERANDO":
             if ahora >= datos["hasta"]:
-                datos["estado"] = "REGRESANDO"
+                datos["estado"] = "AVISANDO" if retirada else "REGRESANDO"
                 datos["ultimo_paso"] = ahora
 
             elif not escondites.escondido:
@@ -335,6 +338,14 @@ def actualizar(ahora):
                 # Conservar posición visual y orientación.
                 npc["congelado"] = True
                 continue
+
+        if datos["estado"] == "AVISANDO":
+            if _ha_llegado(npc, retirada):
+                npc["visible"] = False
+                datos["estado"] = "AVISO_DADO"
+            else:
+                _mover(mapa, npc, retirada, ahora, mapa.RETRASO_MATEO)
+            continue
 
         # Detectar también mientras regresa o patrulla.
         # La luz alerta a todos, independientemente de su orientación.
@@ -380,7 +391,7 @@ def actualizar(ahora):
                 npc,
                 (mapa.mateo_x, mapa.mateo_y),
                 ahora,
-                max(1, mapa.RETRASO_MATEO // 2),
+                npc.get("vigilancia", {}).get("paso_persecucion_ms", max(1, mapa.RETRASO_MATEO // 2)),
             )
 
         elif datos["estado"] == "REGRESANDO":

@@ -1,6 +1,6 @@
 FONDO_IMG = "recursos/sprites/fondos/fondo_habitacion_abuela.png"
 CENTRAR_FONDO = True
-AMBIENTE = "miradas"
+AMBIENTE = None
 INICIO_X, INICIO_Y = 4, 1
 
 MATRIZ = [

@@ -75,7 +75,7 @@ def actualizar(teclas):
     _espacio_anterior = espacio
     
     # El director decide cuándo entran y salen durante la escena.
-    if getattr(
+    if mapa.control_cinematico or getattr(
         mapa.script_nivel_actual,
         "CONTROL_CINEMATICO",
         False,
@@ -170,7 +170,10 @@ def _salir(mapa):
 
     ahora = pygame.time.get_ticks()
 
+    activos = {id(npc) for npc in mapa.npcs_activos.values() if npc["comportamiento"] == "sigue_jugador"}
     for npc in _seguidores_ocultos:
+        if id(npc) not in activos:
+            continue
         npc["visible"] = True
         npc["_tiempo_ultimo_paso"] = ahora
 
@@ -189,7 +192,8 @@ def dibujar_aviso(pantalla):
     # No mostrar indicaciones durante la cinemática,
     # los diálogos ni los cambios de mapa.
     if (
-        getattr(
+        mapa.control_cinematico
+        or getattr(
             mapa.script_nivel_actual,
             "CONTROL_CINEMATICO",
             False,

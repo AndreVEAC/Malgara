@@ -122,6 +122,7 @@ class Director:
         tipo, valor = self.accion
         listo = False
         if tipo == 'pausa': listo = ahora-self.inicio >= valor
+        elif tipo == 'esperar': listo = not valor()
         elif tipo == 'dialogo':
             if valor not in dialogo.datos_dialogo:
                 raise KeyError('Falta el diálogo de la escena: '+valor)

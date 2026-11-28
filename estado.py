@@ -27,6 +27,10 @@ class EstadoJuego:
             "completada": False, "dia_actual": 2, "companeros_disponibles": set(),
             "barril_oculto": False,
         }
+        self.dia3 = {
+            "fase": "recorrido", "consumidos": set(), "companeros_actuales": set(),
+            "final_completado": False,
+        }
 
     def aplicar_efectos(self, efectos: dict):
         """Aplica cambios a las métricas del jugador según las elecciones en el JSON."""

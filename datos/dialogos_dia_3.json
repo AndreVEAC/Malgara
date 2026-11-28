@@ -1,0 +1,1352 @@
+{
+  "desvio_antes_reunion": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Primero tengo que encontrar a Lucas y Morales."
+      }
+    ]
+  },
+  "desvio_buscar_llave": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La llave está en la oficina. No puedo irme sin ella."
+      }
+    ]
+  },
+  "desvio_antes_documentos": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Primero debemos revisar qué hay detrás de esa puerta."
+      }
+    ]
+  },
+  "desvio_hacia_bosque": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La entrada está al final del bosque. No puedo desviarme ahora."
+      }
+    ]
+  },
+  "oficina_encuentro_vacio": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No están… Aquí habrían quedado demasiado expuestos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Morales dijo que casi nadie entra a la iglesia. Tal vez estén escondidos ahí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La caja debería estar dentro de la oficina. Primero tengo que encontrarla."
+      }
+    ],
+    "efectos_al_terminar": {
+      "encuentro_oficina_revisado": true,
+      "sospecha_iglesia": true
+    }
+  },
+  "oficina_entrada": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Tres…"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tengo que llegar al escritorio sin que me vean."
+      }
+    ]
+  },
+  "caja_jm": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "J. M. Es la caja de la fotografía."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Aquí está… La muesca de media luna."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tiene que ser esta."
+      }
+    ],
+    "efectos_al_terminar": {
+      "llave_pasadizo": true
+    }
+  },
+  "telefono_descubrimiento": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Un teléfono… El cable está desconectado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sólo tendría que conectarlo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero esos tipos están demasiado cerca. Si me oyen hablar, no llegaré a dar la dirección."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Tengo que contárselo a Morales."
+      }
+    ],
+    "efectos_al_terminar": {
+      "telefono_localizado": true
+    }
+  },
+  "escritorio_repetir": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Ya tengo la llave. El teléfono sigue aquí, pero no puedo llamar con ellos tan cerca."
+      }
+    ]
+  },
+  "archivero": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Formularios, sellos, permisos… Todo parece perfectamente normal desde fuera."
+      }
+    ]
+  },
+  "oficina_cartas_cerradas": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No puedo revisar cada papel con esos vigilantes alrededor. Lo importante está en la caja."
+      }
+    ]
+  },
+  "iglesia_primera_sin_oficina": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Quedamos en la oficina. Primero debo comprobar si me esperan ahí."
+      }
+    ]
+  },
+  "iglesia_reunion": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¡Mateo! Aquí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Fui a la oficina. Pensé que no habían llegado."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Había vigilantes. Nos apartamos antes de que nos vieran."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Morales dijo que aquí no nos buscarían."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Casi nunca entran. Lo consideran un lugar sagrado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Anoche no parecían respetar muchas cosas."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Las suyas, sí."
+      }
+    ],
+    "efectos_al_terminar": {
+      "companeros_reunidos": true
+    }
+  },
+  "reunion_ayuda_ambos": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Volvieron por mí."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Te dijimos que nos viéramos hoy. No ibas a librarte tan fácil."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Luego hablamos de anoche. Ahora necesitamos salir de aquí."
+      }
+    ]
+  },
+  "reunion_ayuda_lucas": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Lucas… gracias por volver."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "La próxima vez cruza más rápido."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Mateo, yo…"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Te vi irte."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Sí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ahora no. Primero salgamos de esto."
+      }
+    ]
+  },
+  "reunion_ayuda_morales": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Gracias por volver, Morales."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Yo pensé que…"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Lo sé. Te vi."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Lo siento."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No puedo hablar de eso ahora."
+      }
+    ]
+  },
+  "reunion_con_llave": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Encontré la llave. Estaba en la caja del escritorio."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Por fin una puerta para la que sí tenemos algo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Vamos al pasadizo. Sin hacer ruido."
+      }
+    ]
+  },
+  "reunion_sin_llave": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La oficina está vigilada. Todavía no tengo la llave."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Te esperamos aquí. No conviene que los tres nos acerquemos al escritorio."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y vuelve. Sin hacerte el héroe."
+      }
+    ]
+  },
+  "regreso_con_llave": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Ya la tengo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Bien. Vamos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Estaba empezando a odiar estos bancos."
+      }
+    ]
+  },
+  "tunel_entrada": {
+    "lineas": [
+      {
+        "hablante": "Morales",
+        "texto": "Despacio. Siguen vigilando el pasadizo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Sagrado, pero con guardias."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Lleguemos a la puerta."
+      }
+    ]
+  },
+  "puerta_sin_llave": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Sigue cerrada. Necesito la llave de la oficina."
+      }
+    ]
+  },
+  "puerta_abrir": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Entra…"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Gírala."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ya está."
+      }
+    ],
+    "efectos_al_terminar": {
+      "puerta_tunel_abierta": true
+    }
+  },
+  "cuarto_entrada": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Está demasiado oscuro."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Espera a que se acostumbren los ojos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Veo dos cajones. Y bastante polvo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Tú revisa ese. Yo el otro."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Yo vigilo la puerta."
+      }
+    ]
+  },
+  "cuarto_lucas_documento": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Aquí hay una indicación de traslado."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Instalación de investigación. Acceso reservado."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Seguir el sendero hasta el final del bosque. La entrada queda bajo una cubierta de vegetación."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Volver a ocultar la escotilla después de cada acceso."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Es un laboratorio. Lo tienen escondido bajo tierra."
+      }
+    ]
+  },
+  "cuarto_morales_documento": {
+    "lineas": [
+      {
+        "hablante": "Morales",
+        "texto": "Y aquí registran entregas para un tratamiento."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Los registros de recepción y los resultados de cada procedimiento permanecerán en la instalación."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "No conservar copias completas en la parroquia."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Si queremos demostrar lo que están haciendo, las pruebas deben estar ahí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "La salida del bosque está abajo a la izquierda del pueblo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Claro. Porque el laboratorio escondido debajo de una iglesia habría sido demasiado sencillo."
+      }
+    ]
+  },
+  "cuarto_plan_telefono": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "En el escritorio de Álvarez hay un teléfono. Está desconectado, pero parece entero."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿Intentaste usarlo?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No podía hablar sin que los guardias me oyeran."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hiciste bien. Al anochecer intentaremos entrar y llamar."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Otra noche aquí?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Ahora vigilan la oficina. Necesitamos una oportunidad."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mientras tanto podemos revisar el laboratorio."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Entramos, vemos qué hay y nos llevamos pruebas. No tocamos nada más."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Me gusta especialmente la parte de salir."
+      }
+    ],
+    "efectos_al_terminar": {
+      "ubicacion_laboratorio_conocida": true,
+      "plan_llamada_noche": true
+    }
+  },
+  "cuarto_repetir": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La escotilla está al final del sendero del bosque. Ya no hay nada más que buscar aquí."
+      }
+    ]
+  },
+  "bosque_entrada": {
+    "lineas": [
+      {
+        "hablante": "Morales",
+        "texto": "El sendero debe llevar a la entrada. No se separen."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Me gustaría dejar constancia de que esto parece una pésima idea."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sigue caminando."
+      }
+    ]
+  },
+  "bosque_descubiertos": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¡Nos vio!"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¡Al barril de abajo!"
+      }
+    ]
+  },
+  "bosque_guardia_ausente": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Se fue."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No ha vuelto a su puesto… Puede que haya ido a avisar."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Seguimos?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Ahora deprisa. Buscamos las pruebas y salimos."
+      }
+    ],
+    "efectos_al_terminar": {
+      "alerta_bosque_inferida": true
+    }
+  },
+  "arbustos": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Estos arbustos están sueltos."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Alguien los colocó encima de algo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Apártalos con cuidado."
+      }
+    ],
+    "efectos_al_terminar": {
+      "arbustos_retirados": true
+    }
+  },
+  "escotilla_descubierta": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Una escotilla."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Exactamente donde decía el papel."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Bajemos. Y recuerden: no nos quedamos."
+      }
+    ]
+  },
+  "laboratorio_entrada": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Esto lleva aquí mucho tiempo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Cierren el acceso detrás. Ese cierre es por dentro."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué hacían en esas sillas?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Busquemos los registros."
+      }
+    ]
+  },
+  "lab_registro_victimas": {
+    "lineas": [
+      {
+        "hablante": "Documento",
+        "texto": "Registro de ingresos."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Procedencia: exterior. Llegada facilitada por contacto familiar."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Consentimiento: no obtenido."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "La resistencia del sujeto obligó a suspender la entrevista. El procedimiento continuó."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No eran pacientes."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Los trajeron engañados."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hay nombres y fechas. Con esto podremos identificarlos."
+      }
+    ],
+    "efectos_al_terminar": {
+      "prueba_victimas": true
+    }
+  },
+  "lab_registro_menores": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Esta ficha dice ocho años."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo…"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ocho."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Efectos persistentes tras el procedimiento. No autorizar regreso al domicilio."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No sigas leyendo esa parte. Guarda la ficha."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Cuánto tiempo llevan haciendo esto?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Estos archivadores abarcan años. Muchos."
+      }
+    ]
+  },
+  "lab_cura": {
+    "lineas": [
+      {
+        "hablante": "Documento",
+        "texto": "El tratamiento no elimina la enfermedad."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "La interrupción de las dosis provoca la reaparición progresiva de los síntomas."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Los intentos de sustituir el material de origen han fracasado."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "La pérdida de las reservas y de la instalación impediría mantener a los pacientes."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Así que nunca hubo una cura."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hay un tratamiento. Y lo han sostenido haciendo esto."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Compraban tiempo con la vida de otros."
+      }
+    ],
+    "efectos_al_terminar": {
+      "dependencia_cura_conocida": true
+    }
+  },
+  "lab_pacientes": {
+    "lineas": [
+      {
+        "hablante": "Documento",
+        "texto": "Relación de beneficiarios. Toda la población residente requiere continuidad del tratamiento."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Los menores reciben las dosis a través de sus tutores."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "No todos los pacientes conocen el origen del preparado."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Todo el pueblo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Enfermos no significa culpables. Aquí hay niños."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Y gente que quizá ni siquiera sabe qué le están dando."
+      }
+    ]
+  },
+  "lab_advertencia": {
+    "lineas": [
+      {
+        "hablante": "Documento",
+        "texto": "Advertencia de seguridad."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Los incidentes de exposición en esta sala se han asociado a la aparición de los mismos síntomas en personal previamente sano."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "No abrir ni dañar los recipientes de la instalación."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No toquen nada. Ni siquiera lo que parezca vacío."
+      }
+    ],
+    "efectos_al_terminar": {
+      "riesgo_exposicion_conocido": true
+    }
+  },
+  "lab_urgencia": {
+    "lineas": [
+      {
+        "hablante": "Morales",
+        "texto": "Hay otro traslado previsto para esta noche."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Más gente?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Sí. No podemos esperar al anochecer."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Dijiste que la oficina estaba vigilada."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Voy a comprobarlo. Si tengo una oportunidad, llamo."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Nos arriesgamos a que vayas solo."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Y nos arriesgamos a dejar pasar el tiempo. Ya tenemos nombres, ubicación y documentos."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Me llevo estas copias. Ustedes salgan detrás de mí. No se queden buscando más."
+      }
+    ],
+    "efectos_al_terminar": {
+      "morales_sale_a_llamar": true
+    }
+  },
+  "lab_expediente_mateo": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Espera."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Qué pasa?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Aquí está mi nombre."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Nos llevamos la carpeta y salimos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Necesito leerla."
+      }
+    ]
+  },
+  "lab_programa": {
+    "lineas": [
+      {
+        "hablante": "Documento",
+        "texto": "Programa de continuidad. Descendientes nacidos fuera del pueblo."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Selección de residentes para establecer una familia en el exterior y mantener seguimiento de su descendencia."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Objetivo: incorporación de descendientes sanos de origen local."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Contacto asignado: madre de Mateo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No…"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Lee la fecha."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Es de antes de que yo naciera."
+      }
+    ]
+  },
+  "lab_cartas_madre": {
+    "lineas": [
+      {
+        "hablante": "Carta",
+        "texto": "He mantenido el vínculo con Elena como se me indicó. Mateo sigue preguntando por el pueblo."
+      },
+      {
+        "hablante": "Carta",
+        "texto": "Adjunto el informe de salud. No presenta los síntomas que me pidieron vigilar."
+      },
+      {
+        "hablante": "Carta",
+        "texto": "Confía en mí. Cuando llegue el momento, aceptar el viaje no será un problema."
+      },
+      {
+        "hablante": "Carta",
+        "texto": "He cumplido mi parte. Espero que cumplan lo prometido."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Informes… Sobre mí."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Ella les escribía."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Mientras yo crecía. Mientras me llevaba a la escuela. Mientras me decía que me quería."
+      }
+    ]
+  },
+  "lab_mateo_reaccion": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "No sabemos todo lo que pasó."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Sé lo que pone aquí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No estaba criando a su hijo. Estaba preparando una entrega."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Lo que hizo no convierte tu vida entera en una mentira."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué parte era de verdad, Lucas?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Dime cuál. Porque yo ya no la encuentro."
+      }
+    ]
+  },
+  "lab_padre_lucas": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Esta carpeta…"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Qué?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Las instrucciones de la herencia de mi padre. Hay una copia aquí."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "La llegada del hijo quedará vinculada al cumplimiento de las condiciones del legado."
+      },
+      {
+        "hablante": "Documento",
+        "texto": "Mantener las instrucciones aunque el contacto fallezca antes de la visita."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Hasta después de muerto quería decidir por mí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "También te vendió."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mi padre era una mierda. Esto sólo lo confirma."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Pero tú no tienes que acabar convertido en otra."
+      }
+    ],
+    "efectos_al_terminar": {
+      "verdad_familias_leida": true
+    }
+  },
+  "lab_ruptura": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Esto tiene que desaparecer."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Ya tenemos cómo demostrarlo. Morales va a llamar."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Y después? ¿Se llevan a Álvarez y los demás siguen esperando a otra familia?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "No sabemos qué va a pasar después. Sí sabemos lo que les pasa si pierden el tratamiento."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Todos se beneficiaron."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Eso no significa que todos eligieran hacerlo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "A mí nadie me dejó elegir."
+      }
+    ]
+  },
+  "lab_llegan": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Escucha."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Morales?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Son varios. Aléjate de la puerta."
+      }
+    ]
+  },
+  "alvares_entrada": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "Sé que están ahí. Abran."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Álvarez."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Uno de mis hombres los vio en el bosque. Encontramos la entrada descubierta."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Cuántos trajiste para hablar?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Los suficientes. No van a salir por otro sitio."
+      }
+    ]
+  },
+  "alvares_madre": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Encontré los informes de mi madre."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Esos documentos no estaban destinados a ti."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero hablan de mí. Desde antes de que naciera."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿La obligaron?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Conocía el acuerdo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Eso no es lo que te pregunté."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Aceptó salir. Aceptó mantenernos informados. Y aceptó que un día volverías."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Todo lo demás también era parte del acuerdo?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "No puedo decirte qué sentía por ti."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pero sí para qué me tuvo."
+      }
+    ]
+  },
+  "alvares_justificacion": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "Intentábamos que este pueblo siguiera vivo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "A costa de quienes trajeron."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Sí."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "También trajeron niños."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "No voy a pedirles que lo comprendan."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Cuántos?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Demasiados."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Y siguieron."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Abran la puerta. Todavía podemos salir de aquí."
+      }
+    ]
+  },
+  "alvares_morales": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "¿Dónde está Morales?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¿Cuántos hombres dejaste cuidando tu oficina?"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "…"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "A estas alturas ya habrá llamado. La policía estará aquí pronto."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Tú. Vuelve a la oficina. Ahora."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Los demás se quedan conmigo."
+      }
+    ]
+  },
+  "alvares_amenaza": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "Aparta las manos de esa mesa, Mateo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Leí lo que pasa si esto deja de funcionar."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Entonces sabes que no sólo me estás amenazando a mí."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo, mírame. Podemos salir vivos."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Y dejarles esto?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Podemos entregarlos. No tenemos que decidir quién merece vivir."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "No me queda nada."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¡Estoy aquí! ¡Te estoy pidiendo que salgas conmigo!"
+      }
+    ]
+  },
+  "mateo_decide": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Mi madre también sabía fingir que no pasaba nada."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Ellos no son tu madre."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Hay personas que ni siquiera conocen este lugar."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Pues debieron preguntar de dónde venía su cura."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "No. Esto no es justicia."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Nunca dije que lo fuera."
+      }
+    ]
+  },
+  "destruccion": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¡Mateo, no!"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "¡Suéltalo! ¡Nos vamos!"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¡Apártate!"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "¡Mateo!"
+      }
+    ],
+    "efectos_al_terminar": {
+      "laboratorio_destruido": true,
+      "mateo_expuesto": true,
+      "lucas_expuesto": true
+    }
+  },
+  "destruccion_salida": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¡No veo la salida!"
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "¡Abran! ¡Sáquenlos!"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Mateo… Camina. Camina."
+      }
+    ]
+  },
+  "alvares_despues": {
+    "lineas": [
+      {
+        "hablante": "Álvarez",
+        "texto": "¿Entiendes lo que acabas de hacer?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Ya no van a traer a nadie."
+      },
+      {
+        "hablante": "Álvarez",
+        "texto": "Llévenselos. Que no salgan de ahí."
+      }
+    ]
+  },
+  "prision_reunion": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "¿Morales?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Estoy aquí."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "¿Pudiste…?"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Sí. La oficina estaba casi vacía. Di la ubicación y expliqué lo que encontré."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Cuando llegaron a buscarme, la llamada ya había terminado."
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Destruyó el laboratorio."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿Qué?"
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "Se acabó."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "No, Mateo. Esto no se acaba con lo que tú quieras creer."
+      }
+    ]
+  },
+  "prision_espera": {
+    "lineas": [
+      {
+        "hablante": "Lucas",
+        "texto": "Me arde la garganta."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "¿Qué pasó ahí dentro?"
+      },
+      {
+        "hablante": "Lucas",
+        "texto": "Se rompió todo. No pudimos salir a tiempo."
+      },
+      {
+        "hablante": "Mateo",
+        "texto": "…"
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Siéntense. Vienen de camino."
+      }
+    ]
+  },
+  "rescate_policial": {
+    "lineas": [
+      {
+        "hablante": "Narración",
+        "texto": "Horas después."
+      },
+      {
+        "hablante": "Policía",
+        "texto": "Aléjense de los barrotes."
+      },
+      {
+        "hablante": "Morales",
+        "texto": "Hay más personas retenidas. Los registros indican dónde."
+      },
+      {
+        "hablante": "Policía",
+        "texto": "Vamos a sacarlos. Después nos lo explica todo."
+      }
+    ]
+  },
+  "lab_repetir": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Ya sabemos lo que hacían aquí."
+      }
+    ]
+  },
+  "telefono_bloqueado": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No puedo hablar con esos vigilantes al lado. Debo reunirme con los demás."
+      }
+    ]
+  },
+  "bosque_sin_pista": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "Primero debemos revisar qué hay detrás de esa puerta."
+      }
+    ]
+  },
+  "escotilla_con_vigilante": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "No podemos bajar con el vigilante cerca. Primero tenemos que perderlo."
+      }
+    ]
+  },
+  "puerta_ya_abierta": {
+    "lineas": [
+      {
+        "hablante": "Mateo",
+        "texto": "La puerta ya está abierta."
+      }
+    ]
+  }
+}

@@ -1,9 +1,4 @@
 {
-  "evento_visitar_abuela": {
-    "lineas": [
-      {"hablante": "Mateo", "texto": "Debería ir a visitar a la abuela."}
-    ]
-  },
   "evento_altar_ausente": {
     "lineas": [
       {"hablante": "Mateo", "texto": "¿Que no había un altar aquí?"}

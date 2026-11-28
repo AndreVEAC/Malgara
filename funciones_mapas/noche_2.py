@@ -7,6 +7,8 @@ import sistema_audio as audio
 import sistema_dialogo as dialogo
 import sistema_guardado as guardado
 import sistema_mapa as mapa
+from funciones_mapas.clinica_dia_3 import ClinicaDia3
+from funciones_mapas.dia_3 import Dia3
 from funciones_mapas.escena_morales import Director, Recorrido, crear_npc, mirar, posicion, ruta_a
 from funciones_mapas.investigacion_dia_2 import HOGAR, PISTAS, PRISION, opcion
 from mapas.habitaciones_dia_2 import ABRIR_PUERTA, CERRAR_PUERTA
@@ -33,6 +35,12 @@ class Noche2:
         self.director = None
         self.escena = None
         self.revision = -1
+        self.oficina = Dia3(investigacion)
+        self.clinica = ClinicaDia3(investigacion)
+
+    @property
+    def dia3(self):
+        return self.clinica if self.datos["plan_dia3"] == "clinica" else self.oficina
 
     @property
     def datos(self):
@@ -77,6 +85,9 @@ class Noche2:
 
     def actualizar(self):
         fase = self.datos["fase"]
+        if self.dia3.activo:
+            self.dia3.actualizar()
+            return True
         if not fase:
             if not (self.dia["reencuentro"] and self.dia["resultado"]
                     and mapa.nombre_mapa_actual == HOGAR):
@@ -109,6 +120,8 @@ class Noche2:
         return True
 
     def exterior(self, x, y):
+        if self.dia3.interactuar(x, y):
+            return True
         if mapa.nombre_mapa_actual == "iglesia_dia2" and (x, y) == PUERTA_OFICINA:
             self.mostrar("n2_oficina_dia2_exterior")
             return True
@@ -121,6 +134,8 @@ class Noche2:
         return False
 
     def objetivo(self):
+        if self.dia3.activo:
+            return self.dia3.objetivo()
         if self.datos["fase"] == "dia3":
             destino = "la oficina municipal" if self.datos["plan_dia3"] == "oficina" else "la clínica"
             return f"Reúnete con tus aliados detrás de {destino}"

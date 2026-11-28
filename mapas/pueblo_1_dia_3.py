@@ -4,7 +4,7 @@ from mapas import pueblo_1_dia_2, pueblo_1_noche_2
 from mapas.geografia_noche_2 import marcar, matriz_desde, objetos
 
 FONDO_IMG = "recursos/sprites/fondos/fondo_pueblo_1_dia_3.png"
-AMBIENTE = "pueblo"
+AMBIENTE = "ultimo_paseo"
 INICIO_X, INICIO_Y = pueblo_1_noche_2.JUNTO_BARRIL
 BARRILES = set(pueblo_1_noche_2.BARRILES)
 DICCIONARIO_OBJETOS = objetos()

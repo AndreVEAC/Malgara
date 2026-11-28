@@ -18,6 +18,8 @@ PISTAS = {
     "miradas": "recursos/musica/miradas.wav",
     "catedral": "recursos/musica/catedral.wav",
     "triste": "recursos/musica/triste.wav",
+    "ultima_cura": "recursos/musica/ultima cura.wav",
+    "ultimo_paseo": "recursos/musica/un ultimo paseo.wav",
 }
 
 

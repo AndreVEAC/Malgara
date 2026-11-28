@@ -9,6 +9,8 @@ import sistema_dialogo
 import sistema_guardado
 from funciones_mapas.investigacion_dia_2 import Investigacion, objetivo
 from funciones_mapas.noche_2 import Noche2
+from funciones_mapas.epilogo_laboratorio import EpilogoLaboratorio
+from mapas.dia_3 import PUEBLO
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -20,11 +22,24 @@ modo_juego = "EXPLORACION"
 
 prueba_dia = "--prueba-dia-2" in sys.argv
 prueba_noche = "--prueba-noche-2" in sys.argv
-investigacion = Investigacion(estado_jugador, autoguardar=not (prueba_dia or prueba_noche))
+prueba_dia3 = "--prueba-dia-3" in sys.argv
+investigacion = Investigacion(estado_jugador, autoguardar=not (prueba_dia or prueba_noche or prueba_dia3))
 noche = Noche2(investigacion)
 if not prueba_dia:
     investigacion.noche = noche
-if prueba_noche:
+if prueba_dia3:
+    ayudantes = {"lucas", "morales"}
+    if "--sin-lucas" in sys.argv:
+        ayudantes.discard("lucas")
+    if "--sin-morales" in sys.argv:
+        ayudantes.discard("morales")
+    if not ayudantes:
+        sys.exit("La prueba del día 3 necesita al menos un ayudante de la noche 2.")
+    plan = "clinica" if "--clinica" in sys.argv else "oficina"
+    estado_jugador.noche2.update(fase="dia3", plan_dia3=plan, dia_actual=3,
+                                ayudantes=ayudantes, completada=True, morales_conoce_cartas=True)
+    sistema_mapa.cargar_nivel("pueblo_1_dia_3" if plan == "clinica" else PUEBLO)
+elif prueba_noche:
     from funciones_mapas.investigacion_dia_2 import PISTAS
 
     estado_jugador.confianza_lucas_separacion = 59 if "--sin-lucas" in sys.argv else 60
@@ -45,11 +60,13 @@ elif prueba_dia:
         estado_jugador.confianza_morales = 65 if "--rescate" in sys.argv else 64
     sistema_mapa.cargar_nivel("pueblo_2_dia_2", 38, 15)
 elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
-    sistema_mapa.cargar_nivel("casa_noche_2")
+    sistema_mapa.cargar_nivel("iglesia_dia2")
 
 ejecutando = True
+epilogo = None
+salida_fin = None
 while ejecutando:
-    reloj.tick(FPS)
+    segundos = reloj.tick(FPS) / 1000
     sistema_guardado.actualizar(estado_jugador)
     # 1. GUARDAR LOS EVENTOS EN LA VARIABLE 'eventos'
     eventos = pygame.event.get()
@@ -62,6 +79,27 @@ while ejecutando:
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_F11:
                 pygame.display.toggle_fullscreen()
+            if epilogo is not None and epilogo.terminado and evento.key == pygame.K_ESCAPE:
+                ejecutando = False
+
+    fase_dia3 = estado_jugador.dia3["fase"]
+    if noche.dia3.activo and fase_dia3 in ("epilogo", "fin", "epilogo_clinica", "fin_clinica"):
+        es_clinica = fase_dia3 in ("epilogo_clinica", "fin_clinica")
+        if epilogo is None:
+            if es_clinica:
+                eventos_clinica = [nodo for nombre, nodo in noche.clinica.guion.items()
+                                   if nombre.startswith("clinica_d3_epilogo_")]
+                epilogo = EpilogoLaboratorio(pantalla, eventos=eventos_clinica, fondos=(), titulo="Escape")
+            else:
+                epilogo = EpilogoLaboratorio(pantalla)
+            fuente = pygame.font.Font(None, 22)
+            salida_fin = fuente.render("Esc para salir", True, (185, 185, 185))
+        epilogo.actualizar_y_dibujar(pantalla, segundos)
+        if epilogo.terminado:
+            estado_jugador.dia3.update(fase="fin_clinica" if es_clinica else "fin", final_completado=True)
+            pantalla.blit(salida_fin, salida_fin.get_rect(midbottom=(ANCHO_PANTALLA // 2, ALTO_PANTALLA - 42)))
+        pygame.display.flip()
+        continue
 
     pantalla.fill((0, 0, 0))
 

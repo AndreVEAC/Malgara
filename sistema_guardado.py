@@ -77,7 +77,7 @@ def actualizar(estado_jugador):
         mapa.transicion_activa
         or mapa.jugador_bloqueado
         or mapa.control_cinematico
-        or (estado_jugador.noche2["fase"] == "sigilo" and vigilancia.persecucion_activa)
+        or (estado_jugador.noche2["fase"] in ("sigilo", "dia3") and vigilancia.persecucion_activa)
         or dialogo.obtener_evento_activo() is not None
     ):
         return
@@ -308,6 +308,7 @@ def cargar(estado_jugador, ranura="manual"):
     import sistema_mapa as mapa
     import sistema_dialogo as dialogo
     from configuracion import TAMANO_CASILLA
+    from mapas.dia_3 import NIVELES
 
     # El menú deberá llamar fuera de diálogos y fundidos.
     if (
@@ -319,13 +320,9 @@ def cargar(estado_jugador, ranura="manual"):
     try:
         datos = _leer(ranura)
 
-        modulo = importlib.import_module(
-            "mapas." + datos["mapa"]
-        )
-
-        importlib.import_module(
-            "funciones_mapas.funcion_" + datos["mapa"]
-        )
+        modulo = mapa.datos_nivel(datos["mapa"])
+        if datos["mapa"] not in NIVELES:
+            importlib.import_module("funciones_mapas.funcion_" + datos["mapa"])
 
         if (
             [len(fila) for fila in datos["matriz"]]

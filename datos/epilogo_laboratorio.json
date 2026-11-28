@@ -1,0 +1,173 @@
+{
+  "formato": "tarjetas",
+  "eventos": {
+    "d3_epilogo_operativo": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "La información de Morales permitió localizar Malgara y poner fin a las detenciones."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Álvarez y otros responsables quedaron bajo custodia. Los habitantes fueron evacuados para recibir atención médica."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Mateo, Lucas y Morales salieron vivos del pueblo."
+        }
+      ]
+    },
+    "d3_epilogo_hospital": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Durante las semanas siguientes, los hospitales intentaron mantener con vida a los enfermos."
+        },
+        {
+          "hablante": "Médica",
+          "texto": "Los documentos explican la dependencia, pero no permiten reproducir el tratamiento a tiempo."
+        },
+        {
+          "hablante": "Médica",
+          "texto": "Las reservas se perdieron. Estamos intentando sustituirlas."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "No lo consiguieron."
+        }
+      ]
+    },
+    "d3_epilogo_ines": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Morales visitó a Inés en el hospital."
+        },
+        {
+          "hablante": "Inés",
+          "texto": "¿Salieron los tres?"
+        },
+        {
+          "hablante": "Morales",
+          "texto": "Sí."
+        },
+        {
+          "hablante": "Inés",
+          "texto": "Entonces las cartas sirvieron."
+        },
+        {
+          "hablante": "Morales",
+          "texto": "¿Fuiste tú?"
+        },
+        {
+          "hablante": "Inés",
+          "texto": "No sabía cómo avisarlos sin que me vieran."
+        }
+      ]
+    },
+    "d3_epilogo_muertes": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Las camas se fueron quedando vacías."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Inés murió antes de poder volver a su casa."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "La enfermedad no distinguió entre quienes habían organizado los procedimientos, quienes callaron por miedo y quienes nunca supieron de dónde venían las dosis."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Con el tiempo, ninguno de los habitantes evacuados sobrevivió."
+        }
+      ]
+    },
+    "d3_epilogo_morales": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "La investigación de Morales quedó acreditada. Recuperó su puesto."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Guardó la resolución junto a los nombres de las personas que no pudieron salvar."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Nunca habló de aquello como de un éxito."
+        }
+      ]
+    },
+    "d3_epilogo_responsabilidad": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Mateo tuvo que responder por la destrucción de la instalación."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Las pruebas contra los responsables de Malgara ya estaban fuera del laboratorio antes de que lo arrasara."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "No había sido necesario destruirlo para pedir ayuda."
+        }
+      ]
+    },
+    "d3_epilogo_lucas": {
+      "lineas": [
+        {
+          "hablante": "Médica",
+          "texto": "¿Cuándo empezó el temblor?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Hace unos días."
+        },
+        {
+          "hablante": "Médica",
+          "texto": "¿Estuviste dentro durante el incidente?"
+        },
+        {
+          "hablante": "Lucas",
+          "texto": "Intenté sacarlo."
+        }
+      ]
+    },
+    "d3_epilogo_mateo": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Mateo seguía bajo supervisión médica."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "En otra habitación, Mateo miró su propia mano."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Tampoco conseguía mantenerla quieta."
+        }
+      ]
+    },
+    "d3_epilogo_pueblo": {
+      "lineas": [
+        {
+          "hablante": "Narración",
+          "texto": "Nadie volvió a abrir la panadería."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "Nadie ocupó los bancos de la plaza."
+        },
+        {
+          "hablante": "Narración",
+          "texto": "En el cementerio hubo que abrir nuevas filas."
+        }
+      ]
+    }
+  }
+}

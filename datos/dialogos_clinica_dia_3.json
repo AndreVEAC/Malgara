@@ -1,0 +1,270 @@
+{
+  "clinica_d3_objetivo": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "La clínica. Quedamos de vernos ahí."},
+      {"hablante": "Mateo", "texto": "Por favor, que hayan llegado."}
+    ]
+  },
+  "clinica_d3_desvio": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Debo buscar a Lucas y a Morales en la clínica."}
+    ]
+  },
+  "clinica_d3_reencuentro": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "¡Mateo! Aquí."},
+      {"hablante": "Mateo", "texto": "Pensé que los habían atrapado."},
+      {"hablante": "Morales", "texto": "Baja la voz. Llevamos un rato esperando una oportunidad para entrar."}
+    ]
+  },
+  "clinica_d3_reencuentro_ambos": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Gracias por volver por mí."},
+      {"hablante": "Lucas", "texto": "Puedes agradecérnoslo cuando estemos lejos de aquí."}
+    ]
+  },
+  "clinica_d3_reencuentro_solo_lucas": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Mateo… anoche seguí corriendo."},
+      {"hablante": "Mateo", "texto": "Lo vi."},
+      {"hablante": "Morales", "texto": "No voy a ponerte una excusa."},
+      {"hablante": "Lucas", "texto": "Ahora estamos aquí. Entremos."}
+    ]
+  },
+  "clinica_d3_reencuentro_solo_morales": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Creí que, si regresaba, nos atraparían a los dos."},
+      {"hablante": "Mateo", "texto": "Pero él regresó."},
+      {"hablante": "Lucas", "texto": "Sí."},
+      {"hablante": "Morales", "texto": "No podemos quedarnos hablando en la calle."}
+    ]
+  },
+  "clinica_d3_entrada": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Cierren. Y aléjense de las ventanas."},
+      {"hablante": "Mateo", "texto": "¿Tú nos estabas esperando?"},
+      {"hablante": "Inés", "texto": "No sabía si habían conseguido salir de la casa."},
+      {"hablante": "Lucas", "texto": "Salir fue la parte fácil."},
+      {"hablante": "Morales", "texto": "¿Estamos solos?"},
+      {"hablante": "Inés", "texto": "Ahora sí. Pero no tenemos mucho tiempo."}
+    ]
+  },
+  "clinica_d3_cartas": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Las cartas…"},
+      {"hablante": "Inés", "texto": "Las escribí yo."},
+      {"hablante": "Lucas", "texto": "Podrías haber empezado por presentarte."},
+      {"hablante": "Inés", "texto": "Tenía miedo. A los médicos nos vigilaban más que a nadie."},
+      {"hablante": "Mateo", "texto": "¿Cómo sabías lo de la estatua?"},
+      {"hablante": "Inés", "texto": "Un compañero empezó a hacerse las mismas preguntas que yo."},
+      {"hablante": "Inés", "texto": "Antes de desaparecer me dijo que mirara detrás de la placa de Juan Malgara."},
+      {"hablante": "Inés", "texto": "No llegó a explicarme qué había. Después empezaron a seguir mis movimientos."},
+      {"hablante": "Mateo", "texto": "Entonces nos mandaste a nosotros."},
+      {"hablante": "Inés", "texto": "Sí. Ustedes podían acercarse sin que pareciera extraño."},
+      {"hablante": "Inés", "texto": "Y necesitaba que me creyeran. Una advertencia anónima no iba a bastar."},
+      {"hablante": "Morales", "texto": "¿Volviste a saber algo de él?"},
+      {"hablante": "Inés", "texto": "No. Me dijeron que se había marchado. Dejó todas sus cosas."}
+    ]
+  },
+  "clinica_d3_padre": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Mi padre también trabajaba aquí. Era médico."},
+      {"hablante": "Inés", "texto": "Creía que el tratamiento podía salvar a nuestra familia."},
+      {"hablante": "Mateo", "texto": "¿La cura?"},
+      {"hablante": "Inés", "texto": "Así la llaman. La recibió y durante un tiempo mejoró."},
+      {"hablante": "Inés", "texto": "Después volvió a empeorar. Cambiaron las dosis, dejaron de enseñarme sus registros… y murió."},
+      {"hablante": "Morales", "texto": "¿Sabía algo de lo que estaba pasando?"},
+      {"hablante": "Inés", "texto": "Yo atendía a los que regresaban. Mi padre empezó a preguntar por los que no volvían."}
+    ]
+  },
+  "clinica_d3_visitantes": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Llegan personas de fuera. Después dejan de verse. Y, al poco tiempo, algunos pacientes mejoran."},
+      {"hablante": "Mateo", "texto": "¿Crees que hacen el tratamiento con esas personas?"},
+      {"hablante": "Inés", "texto": "Creo que hay una relación. No sé qué les hacen ni dónde."},
+      {"hablante": "Lucas", "texto": "¿Y nadie sale de este maldito pueblo?"},
+      {"hablante": "Inés", "texto": "Algunos sí. Muy pocos. Los he visto marcharse."},
+      {"hablante": "Morales", "texto": "¿Qué tenían de diferente?"},
+      {"hablante": "Inés", "texto": "No lo sé. Pensé que quizá no podían retenerlos sin llamar demasiado la atención."},
+      {"hablante": "Mateo", "texto": "Pero a nosotros sí."},
+      {"hablante": "Inés", "texto": "A ustedes los estaban esperando."}
+    ]
+  },
+  "clinica_d3_ancianos": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Mi abuela también."},
+      {"hablante": "Inés", "texto": "La he visto reunirse con Álvarez. A ella y a otros mayores."},
+      {"hablante": "Inés", "texto": "Algunos desaparecen unos días. Cuando regresan, caminan mejor, tienen más fuerzas…"},
+      {"hablante": "Morales", "texto": "¿Reciben otro tratamiento?"},
+      {"hablante": "Inés", "texto": "Eso sospecho. Esas visitas no figuran en los registros que nos dejan consultar."},
+      {"hablante": "Mateo", "texto": "Mi madre nunca me habló de nada de esto."},
+      {"hablante": "Mateo", "texto": "Quizá por eso se fue. Quizá intentaba alejarse de ellos."},
+      {"hablante": "Inés", "texto": "No sé qué sabía tu madre."},
+      {"hablante": "Mateo", "texto": "Yo tampoco."}
+    ]
+  },
+  "clinica_d3_alvarez": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Entonces hay que hablar con Álvarez. Que nos diga qué está pasando."},
+      {"hablante": "Inés", "texto": "No."},
+      {"hablante": "Morales", "texto": "Mateo, anoche intentaron capturarnos. No vamos a entregarnos para pedir explicaciones."},
+      {"hablante": "Inés", "texto": "Yo ya le pregunté por mi padre. Por los registros. Por mi compañero."},
+      {"hablante": "Inés", "texto": "Me dijo que descansara. Al día siguiente ya no podía salir de la clínica sin que alguien preguntara adónde iba."}
+    ]
+  },
+  "clinica_d3_pruebas": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "¿Conservas algún expediente? ¿Algo que podamos llevarnos?"},
+      {"hablante": "Inés", "texto": "Lo que tengo demuestra que atendíamos enfermos. Las páginas que podrían explicar algo ya no están."},
+      {"hablante": "Morales", "texto": "Hay una puerta cerrada en el pasadizo de la iglesia. ¿Sabes dónde guardan su llave?"},
+      {"hablante": "Inés", "texto": "No. He buscado entre las cosas de mi padre y en la clínica. Nunca la encontré."}
+    ]
+  },
+  "clinica_d3_llave_localizada": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Nosotros creemos que está en la oficina. En la caja marcada con J. M."},
+      {"hablante": "Lucas", "texto": "Lo que encontré encaja con las pistas de Mateo."},
+      {"hablante": "Morales", "texto": "Entonces tenemos por dónde seguir."},
+      {"hablante": "Inés", "texto": "Yo no sé qué hay detrás de esa puerta. Tengan cuidado."}
+    ]
+  },
+  "clinica_d3_llave_desconocida": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Tampoco conseguimos averiguar dónde está."},
+      {"hablante": "Morales", "texto": "Alguien tiene que encargarse de abrir esa puerta. La llave existe."},
+      {"hablante": "Lucas", "texto": "También existe la posibilidad de que nos maten mientras la buscamos."}
+    ]
+  },
+  "clinica_d3_salir": {
+    "lineas": [
+      {"hablante": "Lucas", "texto": "Yo quiero irme. Ya no me importa la herencia ni lo que quería mi padre."},
+      {"hablante": "Lucas", "texto": "¿Hay alguna manera de salir?"},
+      {"hablante": "Inés", "texto": "Sí. Conozco una salida al sur."},
+      {"hablante": "Mateo", "texto": "¿Vendrías con nosotros?"},
+      {"hablante": "Inés", "texto": "Ya no me queda nadie aquí. Perdí a mi familia por la enfermedad y a mi compañero por investigar."},
+      {"hablante": "Inés", "texto": "Todavía no tengo los síntomas que tenía mi padre. Si esto tiene que ver con algo de aquí… quizá salir cambie las cosas."},
+      {"hablante": "Morales", "texto": "¿Y si no cambia nada?"},
+      {"hablante": "Inés", "texto": "Entonces buscaré a alguien que pueda ayudarme. Aquí ya sé cómo termina."}
+    ]
+  },
+  "clinica_d3_ninos": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Hay niños aquí. No podemos dejarlos."},
+      {"hablante": "Inés", "texto": "Están con sus familias. No nos dejarían acercarnos."},
+      {"hablante": "Mateo", "texto": "Tiene que haber alguna forma."},
+      {"hablante": "Inés", "texto": "Todo el pueblo los está buscando. Si salimos a buscarlos ahora, no vamos a poder ayudar a nadie."},
+      {"hablante": "Lucas", "texto": "Podemos pedir ayuda desde fuera."},
+      {"hablante": "Mateo", "texto": "Pero vamos a hacerlo. No vamos a salir y fingir que esto nunca pasó."},
+      {"hablante": "Lucas", "texto": "No vamos a fingir nada."},
+      {"hablante": "Mateo", "texto": "Está bien."}
+    ]
+  },
+  "clinica_d3_acceso": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Hay un antiguo acceso de servicio más abajo de la clínica."},
+      {"hablante": "Inés", "texto": "Por ahí traían los suministros. El camino continúa fuera del pueblo."},
+      {"hablante": "Morales", "texto": "¿Por qué no te fuiste por ahí?"},
+      {"hablante": "Inés", "texto": "Lo vigilan. Y la reja ya no se sostiene abierta: hay que levantarla y sujetarla mientras pasa otra persona."},
+      {"hablante": "Inés", "texto": "Mi compañero iba a ayudarme. Íbamos a salir juntos."},
+      {"hablante": "Inés", "texto": "Después desapareció. Yo seguí esperando una oportunidad que nunca llegaba."},
+      {"hablante": "Lucas", "texto": "Ahora somos cuatro."}
+    ]
+  },
+  "clinica_d3_morales_se_queda": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Los ayudaré a llegar hasta ahí. Pero yo voy a quedarme."},
+      {"hablante": "Mateo", "texto": "¿Después de todo esto?"},
+      {"hablante": "Morales", "texto": "Ustedes tienen que salir. Yo necesito encontrar algo que permita volver con ayuda."},
+      {"hablante": "Mateo", "texto": "Ya tienes lo que nos pasó."},
+      {"hablante": "Morales", "texto": "Y deben denunciarlo. Pero siguen ocultando a los desaparecidos y lo que les hicieron."},
+      {"hablante": "Lucas", "texto": "¿Esto sigue siendo por tu trabajo?"},
+      {"hablante": "Morales", "texto": "También. No voy a mentirte. Pero después de conocerlos ya no puedo decir que solo se trata de eso."},
+      {"hablante": "Inés", "texto": "Mi compañero también creía que conseguiría salir después."},
+      {"hablante": "Morales", "texto": "Lo sé."}
+    ]
+  },
+  "clinica_d3_preparativos": {
+    "lineas": [
+      {"hablante": "Morales", "texto": "Primero veamos ese acceso."},
+      {"hablante": "Inés", "texto": "Salgamos por la puerta principal. Procuren no hacer ruido."}
+    ]
+  },
+  "clinica_d3_hacia_el_sur": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Es hacia abajo. Síganme."}
+    ]
+  },
+  "clinica_d3_salida_servicio": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "La reja está al final."},
+      {"hablante": "Morales", "texto": "Hay vigilancia. Voy a llevarlos hacia el otro camino."},
+      {"hablante": "Mateo", "texto": "¿Y cómo vas a regresar?"},
+      {"hablante": "Morales", "texto": "Por el paso lateral. Desde ahí puedo volver al pueblo."},
+      {"hablante": "Morales", "texto": "Esperen a que se alejen. Después sigan a Inés."},
+      {"hablante": "Lucas", "texto": "¿Y si no consigues perderlos?"},
+      {"hablante": "Morales", "texto": "Ustedes sigan. No vuelvan a quedar encerrados por esperarme."}
+    ]
+  },
+  "clinica_d3_despedida": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "Cuando salgamos, iremos a la policía."},
+      {"hablante": "Morales", "texto": "Díganles mi nombre. Yo intentaré comunicarme con ustedes."},
+      {"hablante": "Lucas", "texto": "Más te vale."},
+      {"hablante": "Morales", "texto": "Cuídense los tres."}
+    ]
+  },
+  "clinica_d3_reja": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Es aquí."},
+      {"hablante": "Lucas", "texto": "Yo la sujeto. Pasen."},
+      {"hablante": "Mateo", "texto": "Cuando esté al otro lado la sostengo para ti."},
+      {"hablante": "Lucas", "texto": "Hazlo rápido, por favor."}
+    ]
+  },
+  "clinica_d3_fuera": {
+    "lineas": [
+      {"hablante": "Inés", "texto": "Nunca había llegado hasta aquí."},
+      {"hablante": "Lucas", "texto": "Puedes mirarlo desde más lejos. Vamos."},
+      {"hablante": "Mateo", "texto": "¿Este camino lleva a la carretera?"},
+      {"hablante": "Inés", "texto": "Sí. Tenemos que seguir caminando."}
+    ]
+  },
+  "clinica_d3_epilogo_denuncia": {
+    "lineas": [
+      {"hablante": "", "texto": "Llegaron a la carretera antes de que anocheciera. Alguien se detuvo para ayudarlos."},
+      {"hablante": "", "texto": "Contaron lo ocurrido. Los nombres, las desapariciones, las cartas y el lugar donde habían dejado a Morales."},
+      {"hablante": "", "texto": "La policía visitó Malgara. Sus habitantes negaron las acusaciones."},
+      {"hablante": "", "texto": "No encontraron los registros que Inés describió. Tampoco encontraron a Morales."},
+      {"hablante": "", "texto": "Sin pruebas que corroboraran lo sucedido, la investigación no avanzó como ellos esperaban."}
+    ]
+  },
+  "clinica_d3_epilogo_espera": {
+    "lineas": [
+      {"hablante": "", "texto": "Durante meses, Mateo y Lucas esperaron noticias."},
+      {"hablante": "", "texto": "Una llamada. Un hallazgo. La confirmación de que alguien había conseguido descubrir lo que ocurría allí."},
+      {"hablante": "", "texto": "Morales nunca volvió a comunicarse."}
+    ]
+  },
+  "clinica_d3_epilogo_ines": {
+    "lineas": [
+      {"hablante": "", "texto": "Tiempo después, Inés reconoció los primeros síntomas."},
+      {"hablante": "Inés", "texto": "Empezó como con mi padre."},
+      {"hablante": "Mateo", "texto": "¿Qué te han dicho?"},
+      {"hablante": "Inés", "texto": "Todavía no saben qué lo está causando."},
+      {"hablante": "Mateo", "texto": "¿Qué vas a hacer?"},
+      {"hablante": "Inés", "texto": "Seguir buscando. Tiene que haber otra forma."}
+    ]
+  },
+  "clinica_d3_epilogo_mateo": {
+    "lineas": [
+      {"hablante": "Mateo", "texto": "A veces pienso que, si hubiéramos ido con él…"},
+      {"hablante": "Lucas", "texto": "No sabemos qué habría pasado."},
+      {"hablante": "Mateo", "texto": "Eso es lo peor."}
+    ]
+  },
+  "clinica_d3_epilogo_cierre": {
+    "lineas": [
+      {"hablante": "", "texto": "Malgara siguió recibiendo visitantes."}
+    ]
+  }
+}

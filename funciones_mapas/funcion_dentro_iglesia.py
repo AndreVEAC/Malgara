@@ -12,12 +12,9 @@ luces = ()
 
 
 def iniciar():
-    global director, luces
+    global director
 
     dialogo.cargar_json("datos/dentro_iglesia.json")
-    if not luces:
-        luz = pygame.image.load("recursos/sprites/efectos/luz_iglesia.png").convert_alpha()
-        luces = (luz, pygame.transform.flip(luz, False, True))
 
     director = None
     if (mapa.mateo_x, mapa.mateo_y) == interior.REGRESO_TUNEL:
@@ -43,6 +40,12 @@ def actualizar():
 
 
 def dibujar_efectos(pantalla, camara_x, camara_y):
+    global luces
+
+    if not luces:
+        luz = pygame.image.load("recursos/sprites/efectos/luz_iglesia.png").convert_alpha()
+        luces = (luz, pygame.transform.flip(luz, False, True))
+
     abajo, arriba = luces
     ancho, alto = mapa.fondo_actual.get_size()
     for x in (80, ancho-80):
