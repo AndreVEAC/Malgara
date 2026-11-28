@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa
 import sistema_dialogo
 from configuracion import TAMANO_CASILLA
@@ -76,7 +77,7 @@ def iniciar():
         npc["sprite_override"] = None
 
     estado_escena = "ESPERA_INICIAL"
-    tiempo_inicio = pygame.time.get_ticks()
+    tiempo_inicio = ahora_ms()
     tiempo_paso = tiempo_inicio
 
 
@@ -86,7 +87,7 @@ def actualizar():
     if estado_escena == "JUGABLE":
         return
 
-    tiempo_actual = pygame.time.get_ticks()
+    tiempo_actual = ahora_ms()
     abuela = sistema_mapa.npcs_activos["abuela"]
     lucas = sistema_mapa.npcs_activos["lucas"]
     evento_activo = sistema_dialogo.obtener_evento_activo()

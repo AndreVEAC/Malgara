@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_dialogo as dialogo
 import sistema_mapa as mapa
@@ -57,14 +58,14 @@ def desenfocar():
 
 def _iniciar_encuadre(entrada):
     global inicio_encuadre, acercando
-    inicio_encuadre = pygame.time.get_ticks()
+    inicio_encuadre = ahora_ms()
     acercando = entrada
 
 
 def intensidad_encuadre():
     if inicio_encuadre is None:
         return 0
-    avance = min(1, (pygame.time.get_ticks() - inicio_encuadre) / DURACION_ENCUADRE)
+    avance = min(1, (ahora_ms() - inicio_encuadre) / DURACION_ENCUADRE)
     avance = avance * avance * (3 - 2 * avance)
     return avance if acercando else 1 - avance
 

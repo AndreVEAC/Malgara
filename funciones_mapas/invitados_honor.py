@@ -4,6 +4,7 @@ from functools import partial
 from pathlib import Path
 
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_audio as audio
 import sistema_dialogo as dialogo
@@ -104,11 +105,11 @@ class FinalHonor(Dia3):
         mapa.script_nivel_actual.dibujar_efectos = dibujar
 
     def cerrar_ojos(self):
-        inicio = pygame.time.get_ticks()
+        inicio = ahora_ms()
 
         def dibujar(pantalla, *_):
             ancho, alto = pantalla.get_size()
-            progreso = min(1, (pygame.time.get_ticks() - inicio) / CIERRE_OJOS_MS)
+            progreso = min(1, (ahora_ms() - inicio) / CIERRE_OJOS_MS)
             superior = round(alto * 0.52 * progreso)
             inferior = round(alto * 0.48 * progreso)
             pygame.draw.rect(pantalla, (0, 0, 0), (0, 0, ancho, superior))

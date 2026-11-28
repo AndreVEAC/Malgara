@@ -1,6 +1,7 @@
 from collections import deque
 
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 import sistema_guardado
@@ -76,7 +77,7 @@ def iniciar():
     )
 
     estado_escena = "ENTRADA"
-    espera_hasta = pygame.time.get_ticks() + 400
+    espera_hasta = ahora_ms() + 400
 
 
 def actualizar():
@@ -93,7 +94,7 @@ def actualizar():
     if dialogo.obtener_evento_activo() is not None:
         return
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
 
     if ahora < espera_hasta:
         return

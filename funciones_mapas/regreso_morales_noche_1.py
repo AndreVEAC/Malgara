@@ -1,5 +1,6 @@
 """Regreso a la casa roja. Se activa sólo después del encuentro con Morales."""
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 import sistema_escondites as escondites
@@ -70,7 +71,7 @@ def _secuencia():
 def actualizar():
     if not activo: return False
     if not mapa.transicion_activa and dialogo.obtener_evento_activo() is None:
-        ruta_loco.actualizar(pygame.time.get_ticks())
+        ruta_loco.actualizar(ahora_ms())
         director.actualizar()
     return True
 

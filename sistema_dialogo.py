@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 import json
 from collections import deque
 from configuracion import ANCHO_PANTALLA, ALTO_PANTALLA
@@ -119,7 +120,7 @@ def iniciar_dialogo(nombre_evento):
         nombre_evento_activo = nombre_evento
         indice_linea = 0
         indice_letra = 0
-        tiempo_ultima_letra = pygame.time.get_ticks()
+        tiempo_ultima_letra = ahora_ms()
         en_modo_decision = False
         opciones_actuales = []
         opcion_seleccionada = 0
@@ -136,9 +137,15 @@ def obtener_evento_activo():
     return nombre_evento_activo
 
 
+def cancelar_dialogo():
+    global evento_actual, nombre_evento_activo, en_modo_decision
+    evento_actual = nombre_evento_activo = None
+    en_modo_decision = False
+
+
 def activar_notificacion(texto, *, fondo=None, duracion_ms=DURACION_NOTIFICACION):
     notificaciones_pendientes.append((texto, fondo, duracion_ms))
-    _actualizar_notificacion(pygame.time.get_ticks())
+    _actualizar_notificacion(ahora_ms())
 
 
 def limpiar_notificaciones():
@@ -178,7 +185,7 @@ def actualizar_y_dibujar(pantalla, eventos, estado_jugador):
     global tiempo_inicio_espacio, tiempo_ultimo_salto_rapido, bloqueo_espacio
     global tiempo_ultimo_cierre_dialogo
 
-    tiempo_actual = pygame.time.get_ticks()
+    tiempo_actual = ahora_ms()
 
     if not evento_actual:
         nombre_evento_activo = None
@@ -401,7 +408,7 @@ def dibujar_objetivo_global(pantalla, texto):
 
 
 def dibujar_notificacion_global(pantalla):
-    _actualizar_notificacion(pygame.time.get_ticks())
+    _actualizar_notificacion(ahora_ms())
 
     if texto_notificacion:
         if not fuente_notificacion:

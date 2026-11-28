@@ -22,6 +22,7 @@ PISTAS = {
     "ultimo_paseo": "recursos/musica/un ultimo paseo.wav",
     "falta_uno": "recursos/musica/falta uno.wav",
     "banquete": "recursos/musica/banquete.wav",
+    "menu": "recursos/musica/menu.wav",
 }
 
 

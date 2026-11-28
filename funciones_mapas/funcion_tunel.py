@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_dialogo as dialogo
 import sistema_guardado as guardado
@@ -66,7 +67,7 @@ def _llegada():
 def _guardar_entrada():
     _iniciar_exploracion()
     # El guardado se procesa al inicio del siguiente fotograma.
-    mapa.tiempo_ultimo_paso_mateo = pygame.time.get_ticks()
+    mapa.tiempo_ultimo_paso_mateo = ahora_ms()
     guardado.solicitar("automatico", mapa_destino="tunel")
 
 

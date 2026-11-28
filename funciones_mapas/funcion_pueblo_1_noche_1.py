@@ -1,6 +1,7 @@
 # funciones_mapas/funcion_pueblo_1_noche_1.py
 import importlib.util
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 from funciones_mapas import retorno_estatua_noche_1 as retorno_estatua
@@ -92,7 +93,7 @@ def actualizar():
     elif estado_escena == "SOLTAR_ESPACIO":
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             return
-        ahora = pygame.time.get_ticks()
+        ahora = ahora_ms()
         mapa.eventos_completados.add(MARCA_INICIO)
         mapa.tiempo_ultima_interaccion = ahora
         mapa.tiempo_ultimo_paso_mateo = ahora

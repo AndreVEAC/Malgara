@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa
 import sistema_dialogo
 
@@ -45,7 +46,7 @@ def iniciar():
         lucas["visible"] = True
         lucas["direccion"] = "izq"
 
-    tiempo_inicio = pygame.time.get_ticks()
+    tiempo_inicio = ahora_ms()
     tiempo_ultimo_paso = tiempo_inicio
 
     estado_escena = "ESPERA_INICIAL"
@@ -60,7 +61,7 @@ def actualizar():
     if sistema_mapa.transicion_activa:
         return
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
     lucas = sistema_mapa.npcs_activos.get("lucas")
 
     if estado_escena == "ESPERA_INICIAL":

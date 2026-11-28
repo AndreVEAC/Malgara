@@ -259,7 +259,9 @@ def _leer(ranura):
 
 
 def listar_partidas():
-    """Datos para el futuro menú de cargar partida."""
+    """Resumen de las ranuras disponibles, de más reciente a más antigua."""
+    from estado import BUSQUEDA_DIA_2
+
     partidas = []
 
     for ranura in ("manual", "automatico"):
@@ -275,10 +277,13 @@ def listar_partidas():
         ):
             continue
 
+        noche = datos["estado"].get("noche2", {})
+        dia = noche.get("dia_actual", 2) if noche.get("fase") or BUSQUEDA_DIA_2 in datos["eventos"] else 1
         partidas.append({
             "ranura": ranura,
             "mapa": datos["mapa"],
             "fecha_ns": datos["fecha_ns"],
+            "dia": dia,
         })
 
     return sorted(
@@ -301,7 +306,7 @@ def continuar(estado_jugador):
     )
 
 
-def cargar(estado_jugador, ranura="manual"):
+def cargar(estado_jugador, ranura="manual", *, desde_pausa=False):
     global revision_cargada
     global cargando, pendiente
 
@@ -310,8 +315,7 @@ def cargar(estado_jugador, ranura="manual"):
     from configuracion import TAMANO_CASILLA
     from mapas.dia_3 import NIVELES
 
-    # El menú deberá llamar fuera de diálogos y fundidos.
-    if (
+    if not desde_pausa and (
         mapa.transicion_activa
         or dialogo.obtener_evento_activo() is not None
     ):
@@ -347,6 +351,8 @@ def cargar(estado_jugador, ranura="manual"):
     pendiente = None
 
     try:
+        if desde_pausa:
+            dialogo.cancelar_dialogo()
         # Conservar valores predeterminados que agreguemos
         # a EstadoJuego en el futuro.
         valores = vars(type(estado_jugador)()).copy()

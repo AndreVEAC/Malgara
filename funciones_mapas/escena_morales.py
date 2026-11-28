@@ -2,6 +2,7 @@
 from collections import deque
 
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 from configuracion import TAMANO_CASILLA as T
@@ -112,7 +113,7 @@ class Director:
     def actualizar(self):
         if self.terminado or mapa.transicion_activa or dialogo.obtener_evento_activo() is not None:
             return
-        ahora = pygame.time.get_ticks()
+        ahora = ahora_ms()
         if self.accion is None:
             try: self.accion = next(self.secuencia)
             except StopIteration:

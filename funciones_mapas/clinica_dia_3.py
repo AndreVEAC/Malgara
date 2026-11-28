@@ -4,6 +4,7 @@ from functools import partial
 from pathlib import Path
 
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_audio as audio
 import sistema_dialogo as dialogo
@@ -197,7 +198,7 @@ class ClinicaDia3(Dia3):
 
     def mover_reja(self, abierta):
         self.reja_abierta = abierta
-        self.reja_inicio = pygame.time.get_ticks()
+        self.reja_inicio = ahora_ms()
         if not abierta:
             marcar(mapa.matriz_activa, niveles.REJA, 1)
         self.sonido_reja.play()
@@ -205,7 +206,7 @@ class ClinicaDia3(Dia3):
     def dibujar_reja(self, pantalla, camara_x, camara_y):
         ancho, alto = self.reja.get_size()
         progreso = 1 if self.reja_inicio is None else min(
-            1, (pygame.time.get_ticks() - self.reja_inicio) / self.duracion_reja,
+            1, (ahora_ms() - self.reja_inicio) / self.duracion_reja,
         )
         desplazamiento = round((progreso if self.reja_abierta else 1 - progreso) * ancho / 2)
         mitad = ancho // 2

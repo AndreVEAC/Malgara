@@ -1,6 +1,7 @@
 """Extensión del director de pueblo_1: no reemplaza tus luces ni tus NPCs."""
 import json
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
 import sistema_vigilancia as vigilancia
@@ -78,7 +79,7 @@ def actualizar():
     director = mapa.script_nivel_actual
     if mapa.transicion_activa:
         return estado not in ("ESPERAR_SALIDA", "JUGABLE")
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
 
     if estado == "ESPERAR_SALIDA":
         if (mapa.mateo_x,mapa.mateo_y) not in TRIGGER:

@@ -3,6 +3,7 @@
 from collections import deque
 
 import pygame
+from reloj_juego import ahora_ms
 import sistema_mapa
 import sistema_dialogo
 import sistema_guardado
@@ -103,7 +104,7 @@ def actualizar():
 
     elif estado_escena == "DIALOGO_INICIAL":
         if evento_activo is None:
-            ahora = pygame.time.get_ticks()
+            ahora = ahora_ms()
             tiempos_paso["mateo"] = ahora
 
             # Lucas empieza ligeramente después.
@@ -111,7 +112,7 @@ def actualizar():
             estado_escena = "CAMINANDO"
 
     elif estado_escena == "CAMINANDO":
-        ahora = pygame.time.get_ticks()
+        ahora = ahora_ms()
 
         _avanzar_personaje("mateo", ahora)
         _avanzar_personaje("lucas", ahora)

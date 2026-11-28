@@ -7,12 +7,29 @@ from estado import BUSQUEDA_DIA_2, EstadoJuego
 import sistema_mapa
 import sistema_dialogo
 import sistema_guardado
+import sistema_audio
+import reloj_juego
 from interfaz_controles import GuiaControles
+from interfaz_menu import MenuPausa, MenuPrincipal
 from funciones_mapas.investigacion_dia_2 import Investigacion, objetivo
 from funciones_mapas.noche_2 import Noche2
 from funciones_mapas.epilogo_laboratorio import EpilogoLaboratorio
 from funciones_mapas.invitados_honor import TITULO as TITULO_HONOR
+from funciones_mapas.funcion_prologo import reiniciar_memoria
 from mapas.dia_3 import PUEBLO
+
+
+def detener_efectos_partida():
+    for canal in range(1, pygame.mixer.get_num_channels()):
+        pygame.mixer.Channel(canal).stop()
+
+
+def abrir_menu(pantalla):
+    sistema_audio.detener_musica(fade_ms=0)
+    detener_efectos_partida()
+    sistema_audio.reproducir_ambiente("menu")
+    return MenuPrincipal(pantalla)
+
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -21,6 +38,8 @@ reloj = pygame.time.Clock()
 
 estado_jugador = EstadoJuego()
 modo_juego = "EXPLORACION"
+menu = None
+pausa = None
 
 prueba_dia = "--prueba-dia-2" in sys.argv
 prueba_noche = "--prueba-noche-2" in sys.argv
@@ -62,7 +81,7 @@ elif prueba_dia:
         estado_jugador.confianza_morales = 65 if "--rescate" in sys.argv else 64
     sistema_mapa.cargar_nivel("pueblo_2_dia_2", 38, 15)
 elif "--continuar" not in sys.argv or not sistema_guardado.continuar(estado_jugador):
-    sistema_mapa.cargar_nivel("intro")
+    menu = abrir_menu(pantalla)
 
 ejecutando = True
 epilogo = None
@@ -70,7 +89,6 @@ salida_fin = None
 guia_controles = GuiaControles()
 while ejecutando:
     segundos = reloj.tick(FPS) / 1000
-    sistema_guardado.actualizar(estado_jugador)
     # 1. GUARDAR LOS EVENTOS EN LA VARIABLE 'eventos'
     eventos = pygame.event.get()
     
@@ -82,9 +100,94 @@ while ejecutando:
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_F11:
                 pygame.display.toggle_fullscreen()
+                pantalla = pygame.display.get_surface()
             if epilogo is not None and epilogo.terminado and evento.key == pygame.K_ESCAPE:
-                ejecutando = False
+                sistema_guardado.pendiente = None
+                menu = abrir_menu(pantalla)
+                epilogo = None
+                eventos = []
+                break
+            if (evento.key == pygame.K_ESCAPE and menu is None and pausa is None
+                    and epilogo is None):
+                reloj_juego.pausar()
+                pygame.mixer.pause()
+                pygame.mixer.music.pause()
+                pausa = MenuPausa(pantalla)
+                eventos = []
+                break
 
+    if not ejecutando:
+        break
+    if pausa is not None:
+        for evento in eventos:
+            accion = pausa.manejar_evento(evento)
+            if accion is None:
+                continue
+            if accion == "reanudar":
+                pygame.mixer.unpause()
+                pygame.mixer.music.unpause()
+                sistema_dialogo.bloqueo_espacio = True
+                sistema_mapa.espacio_presionado = bool(pygame.key.get_pressed()[pygame.K_SPACE])
+            elif accion == "menu":
+                sistema_guardado.pendiente = None
+                sistema_dialogo.cancelar_dialogo()
+                menu = abrir_menu(pantalla)
+            else:
+                nuevo_estado = EstadoJuego()
+                if not sistema_guardado.cargar(nuevo_estado, accion, desde_pausa=True):
+                    pausa.error = "No se pudo cargar el último guardado."
+                    break
+                detener_efectos_partida()
+                pygame.mixer.music.unpause()
+                estado_jugador = nuevo_estado
+                investigacion = Investigacion(estado_jugador)
+                noche = Noche2(investigacion)
+                investigacion.noche = noche
+                modo_juego = "EXPLORACION"
+                guia_controles = GuiaControles()
+            reloj_juego.reanudar()
+            pausa = None
+            break
+        if pausa is not None:
+            pausa.dibujar(pantalla)
+            pygame.display.flip()
+        continue
+    if menu is not None:
+        for evento in eventos:
+            accion = menu.manejar_evento(evento)
+            if accion == "salir":
+                ejecutando = False
+                break
+            if accion is None:
+                continue
+
+            sistema_audio.detener_musica(fade_ms=0)
+            sistema_mapa.reiniciar_sesion()
+            reiniciar_memoria()
+            sistema_dialogo.limpiar_notificaciones()
+            sistema_guardado.pendiente = None
+            sistema_guardado.revision_cargada = -1
+            nuevo_estado = EstadoJuego()
+            if accion in ("manual", "automatico") and not sistema_guardado.cargar(nuevo_estado, accion):
+                sistema_audio.reproducir_ambiente("menu")
+                menu.error = "No se pudo cargar este guardado."
+                break
+            estado_jugador = nuevo_estado
+            investigacion = Investigacion(estado_jugador)
+            noche = Noche2(investigacion)
+            investigacion.noche = noche
+            modo_juego = "EXPLORACION"
+            guia_controles = GuiaControles()
+            if accion == "nueva":
+                sistema_mapa.cargar_nivel("viaje")
+            menu = None
+            break
+        if menu is not None and ejecutando:
+            menu.dibujar(pantalla)
+            pygame.display.flip()
+        continue
+
+    sistema_guardado.actualizar(estado_jugador)
     fase_dia3 = estado_jugador.dia3["fase"]
     if prueba_dia and noche.honor.activo:
         investigacion.noche = noche
@@ -92,7 +195,7 @@ while ejecutando:
         if epilogo is None:
             epilogo = EpilogoLaboratorio(pantalla, eventos=(), fondos=(), titulo=TITULO_HONOR)
             fuente = pygame.font.Font(None, 22)
-            salida_fin = fuente.render("Esc para salir", True, (185, 185, 185))
+            salida_fin = fuente.render("Esc · Menú principal", True, (185, 185, 185))
         epilogo.actualizar_y_dibujar(pantalla, segundos)
         if epilogo.terminado:
             pantalla.blit(salida_fin, salida_fin.get_rect(midbottom=(ANCHO_PANTALLA // 2, ALTO_PANTALLA - 42)))
@@ -106,7 +209,7 @@ while ejecutando:
             else:
                 epilogo = EpilogoLaboratorio(pantalla, eventos=())
             fuente = pygame.font.Font(None, 22)
-            salida_fin = fuente.render("Esc para salir", True, (185, 185, 185))
+            salida_fin = fuente.render("Esc · Menú principal", True, (185, 185, 185))
         epilogo.actualizar_y_dibujar(pantalla, segundos)
         if epilogo.terminado:
             estado_jugador.dia3.update(fase="fin_clinica" if es_clinica else "fin", final_completado=True)

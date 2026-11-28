@@ -3,6 +3,7 @@ from funciones_mapas.escena_morales import MARCA_TENSION
 from collections import deque
 import importlib.util
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
@@ -348,7 +349,7 @@ def actualizar():
     if mapa.transicion_activa or estado_escena == "JUGABLE":
         return
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
     loco = mapa.npcs_activos["loco"]
     lucas = mapa.npcs_activos["lucas"]
 

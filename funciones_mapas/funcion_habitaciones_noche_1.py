@@ -4,6 +4,7 @@ CONTROL_CINEMATICO = False
 
 import importlib.util
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_mapa as mapa
 import sistema_dialogo as dialogo
@@ -236,7 +237,7 @@ def _caminar_lucas(destino):
     if (lucas["x"], lucas["y"]) == destino:
         return True
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
 
     if ahora - ultimo_paso < PASO_MS:
         return False

@@ -1,6 +1,7 @@
 from collections import deque
 
 import pygame
+from reloj_juego import ahora_ms
 import sistema_audio as audio
 import sistema_escondites as escondites
 import sistema_dialogo as dialogo
@@ -28,7 +29,7 @@ def configurar():
                 "origen": (npc["x"], npc["y"]),
                 "direccion": npc["direccion"],
                 "hasta": 0,
-                "ultimo_paso": pygame.time.get_ticks(),
+                "ultimo_paso": ahora_ms(),
                 "indice": 0,
             }
 

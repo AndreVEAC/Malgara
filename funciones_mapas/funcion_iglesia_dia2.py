@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_dialogo as dialogo
 import sistema_mapa as mapa
@@ -26,7 +27,7 @@ def iniciar():
     dialogo.cargar_json("datos/iglesia_dia2.json")
     director = None
     vieron_morales = en_borde = False
-    proximo_giro = pygame.time.get_ticks() + 1300
+    proximo_giro = ahora_ms() + 1300
     if {MARCA_TUNEL_SUPERADO, BUSQUEDA_DIA_2} & mapa.eventos_completados:
         for nombre, (x, y) in zip(iglesia.NINOS, iglesia.POSICIONES_NINOS):
             mapa.npcs_activos[nombre]["visible"] = False
@@ -61,7 +62,7 @@ def actualizar():
     if mapa.transicion_activa or dialogo.obtener_evento_activo() is not None:
         return
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
     morales = mapa.npcs_activos["morales"]
     if ahora >= proximo_giro:
         morales["direccion"] = "der" if morales["direccion"] == "izq" else "izq"

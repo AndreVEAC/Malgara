@@ -1,5 +1,6 @@
 """Guía de teclas para la intro y el prólogo."""
 import pygame
+from reloj_juego import ahora_ms
 
 
 DURACION_MS = 10_000
@@ -36,7 +37,7 @@ class GuiaControles:
     def dibujar(self, pantalla, mapa_actual, alpha_transicion, *, puede_moverse):
         if mapa_actual not in ("intro", "prologo"):
             return
-        ahora = pygame.time.get_ticks()
+        ahora = ahora_ms()
         if self.inicio is None:
             if not puede_moverse:
                 return

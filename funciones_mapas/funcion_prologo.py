@@ -3,16 +3,13 @@ import sistema_dialogo
 from configuracion import TAMANO_CASILLA
 from estado import BUSQUEDA_DIA_2
 
-esperas_desbloqueadas = set()
+def reiniciar_memoria():
+    global esperas_desbloqueadas, progreso_lucas_guardado
+    esperas_desbloqueadas = set()
+    progreso_lucas_guardado = {"x": None, "y": None, "direccion": "der", "pausado": False, "esperas": set()}
 
-# MEMORIA PERSISTENTE DEL PRÓLOGO (Sobrevive al cambio de mapa)
-progreso_lucas_guardado = {
-    "x": None,
-    "y": None,
-    "direccion": "der",
-    "pausado": False,
-    "esperas": set()
-}
+
+reiniciar_memoria()
 
 def iniciar():
     global esperas_desbloqueadas

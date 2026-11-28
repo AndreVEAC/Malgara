@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 import importlib
 from types import SimpleNamespace
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
@@ -55,6 +56,22 @@ control_cinematico = False
 RUTA_CAJA_BLOQUEO = (
     "recursos/sprites/objetos/caja_bloqueo.png"
 )
+
+
+def reiniciar_sesion():
+    global fondo_actual, nombre_mapa_actual, transicion_activa, tipo_transicion, alpha_transicion
+    global mapa_pendiente, spawn_pendiente, sonido_llegada_pendiente
+    global pantalla_negra_en, ocultar_mateo, control_cinematico, jugador_bloqueado
+    global tiempo_ultimo_paso_mateo, tiempo_ultima_interaccion, espacio_presionado
+
+    fondo_actual = nombre_mapa_actual = None
+    mapa_pendiente = spawn_pendiente = sonido_llegada_pendiente = None
+    tipo_transicion = pantalla_negra_en = None
+    transicion_activa = ocultar_mateo = control_cinematico = jugador_bloqueado = False
+    alpha_transicion = tiempo_ultimo_paso_mateo = tiempo_ultima_interaccion = 0
+    espacio_presionado = False
+    eventos_completados.clear()
+    estado_npcs_guardado.clear()
 
 
 def cargar_sprites_personaje(carpeta):
@@ -282,7 +299,7 @@ def _dibujar_npcs(pantalla, camara_x, camara_y, animar=True):
             obj_x = float(npc["x"] * TAMANO_CASILLA)
             obj_y = float(npc["y"] * TAMANO_CASILLA)
             esta_caminando = abs(npc["px_x"] - obj_x) > 0.5 or abs(npc["px_y"] - obj_y) > 0.5
-            frame = (pygame.time.get_ticks() // 200) % 2 if esta_caminando else 0
+            frame = (ahora_ms() // 200) % 2 if esta_caminando else 0
 
         img = npc["sprites"][npc["direccion"]][frame]
         if img.get_alpha() == 0:
@@ -301,7 +318,7 @@ def actualizar_y_dibujar(pantalla, estado_jugador, investigacion=None):
     global mateo_px_x, mateo_px_y, direccion_mateo
     global jugador_bloqueado, transicion_activa, tipo_transicion, alpha_transicion, mapa_pendiente
     
-    tiempo_actual = pygame.time.get_ticks()
+    tiempo_actual = ahora_ms()
     nuevo_estado_juego = "EXPLORACION"
     
     if investigacion is not None:
@@ -623,7 +640,7 @@ def _dibujar_escenario(pantalla, animar=True):
     pantalla.blit(fondo_actual, (-camara_x, -camara_y))
 
     elementos = []
-    tiempo = pygame.time.get_ticks()
+    tiempo = ahora_ms()
     ventana = pantalla.get_rect()
 
     # 1. Objetos del mapa.
@@ -837,7 +854,7 @@ def colocar_seguidores_cerca():
         # desplazarse desde su antigua posición.
         npc["px_x"] = float(npc["x"] * TAMANO_CASILLA)
         npc["px_y"] = float(npc["y"] * TAMANO_CASILLA)
-        npc["_tiempo_ultimo_paso"] = pygame.time.get_ticks()
+        npc["_tiempo_ultimo_paso"] = ahora_ms()
         
 def cargar_bloqueos(mapa_datos):
     bloqueos_activos.clear()

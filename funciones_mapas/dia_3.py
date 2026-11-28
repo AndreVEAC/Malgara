@@ -4,6 +4,7 @@ from functools import partial
 from pathlib import Path
 
 import pygame
+from reloj_juego import ahora_ms
 
 import sistema_audio as audio
 import sistema_dialogo as dialogo
@@ -85,7 +86,7 @@ class Dia3:
                 yield "hacer", partial(self.mostrar, evento, lineas=lineas)
 
     def aviso(self, evento):
-        ahora = pygame.time.get_ticks()
+        ahora = ahora_ms()
         if ahora >= self.aviso_hasta:
             self.aviso_hasta = ahora + 1500
             self.mostrar(evento)
@@ -389,7 +390,7 @@ class Dia3:
 
     def humo(self, pantalla, camara_x, camara_y):
         superficie = pygame.Surface((400, 320), pygame.SRCALPHA)
-        tiempo = (pygame.time.get_ticks() - self.inicio_humo) / 1000
+        tiempo = (ahora_ms() - self.inicio_humo) / 1000
         for x, y, radio in ((70, 190, 46), (155, 218, 66), (223, 175, 58), (304, 218, 70), (371, 221, 60)):
             avance = min(tiempo, 2)
             pygame.draw.circle(superficie, (149, 143, 127, round(107 * min(1, tiempo))),
@@ -397,7 +398,7 @@ class Dia3:
         pantalla.blit(superficie, (-camara_x, -camara_y + round(2 * (int(tiempo * 20) % 2))))
 
     def temblor(self, pantalla, *_):
-        transcurrido = pygame.time.get_ticks() - self.inicio_humo
+        transcurrido = ahora_ms() - self.inicio_humo
         if transcurrido < 900:
             desplazamiento = (3, -2, 2, -1)[(transcurrido // 55) % 4]
             escena = pantalla.copy()
@@ -441,7 +442,7 @@ class Dia3:
         yield "mover", [self.caminar("mateo", (8, 4), 90), self.caminar("lucas", (8, 5), 95)]
         yield from self.decir("destruccion")
         yield "mover", [self.caminar("lucas", (8, 6), 80)]
-        self.inicio_humo = pygame.time.get_ticks()
+        self.inicio_humo = ahora_ms()
         mapa.script_nivel_actual.dibujar_efectos = self.humo
         mapa.script_nivel_actual.aplicar_encuadre = self.temblor
         yield "hacer", partial(sonido, "alarma")
@@ -480,11 +481,11 @@ class Dia3:
         self.datos["fase"] = "epilogo"
 
     def fundido_prision(self, *, hacia_negro):
-        inicio = pygame.time.get_ticks()
+        inicio = ahora_ms()
         negro = pygame.Surface((ANCHO_PANTALLA, ALTO_PANTALLA))
 
         def dibujar(pantalla, *_):
-            progreso = min(1, (pygame.time.get_ticks() - inicio) / FUNDIDO_PRISION_MS)
+            progreso = min(1, (ahora_ms() - inicio) / FUNDIDO_PRISION_MS)
             negro.set_alpha(round(255 * (progreso if hacia_negro else 1 - progreso)))
             pantalla.blit(negro, (0, 0))
 

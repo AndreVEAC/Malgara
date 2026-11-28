@@ -1,4 +1,5 @@
 import pygame
+from reloj_juego import ahora_ms
 import sistema_dialogo
 
 
@@ -144,7 +145,7 @@ def _entrar(mapa):
     escondido = True
     _bloqueo_anterior = mapa.jugador_bloqueado
     mapa.jugador_bloqueado = True
-    mapa.tiempo_ultima_interaccion = pygame.time.get_ticks()
+    mapa.tiempo_ultima_interaccion = ahora_ms()
 
     _seguidores_ocultos = []
 
@@ -168,7 +169,7 @@ def _salir(mapa):
     if not mapa.transicion_activa:
         mapa.jugador_bloqueado = _bloqueo_anterior
 
-    ahora = pygame.time.get_ticks()
+    ahora = ahora_ms()
 
     activos = {id(npc) for npc in mapa.npcs_activos.values() if npc["comportamiento"] == "sigue_jugador"}
     for npc in _seguidores_ocultos:
